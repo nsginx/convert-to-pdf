@@ -1,11 +1,6 @@
 import React from 'react'
 // import data from './assets/data.json'
 import JsPDF from 'jspdf';
-import { FaWarehouse } from "react-icons/fa";
-import { MdCable } from "react-icons/md";
-import { GiFarmTractor } from "react-icons/gi";
-import tractor from './assets/tractor-solid.svg'
-import dummy from './assets/1500x500.jpeg'
 import ReactEcharts from "echarts-for-react"; 
 
 

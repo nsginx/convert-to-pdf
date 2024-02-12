@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Display from './Display.jsx';
 import generatePDF, { Resolution, Margin } from 'react-to-pdf';
-import * as xlsx from 'xlsx';
+// import * as xlsx from 'xlsx';
 
 const options= {
   // method: 'save',
@@ -264,13 +262,6 @@ function App() {
     
     <>
       <form onSubmit={handleSubmit}>
-          <label htmlFor="upload">Upload File</label>
-          <input
-              type="file"
-              name="upload"
-              id="upload"
-              onChange={readUploadFile}
-          />
           <button type="submit">Submit</button>
       </form>
       {data && <Display data={data}/>}
