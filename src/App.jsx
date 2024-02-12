@@ -242,6 +242,12 @@ function App() {
             "turnover":"0 to 40 Lakhs"
           },
           {
+            "name":"Technokraft Solutions",
+            "address": "Basheerbagh, Telangana, 500029",
+            "type":"IT Hardware",
+            "turnover":"0 to 40 Lakhs"
+          },
+          {
             "name":"Sri Ganesh Traders",
             "address": "Basheerbagh, Telangana, 500029",
             "type":"IT Hardware",

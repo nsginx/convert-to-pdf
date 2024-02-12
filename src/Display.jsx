@@ -213,10 +213,12 @@ export default function Display({data}) {
                                             <td className='p-2'>{data.competitions.top_banks.public[i]}</td>
                                             <td className='p-2'>{data.competitions.top_banks.private[i]}</td>
                                         </tr>
+                                        {(i<data.competitions.top_banks.public.length-1)&&
                                         <tr>
                                             <td className='p-2'>{data.competitions.top_banks.public[i+1]}</td>
                                             <td className='p-2'>{data.competitions.top_banks.private[i+1]}</td>
                                         </tr>
+                                        }
                                         </>
                                     )
                                 })}                                
@@ -375,6 +377,7 @@ export default function Display({data}) {
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.pincodes[i].disbursement}</td>
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.pincodes[i].business}</td>
                                     </tr>
+                                    {(i<data.location.pincodes.length-1)&& 
                                     <tr className='bg-gray-200'>
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.pincodes[i+1].code}</td>
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.pincodes[i+1].name}</td>
@@ -382,6 +385,7 @@ export default function Display({data}) {
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.pincodes[i+1].disbursement}</td>
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.pincodes[i+1].business}</td>
                                     </tr>
+                                    }
                                 </>
                             )
                         })} 
@@ -408,12 +412,14 @@ export default function Display({data}) {
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.top[i].type}</td>
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.top[i].turnover}</td>
                                     </tr>
+                                    {(i<data.location.top.length-1) && 
                                     <tr className='bg-gray-200'>
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.top[i+1].name}</td>
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.top[i+1].address}</td>
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.top[i+1].type}</td>
                                         <td className="p-2 border-orange-100 border-[1px]">{data.location.top[i+1].turnover}</td>
                                     </tr>
+                                    }
                                 </>
                             )
                         })}
