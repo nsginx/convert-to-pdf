@@ -249,7 +249,7 @@ function App(){
 
           {/* Ranges */}
           <div>
-            <label htmlFor="target_audience.ranges">Turnover Ranges(at least 3):</label>
+            <label htmlFor="target_audience.ranges">Turnover Ranges(2):</label>
             <div>
               {rangeFields.map((field, index) => (
                 <div key={field.id} className="sections">
