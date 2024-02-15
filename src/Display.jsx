@@ -125,8 +125,9 @@ export default function Display({data}) {
                         <div>
                             <h2 className='font-semibold mb-4'>Liabilities(Q4 22-23)</h2>
                             {/* <div className='text-orange-400 font-bold my-2'>{parseFloat(data.market.total_population/100000)} Lakhs</div> */}
-                            <div className="font-light text-sm my-1">CA Deposit (Est.)* :<b>&#8377;</b> {parseFloat(data.market.ca_deposit/10000000)} Cr.</div>
-                            <div className="font-light text-sm my-1">SA Deposit (Est.)* :<b>&#8377;</b> {parseFloat(data.market.sa_deposit/10000000)} Cr.</div>
+                            <div className="font-light text-sm my-1">CA Deposit (Est.)* : <b>&#8377;</b>{data.market.ca_deposit} Cr.</div>
+                            <div className="font-light text-sm my-1">SA Deposit (Est.)* : <b>&#8377;</b>{data.market.sa_deposit} Cr.</div>
+                            {/* <div className="font-light text-sm my-1">SA Deposit (Est.)* :<b>&#8377;</b> {parseFloat(data.market.sa_deposit/10000000)} Cr.</div> */}
                             <div className='absolute bottom-1 right-2 font-extralight text-xs'>Est.* - Estimated</div>
                         </div>
                     </div>
@@ -138,7 +139,7 @@ export default function Display({data}) {
                         <div>
                             <h2 className='font-semibold'>Categories (GST)</h2>
                             <div className="flex flex-row justify-center gap-4 mx-2">
-                            {data.target_audience.categories.map((item)=>{
+                            {data.target_audience.category.map((item)=>{
                                 return (
                                     <div key={item.name} className="flex flex-col text-center my-4 pt-2">
                                         <div className="text-lg font-bold text-orange-400">{item.value}</div>
@@ -151,11 +152,11 @@ export default function Display({data}) {
                             <h2 className='font-semibold my-2'>Turnover Ranges (GST)</h2>
                             <table className='w-full'>
                                 <tr>
-                                    <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.target_audience.ranges[0].key_lower} to {data.target_audience.ranges[0].key_upper}</td>
+                                    <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.target_audience.ranges[0].key_lower} Lakhs- {data.target_audience.ranges[0].key_upper} Lakhs</td>
                                     <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.target_audience.ranges[0].value}</td>
                                 </tr>
                                 <tr>
-                                    <td className='border-[1px] border-orange-100 p-2'>{data.target_audience.ranges[1].key_lower} to {data.target_audience.ranges[1].key_upper}</td>
+                                    <td className='border-[1px] border-orange-100 p-2'>{data.target_audience.ranges[1].key_lower} Lakhs- {data.target_audience.ranges[1].key_upper} Lakhs</td>
                                     <td className='border-[1px] border-orange-100 p-2'>{data.target_audience.ranges[1].value}</td>
                                 </tr>
                             </table>
@@ -168,15 +169,15 @@ export default function Display({data}) {
                             <table className='w-full text-sm'>
                                 <tr>
                                     <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 font-semibold p-2'>Sole Proprietorship</td>
-                                    <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 font-semibold p-2'>{data.target_audience.sole_proprietorship}</td>
+                                    <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 font-semibold p-2'>{data.target_audience.sole_proprietorship}%</td>
                                 </tr>
                                 <tr>
                                     <td className='border-[1px] border-orange-100 font-semibold p-2'>LLP</td>
-                                    <td className='border-[1px] border-orange-100 font-semibold p-2'>{data.target_audience.llp}</td>
+                                    <td className='border-[1px] border-orange-100 font-semibold p-2'>{data.target_audience.llp}%</td>
                                 </tr>
                                 <tr>
                                     <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 font-semibold p-2'>Companies</td>
-                                    <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 font-semibold p-2'>{data.target_audience.companies}</td>
+                                    <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 font-semibold p-2'>{data.target_audience.companies}%</td>
                                 </tr>
                             </table>
                         </div>
@@ -305,21 +306,21 @@ export default function Display({data}) {
                         </tr>
                         <tr>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].key_lower} Lakh - {data.product.disbursement[0].key_upper} Lakh</td>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].risk.high}</td>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].risk.medium}</td>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].risk.low}</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].risk.high}%</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].risk.medium}%</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].risk.low}%</td>
                         </tr>
                         <tr>
                             <td className='border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].key_lower} Lakh - {data.product.disbursement[1].key_upper} Lakh</td>
-                            <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].risk.high}</td>
-                            <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].risk.medium}</td>
-                            <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].risk.low}</td>
+                            <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].risk.high}%</td>
+                            <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].risk.medium}%</td>
+                            <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].risk.low}%</td>
                         </tr>
                         <tr>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].key_lower} Lakh - {data.product.disbursement[2].key_upper} Lakh</td>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].risk.high}</td>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].risk.medium}</td>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].risk.low}</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].risk.high}%</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].risk.medium}%</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].risk.low}%</td>
                         </tr>
                     </table>
                     <div className="flex flex-col gap-1 mx-4 mb-2 text-[10px]">
