@@ -107,7 +107,7 @@ export default function Display({data}) {
             return parseFloat(num/100000).toFixed(2).toString().concat(" Lakh")
         }
         else if(num){
-            return num.toLocaleString();
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); 
         }else{
             return num;
         }
