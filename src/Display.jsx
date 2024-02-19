@@ -26,7 +26,8 @@ export default function Display({data}) {
             type: 'bar',
             stack: 'total',
             label: {
-              show: true
+              show: true,
+              formatter: 'Sole'
             },
             emphasis: {
               focus: 'series'
@@ -38,7 +39,8 @@ export default function Display({data}) {
             type: 'bar',
             stack: 'total',
             label: {
-              show: true
+              show: true,
+              formatter: 'LLP'
             },
             emphasis: {
               focus: 'series'
@@ -50,7 +52,8 @@ export default function Display({data}) {
             type: 'bar',
             stack: 'total',
             label: {
-              show: true
+              show: true,
+              formatter: 'Co.'
             },
             emphasis: {
               focus: 'series'
