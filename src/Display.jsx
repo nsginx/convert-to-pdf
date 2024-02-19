@@ -98,6 +98,20 @@ export default function Display({data}) {
           }
         ]
     }; 
+
+    function parseNumToWord(num){
+        if(num>9999999){
+            return parseFloat(num/10000000).toFixed(2).toString().concat(" Cr.")
+        }
+        else if(num>99999){
+            return parseFloat(num/100000).toFixed(2).toString().concat(" Lakh")
+        }
+        else if(num){
+            return num.toLocaleString();
+        }else{
+            return num;
+        }
+    }
     
 
 
@@ -118,16 +132,16 @@ export default function Display({data}) {
                         </div>
                         <div>
                             <h2 className='font-semibold'>Total Population</h2>
-                            <div className='text-orange-400 font-bold my-2 text-lg'>{parseFloat(data.market.total_population/100000)} Lakhs</div>
-                            <div className="font-light text-sm my-1">Salaried Individuals : {data.market.salaried_individuals}</div>
-                            <div className="font-light text-sm my-1">Household Count : {data.market.household_count}</div>
+                            <div className='text-orange-400 font-bold my-2 text-lg'>{parseNumToWord(data.market.total_population)}</div>
+                            <div className="font-light text-sm my-1">Salaried Individuals : {parseNumToWord(data.market.salaried_individuals)}</div>
+                            <div className="font-light text-sm my-1">Household Count : {parseNumToWord(data.market.household_count)}</div>
                         </div>
                         <div>
                             <h2 className='font-semibold mb-4'>Liabilities(Q4 22-23)</h2>
                             {/* <div className='text-orange-400 font-bold my-2'>{parseFloat(data.market.total_population/100000)} Lakhs</div> */}
-                            <div className="font-light text-sm my-1">CA Deposit (Est.)* : <b>&#8377;</b>{data.market.ca_deposit} Cr.</div>
-                            <div className="font-light text-sm my-1">SA Deposit (Est.)* : <b>&#8377;</b>{data.market.sa_deposit} Cr.</div>
-                            {/* <div className="font-light text-sm my-1">SA Deposit (Est.)* :<b>&#8377;</b> {parseFloat(data.market.sa_deposit/10000000)} Cr.</div> */}
+                            <div className="font-light text-sm my-1">CA Deposit (Est.)* : <b>&#8377;</b>{parseNumToWord(data.market.ca_deposit)}</div>
+                            {/* <div className="font-light text-sm my-1">SA Deposit (Est.)* : <b>&#8377;</b>{data.market.sa_deposit} Cr.</div> */}
+                            <div className="font-light text-sm my-1">SA Deposit (Est.)* :<b>&#8377;</b>{parseNumToWord(data.market.sa_deposit)}</div>
                             <div className='absolute bottom-1 right-2 font-extralight text-xs'>Est.* - Estimated</div>
                         </div>
                     </div>
@@ -142,7 +156,7 @@ export default function Display({data}) {
                             {data.target_audience.category.map((item)=>{
                                 return (
                                     <div key={item.name} className="flex flex-col text-center my-4 pt-2">
-                                        <div className="text-lg font-bold text-orange-400">{item.value}</div>
+                                        <div className="text-lg font-bold text-orange-400">{parseNumToWord(item.value)}</div>
                                         <div className='text-sm'>{item.name}</div>
                                     </div>
                                 )
@@ -152,12 +166,12 @@ export default function Display({data}) {
                             <h2 className='font-semibold my-2'>Turnover Ranges (GST)</h2>
                             <table className='w-full'>
                                 <tr>
-                                    <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.target_audience.ranges[0].key_lower} Lakhs- {data.target_audience.ranges[0].key_upper} Lakhs</td>
-                                    <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.target_audience.ranges[0].value}</td>
+                                    <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.target_audience.ranges[0].key_lower)} - {parseNumToWord(data.target_audience.ranges[0].key_upper)}</td>
+                                    <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.target_audience.ranges[0].value)}</td>
                                 </tr>
                                 <tr>
-                                    <td className='border-[1px] border-orange-100 p-2'>{data.target_audience.ranges[1].key_lower} Lakhs- {data.target_audience.ranges[1].key_upper} Lakhs</td>
-                                    <td className='border-[1px] border-orange-100 p-2'>{data.target_audience.ranges[1].value}</td>
+                                    <td className='border-[1px] border-orange-100 p-2'>{parseNumToWord(data.target_audience.ranges[1].key_lower)} - {parseNumToWord(data.target_audience.ranges[1].key_upper)}</td>
+                                    <td className='border-[1px] border-orange-100 p-2'>{parseNumToWord(data.target_audience.ranges[1].value)}</td>
                                 </tr>
                             </table>
                         </div>
@@ -248,19 +262,19 @@ export default function Display({data}) {
                             <td className="font-semibold py-2">Count</td>
                         </tr>
                         <tr>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].key_lower} Lakh - {data.product.disbursement[0].key_upper} Lakh</td>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].value.amount} Cr.</td>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].value.count}</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[0].key_lower)} - {parseNumToWord(data.product.disbursement[0].key_upper)}</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[0].value.amount)}</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[0].value.count)}</td>
                         </tr>
                         <tr>
-                            <td className='border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].key_lower} Lakh - {data.product.disbursement[1].key_upper} Lakh</td>
-                            <td className='border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].value.amount} Cr.</td>
-                            <td className='border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].value.count}</td>
+                            <td className='border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[1].key_lower)} - {parseNumToWord(data.product.disbursement[1].key_upper)}</td>
+                            <td className='border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[1].value.amount)}</td>
+                            <td className='border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[1].value.count)}</td>
                         </tr>
                         <tr>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].key_lower} Lakh - {data.product.disbursement[2].key_upper} Lakh</td>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].value.amount} Cr.</td>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].value.count}</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[2].key_lower)} - {parseNumToWord(data.product.disbursement[2].key_upper)}</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[2].value.amount)}</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[2].value.count)}</td>
                         </tr>
                     </table>
                     <h2 className='font-semibold m-3'>Disbursement (Market Share)</h2>
@@ -272,19 +286,19 @@ export default function Display({data}) {
                             <td className="font-semibold py-2">PSU</td>
                         </tr>
                         <tr>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].key_lower} Lakh - {data.product.disbursement[0].key_upper} Lakh</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[0].key_lower)} - {parseNumToWord(data.product.disbursement[0].key_upper)}</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].value.nbfc} %</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].value.private} %</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].value.psu} %</td>
                         </tr>
                         <tr>
-                            <td className='border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].key_lower} Lakh - {data.product.disbursement[1].key_upper} Lakh</td>
+                            <td className='border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[1].key_lower)} - {parseNumToWord(data.product.disbursement[1].key_upper)}</td>
                             <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].value.nbfc} %</td>
                             <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].value.private} %</td>
                             <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].value.psu} %</td>
                         </tr>
                         <tr>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].key_lower} Lakh - {data.product.disbursement[2].key_upper} Lakh</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[2].key_lower)} - {parseNumToWord(data.product.disbursement[2].key_upper)}</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].value.nbfc} %</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].value.private} %</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].value.psu} %</td>
@@ -305,19 +319,19 @@ export default function Display({data}) {
                             <td className="font-semibold py-2">Low</td>
                         </tr>
                         <tr>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].key_lower} Lakh - {data.product.disbursement[0].key_upper} Lakh</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[0].key_lower)} - {parseNumToWord(data.product.disbursement[0].key_upper)}</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].risk.high}%</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].risk.medium}%</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[0].risk.low}%</td>
                         </tr>
                         <tr>
-                            <td className='border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].key_lower} Lakh - {data.product.disbursement[1].key_upper} Lakh</td>
+                            <td className='border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[1].key_lower)} - {parseNumToWord(data.product.disbursement[1].key_upper)}</td>
                             <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].risk.high}%</td>
                             <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].risk.medium}%</td>
                             <td className=' border-[1px] border-orange-100 p-2'>{data.product.disbursement[1].risk.low}%</td>
                         </tr>
                         <tr>
-                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].key_lower} Lakh - {data.product.disbursement[2].key_upper} Lakh</td>
+                            <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{parseNumToWord(data.product.disbursement[2].key_lower)} - {parseNumToWord(data.product.disbursement[2].key_upper)}</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].risk.high}%</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].risk.medium}%</td>
                             <td className='bg-[rgb(229,231,235)] border-[1px] border-orange-100 p-2'>{data.product.disbursement[2].risk.low}%</td>

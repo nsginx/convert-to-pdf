@@ -29,23 +29,23 @@ function App(){
     defaultValues: {
       city_name: "",
       market: {
-        total_business: "",
-        gst_registered: "",
-        total_population: "",
-        salaried_individuals: "",
-        household_count: "",
-        ca_deposit: "",
-        sa_deposit: "",
+        total_business: null ,
+        gst_registered: null ,
+        total_population: null ,
+        salaried_individuals: null ,
+        household_count: null ,
+        ca_deposit: null ,
+        sa_deposit: null ,
       },
       target_audience: {
-        category: [{ name: "", value: "" }],
+        category: [{ name: "", value: null }],
         ranges: [
-          { key_lower: "", key_upper: "", value: "" },
-          { key_lower: "", key_upper: "", value: "" },
+          { key_lower: null, key_upper: null, value: null },
+          { key_lower: null, key_upper: null, value: null },
         ],
-        sole_proprietorship: "",
-        llp: "",
-        companies: "",
+        sole_proprietorship: null,
+        llp: null,
+        companies: null,
       },
       competitions: {
         bank_market_share: { public: "", private: "", nbfc: "" },
@@ -55,35 +55,36 @@ function App(){
         },
         top_bank_shares: {
           names: ["", "", "", "", ""],
-          shares: ["", "", "", "", ""],
+          shares: [null, null, null, null, null],
         },
 
       },
       product: {
         disbursement: [
           {
-            key_upper: "",
-            key_lower: "",
-            value: { amount: "", count: "", nbfc: "", private: "", psu: "" },
-            risk: { high: "", medium: "", low: "" },
+            key_upper: null,
+            key_lower: null,
+            value: { amount: null, count: null, nbfc: null, private: null, psu: null },
+            risk: { high: null, medium: null, low: null },
           },
           {
-            key_upper: "",
-            key_lower: "",
-            value: { amount: "", count: "", nbfc: "", private: "", psu: "" },
-            risk: { high: "", medium: "", low: "" },
+            key_upper: null,
+            key_lower: null,
+            value: { amount: null, count: null, nbfc: null, private: null, psu: null },
+            risk: { high: null, medium: null, low: null },
           },
           {
-            key_upper: "",
-            key_lower: "",
-            value: { amount: "", count: "", nbfc: "", private: "", psu: "" },
-            risk: { high: "", medium: "", low: "" },
+            key_upper: null,
+            key_lower: null,
+            value: { amount: null, count: null, nbfc: null, private: null, psu: null },
+            risk: { high: null, medium: null, low: null },
           },
+          
         ],
       },
       location: {
-        potential: { total: "", high: "", medium: "", low: "" },
-        pincodes: [{ code: "", name: "", potential: "", disbursement: "", business: "" }],
+        potential: { total: null, high: null, medium: null, low: null },
+        pincodes: [{ code: null, name: "", potential: "", disbursement: null, business: null }],
         top: [{ name: "", address: "", type: "", turnover: "" }]
       },
     },
@@ -93,7 +94,7 @@ function App(){
   const topLocations = watch("location.top");
 
   const addPincode = () => {
-    setValue("location.pincodes", [...pincodes, { code: "", name: "", potential: "", disbursement: "", business: "" }]);
+    setValue("location.pincodes", [...pincodes, { code: null, name: "", potential: "", disbursement: null, business: null }]);
   };
 
   const removePincode = (index) => {
@@ -197,7 +198,7 @@ function App(){
               valueAsNumber: true,
             })}
           />
-          <label htmlFor="market.ca_deposit">CA Deposit(in Crores):</label>
+          <label htmlFor="market.ca_deposit">CA Deposit:</label>
           <input
             type="number"
             name="market.ca_deposit"
@@ -205,7 +206,7 @@ function App(){
               valueAsNumber: true,
             })}
           />
-          <label htmlFor="market.sa_deposit">SA Deposit(in Crores):</label>
+          <label htmlFor="market.sa_deposit">SA Deposit:</label>
           <input
             type="number"
             name="market.sa_deposit"
@@ -229,7 +230,7 @@ function App(){
                   />
                   <label htmlFor={`value`}>Count of Business:</label>
                   <input
-                    type="text"
+                    type="number"
                     name={`target_audience.category[${index}].value`}
                     {...register(`target_audience.category[${index}].value`)}
                   />
@@ -241,7 +242,7 @@ function App(){
             </div>
             <button
               type="button"
-              onClick={() => appendCategory({ name: "", value: "" })}
+              onClick={() => appendCategory({ name: "", value: null })}
             >
               Add New Category
             </button>
@@ -253,21 +254,21 @@ function App(){
             <div>
               {rangeFields.map((field, index) => (
                 <div key={field.id} className="sections">
-                  <label htmlFor={`range_lower_${index}`}>Lower Limit(in Lakhs):</label>
+                  <label htmlFor={`range_lower_${index}`}>Lower Limit:</label>
                   <input
-                    type="text"
+                    type="number"
                     name={`target_audience.ranges[${index}].key_lower`}
                     {...register(`target_audience.ranges[${index}].key_lower`)}
                   />
-                  <label htmlFor={`range_upper_${index}`}>Upper Limit(in Lakhs):</label>
+                  <label htmlFor={`range_upper_${index}`}>Upper Limit:</label>
                   <input
-                    type="text"
+                    type="number"
                     name={`target_audience.ranges[${index}].key_upper`}
                     {...register(`target_audience.ranges[${index}].key_upper`)}
                   />
                   <label htmlFor={`range_value_${index}`}>Count:</label>
                   <input
-                    type="text"
+                    type="number"
                     name={`target_audience.ranges[${index}].value`}
                     {...register(`target_audience.ranges[${index}].value`)}
                   />
@@ -280,7 +281,7 @@ function App(){
             <button
               type="button"
               onClick={() =>
-                appendRange({ key_lower: "", key_upper: "", value: "" })
+                appendRange({ key_lower: null, key_upper: null, value: null })
               }
             >
               Add New Range
@@ -288,26 +289,29 @@ function App(){
           </div>
           <h1>Entity Split</h1>
           <label htmlFor="target_audience.sole_proprietorship">
-            Sole Proprietorship:
+            Sole Proprietorship:(%)
           </label>
           <input
-            type="number"
+            type="float"
+            pattern="[0-9]*[.,]?[0-9]*"
             name="target_audience.sole_proprietorship"
             {...register("target_audience.sole_proprietorship", {
               valueAsNumber: true,
             })}
           />
-          <label htmlFor="target_audience.llp">LLP:</label>
+          <label htmlFor="target_audience.llp">LLP:(%)</label>
           <input
-            type="number"
+            type="float"
+            pattern="[0-9]*[.,]?[0-9]*"
             name="target_audience.llp"
             {...register("target_audience.llp", {
               valueAsNumber: true,
             })}
           />
-          <label htmlFor="target_audience.companies">Companies:</label>
+          <label htmlFor="target_audience.companies">Companies:(%)</label>
           <input
-            type="number"
+            type="float"
+            pattern="[0-9]*[.,]?[0-9]*"
             name="target_audience.companies"
             {...register("target_audience.companies", {
               valueAsNumber: true,
@@ -319,7 +323,8 @@ function App(){
           <h2>Market Share Percentage</h2>
           <label htmlFor="competitions.bank_market_share.public">public:</label>
           <input
-            type="number"
+            type="float"
+            pattern="[0-9]*[.,]?[0-9]*"
             name="competitions.bank_market_share.public"
             {...register("competitions.bank_market_share.public", {
               valueAsNumber: true,
@@ -327,7 +332,8 @@ function App(){
           />
           <label htmlFor="competitions.bank_market_share.private">private:</label>
           <input
-            type="number"
+            type="float"
+            pattern="[0-9]*[.,]?[0-9]*"
             name="competitions.bank_market_share.private"
             {...register("competitions.bank_market_share.private", {
               valueAsNumber: true,
@@ -335,7 +341,8 @@ function App(){
           />
           <label htmlFor="competitions.bank_market_share.nbfc">nbfc:</label>
           <input
-            type="number"
+            type="float"
+            pattern="[0-9]*[.,]?[0-9]*"
             name="competitions.bank_market_share.nbfc"
             {...register("competitions.bank_market_share.nbfc", {
               valueAsNumber: true,
@@ -366,7 +373,7 @@ function App(){
           <label htmlFor="competitions.top_bank_shares.shares">Their Shares:</label>
           <div>
             {form.watch("competitions.top_bank_shares.shares").map((share, index) => (
-              <input key={index} type="text" {...register(`competitions.top_bank_shares.shares[${index}]`,{
+              <input key={index} type="float" pattern="[0-9]*[.,]?[0-9]*" {...register(`competitions.top_bank_shares.shares[${index}]`,{
                 valueAsNumber:true
               })} />
             ))}
@@ -380,16 +387,16 @@ function App(){
           <div>
             {disbursementFields.map((field, index) => (
               <div key={field.id} className="sections">
-                <label>Upper Boundary of Ticket Size(in Lakhs):</label>
+                <label>Upper Boundary of Ticket Size:</label>
                 <input
-                  type="text"
+                  type="number"
                   {...register(`product.disbursement[${index}].key_upper`,{
                     valueAsNumber:true
                   })}
                 />
-                <label>Lower Boundary of Ticket Size(in Lakhs):</label>
+                <label>Lower Boundary of Ticket Size:</label>
                 <input
-                  type="text"
+                  type="number"
                   {...register(`product.disbursement[${index}].key_lower`,{
                     valueAsNumber:true
                   })}
@@ -397,37 +404,40 @@ function App(){
 
                 {/* Value */}
                 <div>
-                  <label>Total Amount of Ticket(in Crores):</label>
+                  <label>Total Amount of Ticket:</label>
                   <input
-                    type="text"
+                    type="number"
                     {...register(`product.disbursement[${index}].value.amount`,{
                       valueAsNumber:true
                     })}
                   />
                   <label>Count:</label>
                   <input
-                    type="text"
+                    type="number"
                     {...register(`product.disbursement[${index}].value.count`,{
                       valueAsNumber:true
                     })}
                   />
                   <label>market share of NBFC(%):</label>
                   <input
-                    type="text"
+                    type="float"
+                    pattern="[0-9]*[.,]?[0-9]*"
                     {...register(`product.disbursement[${index}].value.nbfc`,{
                       valueAsNumber:true
                     })}
                   />
                   <label>market share of Private(%):</label>
                   <input
-                    type="text"
+                    type="float"
+                    pattern="[0-9]*[.,]?[0-9]*"
                     {...register(`product.disbursement[${index}].value.private`,{
                       valueAsNumber:true
                     })}
                   />
                   <label>market share of PSU(%):</label>
                   <input
-                    type="text"
+                    type="float"
+                    pattern="[0-9]*[.,]?[0-9]*"
                     {...register(`product.disbursement[${index}].value.psu`,{
                       valueAsNumber:true
                     })}
@@ -437,21 +447,24 @@ function App(){
                 <div>
                   <label>High Risk Tickets(%):</label>
                   <input
-                    type="text"
+                    type="float"
+                    pattern="[0-9]*[.,]?[0-9]*"
                     {...register(`product.disbursement[${index}].risk.high`,{
                       valueAsNumber:true
                     })}
                   />
                   <label>Medium Risk Tickets(%):</label>
                   <input
-                    type="text"
+                    type="float"
+                    pattern="[0-9]*[.,]?[0-9]*"
                     {...register(`product.disbursement[${index}].risk.medium`,{
                       valueAsNumber:true
                     })}
                   />
                   <label>Low Risk Tickets(%):</label>
                   <input
-                    type="text"
+                    type="float"
+                    pattern="[0-9]*[.,]?[0-9]*"
                     {...register(`product.disbursement[${index}].risk.low`,{
                       valueAsNumber:true
                     })}
@@ -468,10 +481,10 @@ function App(){
             type="button"
             onClick={() =>
               appendDisbursement({
-                key_upper: "",
-                key_lower: "",
-                value: { amount: "", count: "", nbfc: "", private: "", psu: "" },
-                risk: { high: "", medium: "", low: "" },
+                key_upper: null,
+                key_lower: null,
+                value: { amount: null, count: null, nbfc: null, private: null, psu: null },
+                risk: { high: null, medium: null, low: null },
               })
             }
           >
@@ -517,11 +530,11 @@ function App(){
         <label>Top Pincodes:</label>
           {pincodes.map((pincode, index) => (
             <div key={index} className="sections">
-              <input type="text" {...register(`location.pincodes[${index}].code`)} placeholder="Pincode" />
+              <input type="number" {...register(`location.pincodes[${index}].code`)} placeholder="Pincode" />
               <input type="text" {...register(`location.pincodes[${index}].name`)} placeholder="Name" />
               <input type="text" {...register(`location.pincodes[${index}].potential`)} placeholder="Potentiality" />
-              <input type="text" {...register(`location.pincodes[${index}].disbursement`)} placeholder="Total Disbursement" />
-              <input type="text" {...register(`location.pincodes[${index}].business`)} placeholder="Total Business" />
+              <input type="number" {...register(`location.pincodes[${index}].disbursement`)} placeholder="Total Disbursement" />
+              <input type="number" {...register(`location.pincodes[${index}].business`)} placeholder="Total Business" />
               <button type="button" onClick={() => removePincode(index)}>Remove</button>
             </div>
           ))}
@@ -535,7 +548,7 @@ function App(){
               <input type="text" {...register(`location.top[${index}].name`)} placeholder="Name" />
               <input type="text" {...register(`location.top[${index}].address`)} placeholder="Address" />
               <input type="text" {...register(`location.top[${index}].type`)} placeholder="Type" />
-              <input type="text" {...register(`location.top[${index}].turnover`)} placeholder="Turnover" />
+              <input type="text" {...register(`location.top[${index}].turnover`)} placeholder="Turnover Range (in Words)" />
               <button type="button" onClick={() => removeTopLocation(index)}>Remove</button>
             </div>
           ))}
