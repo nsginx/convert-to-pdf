@@ -1,0 +1,486 @@
+[
+    {
+        "name": "Kolkata",
+        "timeframe": "2023-24-Q2",
+        "market":{
+            "business":{
+                "total": 9999,
+                "gst_registered": 999
+            },
+            "population":{
+                "total": 9999,
+                "salaried_individuals": 33.3,
+                "self_employed": 30.5,
+                "household_count": 999
+            },
+            "liabilities":{
+                "sa": 9999999999,
+                "ca": 999999999
+            },
+            "assets":{
+                "home_loan": 9999999999,
+                "personal_loan": 99999999
+            }
+    
+        },
+        "target_audience":{
+            "top_categories":[
+                {
+                    "name": "kirana store",
+                    "count": 9999
+                },
+                {
+                    "name": "kirana store",
+                    "count": 9999
+                },
+                {
+                    "name": "kirana store",
+                    "count": 9999
+                },
+                {
+                    "name": "kirana store",
+                    "count": 9999
+                },
+                {
+                    "name": "kirana store",
+                    "count": 9999
+                },
+                {
+                    "name": "kirana store",
+                    "count": 9999
+                }
+            ],
+            "turnover":[
+                {
+                    "slab":"Rs. 0 to 40 lakhs",
+                    "count": 99999
+                },
+                {
+                    "slab":"Rs. 0 to 40 lakhs",
+                    "count": 99999
+                },
+                {
+                    "slab":"Rs. 0 to 40 lakhs",
+                    "count": 99999
+                },
+                {
+                    "slab":"Rs. 0 to 40 lakhs",
+                    "count": 99999
+                }
+            ],
+            "entity":[
+                {
+                    "type": "Partnership",
+                    "percentage": 21.16
+                },
+                {
+                    "type": "LLP",
+                    "percentage": 21.16
+                },
+                {
+                    "type": "Companies",
+                    "percentage": 21.16
+                }
+            ]
+        },
+        "competition":{
+            "branch":{
+                "total": 9999,
+                "banks":[
+                    {
+                        "category": "public",
+                        "count": 999,
+                        "top":["punjab national bank", "state bank of india", "indian bank", "union bank of india"]
+                    },
+                    {
+                        "category": "private",
+                        "count": 999,
+                        "top":["punjab national bank", "state bank of india", "indian bank", "union bank of india"]
+                    },
+                    {
+                        "category": "nbfc",
+                        "count": 999,
+                        "top":["punjab national bank", "state bank of india", "indian bank", "union bank of india"]
+                    },
+                    {
+                        "category": "foreign",
+                        "count": 999,
+                        "top":["punjab national bank", "state bank of india", "indian bank", "union bank of india"]
+                    }
+                ]
+            },
+            "assets":[
+                {
+                    "category": "private",
+                    "share": 56.56
+                },
+                {
+                    "category": "private",
+                    "share": 56.56
+                },
+                {
+                    "category": "private",
+                    "share": 56.56
+                },
+                {
+                    "category": "private",
+                    "share": 56.56
+                }
+            ],
+            "liabilities":[
+                {
+                    "name": "state bank of india",
+                    "share": 21.21
+                },
+                {
+                    "name": "united bank of india",
+                    "share": 21.21
+                },
+                {
+                    "name": " bank of baroda",
+                    "share": 21.21
+                },
+                {
+                    "name": "hdfc bank",
+                    "share": 11.21
+                },
+                {
+                    "name": "punjab national bank",
+                    "share": 11.21
+                }
+            ]
+        },
+        "product":{
+            "disbursement":[
+                {
+                    "loan_type": "business loan unsecured",
+                    "average_ticketsize":{
+                        "lower": 0,
+                        "upper": 99999
+                    },
+                    "sanctioned_trades_count": 9999,
+                    "sanctioned_amount": 999999999,
+                    "outstanding_balance": 999999
+                },
+                {
+                    "loan_type": "Home Loan",
+                    "average_ticketsize":{
+                        "lower": 0,
+                        "upper": 99999
+                    },
+                    "sanctioned_trades_count": 9999,
+                    "sanctioned_amount": 999999999,
+                    "outstanding_balance": 999999
+                },
+                {
+                    "loan_type": "business loan unsecured",
+                    "average_ticketsize":{
+                        "lower": 0,
+                        "upper": 99999
+                    },
+                    "sanctioned_trades_count": 9999,
+                    "sanctioned_amount": 999999999,
+                    "outstanding_balance": 999999
+                },
+                {
+                    "loan_type": "Home Loan",
+                    "average_ticketsize":{
+                        "lower": 0,
+                        "upper": 99999
+                    },
+                    "sanctioned_trades_count": 9999,
+                    "sanctioned_amount": 999999999,
+                    "outstanding_balance": 999999
+                },
+                {
+                    "loan_type": "business loan unsecured",
+                    "average_ticketsize":{
+                        "lower": 0,
+                        "upper": 99999
+                    },
+                    "sanctioned_trades_count": 9999,
+                    "sanctioned_amount": 999999999,
+                    "outstanding_balance": 999999
+                },
+                {
+                    "loan_type": "Home Loan",
+                    "average_ticketsize":{
+                        "lower": 0,
+                        "upper": 99999
+                    },
+                    "sanctioned_trades_count": 9999,
+                    "sanctioned_amount": 999999999,
+                    "outstanding_balance": 999999
+                },
+                {
+                    "loan_type": "business loan unsecured",
+                    "average_ticketsize":{
+                        "lower": 0,
+                        "upper": 99999
+                    },
+                    "sanctioned_trades_count": 9999,
+                    "sanctioned_amount": 999999999,
+                    "outstanding_balance": 999999
+                },
+                {
+                    "loan_type": "Home Loan",
+                    "average_ticketsize":{
+                        "lower": 0,
+                        "upper": 99999
+                    },
+                    "sanctioned_trades_count": 9999,
+                    "sanctioned_amount": 999999999,
+                    "outstanding_balance": 999999
+                }
+    
+            ],
+            "delinquency":[
+                {
+                    "loan_type": "business loan unsecured",
+                    "dpd":[
+                        {
+                            "key": "0",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "1-29",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "30-59",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "60-89",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "90-179",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "180+",
+                            "value": 99.9
+                        }
+                    ]
+                },
+                {
+                    "loan_type": "business loan unsecured",
+                    "dpd":[
+                        {
+                            "key": "0",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "1-29",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "30-59",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "60-89",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "90-179",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "180+",
+                            "value": 99.9
+                        }
+                    ]
+                },
+                {
+                    "loan_type": "business loan unsecured",
+                    "dpd":[
+                        {
+                            "key": "0",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "1-29",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "30-59",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "60-89",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "90-179",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "180+",
+                            "value": 99.9
+                        }
+                    ]
+                },
+                {
+                    "loan_type": "business loan unsecured",
+                    "dpd":[
+                        {
+                            "key": "0",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "1-29",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "30-59",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "60-89",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "90-179",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "180+",
+                            "value": 99.9
+                        }
+                    ]
+                },
+                {
+                    "loan_type": "business loan unsecured",
+                    "dpd":[
+                        {
+                            "key": "0",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "1-29",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "30-59",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "60-89",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "90-179",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "180+",
+                            "value": 99.9
+                        }
+                    ]
+                },
+                {
+                    "loan_type": "business loan unsecured",
+                    "dpd":[
+                        {
+                            "key": "0",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "1-29",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "30-59",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "60-89",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "90-179",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "180+",
+                            "value": 99.9
+                        }
+                    ]
+                },
+                {
+                    "loan_type": "business loan unsecured",
+                    "dpd":[
+                        {
+                            "key": "0",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "1-29",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "30-59",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "60-89",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "90-179",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "180+",
+                            "value": 99.9
+                        }
+                    ]
+                },
+                {
+                    "loan_type": "business loan unsecured",
+                    "dpd":[
+                        {
+                            "key": "0",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "1-29",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "30-59",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "60-89",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "90-179",
+                            "value": 99.9
+                        },
+                        {
+                            "key": "180+",
+                            "value": 99.9
+                        }
+                    ]
+                }
+                
+            ],
+            "growth_rate":[
+                {
+                    "loan_type": "business loan unsecured",
+                    "sanction":[
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        }
+                    ]
+                }
+    
+            ]
+        }
+    }    
+]
