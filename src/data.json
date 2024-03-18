@@ -26,60 +26,76 @@
         "target_audience":{
             "top_categories":[
                 {
-                    "name": "kirana store",
-                    "count": 9999
+                    "category": "kirana store",
+                    "count": 9999,
+                    "percentage": 21.5
                 },
                 {
-                    "name": "kirana store",
-                    "count": 9999
+                    "category": "kirana store",
+                    "count": 9999,
+                    "percentage": 21.5
                 },
                 {
-                    "name": "kirana store",
-                    "count": 9999
+                    "category": "kirana store",
+                    "count": 9999,
+                    "percentage": 21.5
                 },
                 {
-                    "name": "kirana store",
-                    "count": 9999
+                    "category": "kirana store",
+                    "count": 9999,
+                    "percentage": 21.5
                 },
                 {
-                    "name": "kirana store",
-                    "count": 9999
+                    "category": "kirana store",
+                    "count": 9999,
+                    "percentage": 21.5
                 },
                 {
-                    "name": "kirana store",
-                    "count": 9999
+                    "category": "kirana store",
+                    "count": 9999,
+                    "percentage": 21.5
                 }
+                
             ],
             "turnover":[
                 {
-                    "slab":"Rs. 0 to 40 lakhs",
-                    "count": 99999
+                    "category":"Rs. 0 to 40 lakhs",
+                    "count": 99999,
+                    "percentage": 15.06
                 },
                 {
-                    "slab":"Rs. 0 to 40 lakhs",
-                    "count": 99999
+                    "category":"Rs. 0 to 40 lakhs",
+                    "count": 99999,
+                    "percentage": 15.06
                 },
                 {
-                    "slab":"Rs. 0 to 40 lakhs",
-                    "count": 99999
+                    "category":"Rs. 0 to 40 lakhs",
+                    "count": 99999,
+                    "percentage": 15.06
                 },
                 {
-                    "slab":"Rs. 0 to 40 lakhs",
-                    "count": 99999
+                    "category":"Rs. 0 to 40 lakhs",
+                    "count": 99999,
+                    "percentage": 15.06
                 }
+                
             ],
             "entity":[
                 {
-                    "type": "Partnership",
-                    "percentage": 21.16
+                    "name": "Partnership",
+                    "count": 500
                 },
                 {
-                    "type": "LLP",
-                    "percentage": 21.16
+                    "name": "Partnership",
+                    "count": 500
                 },
                 {
-                    "type": "Companies",
-                    "percentage": 21.16
+                    "name": "Partnership",
+                    "count": 500
+                },
+                {
+                    "name": "Partnership",
+                    "count": 500
                 }
             ]
         },
@@ -90,148 +106,126 @@
                     {
                         "category": "public",
                         "count": 999,
+                        "percentage": 23.5,
                         "top":["punjab national bank", "state bank of india", "indian bank", "union bank of india"]
                     },
                     {
-                        "category": "private",
+                        "category": "public",
                         "count": 999,
+                        "percentage": 23.5,
                         "top":["punjab national bank", "state bank of india", "indian bank", "union bank of india"]
                     },
                     {
-                        "category": "nbfc",
+                        "category": "public",
                         "count": 999,
+                        "percentage": 23.5,
                         "top":["punjab national bank", "state bank of india", "indian bank", "union bank of india"]
                     },
                     {
-                        "category": "foreign",
+                        "category": "public",
                         "count": 999,
+                        "percentage": 23.5,
                         "top":["punjab national bank", "state bank of india", "indian bank", "union bank of india"]
                     }
+                    
                 ]
             },
-            "assets":[
-                {
-                    "category": "private",
-                    "share": 56.56
-                },
-                {
-                    "category": "private",
-                    "share": 56.56
-                },
-                {
-                    "category": "private",
-                    "share": 56.56
-                },
-                {
-                    "category": "private",
-                    "share": 56.56
-                }
-            ],
+            
             "liabilities":[
                 {
+                    "name": "state bank ",
+                    "percentage": 16.67
+                },
+                {
+                    "name": "state bank of ",
+                    "percentage": 16.67
+                },
+                {
+                    "name": "state bank of in",
+                    "percentage": 16.67
+                },
+                {
+                    "name": "state bank of ind",
+                    "percentage": 16.67
+                },
+                {
+                    "name": "state bank of indi",
+                    "percentage": 16.67
+                },
+                {
                     "name": "state bank of india",
-                    "share": 21.21
-                },
-                {
-                    "name": "united bank of india",
-                    "share": 21.21
-                },
-                {
-                    "name": " bank of baroda",
-                    "share": 21.21
-                },
-                {
-                    "name": "hdfc bank",
-                    "share": 11.21
-                },
-                {
-                    "name": "punjab national bank",
-                    "share": 11.21
+                    "percentage": 16.67
                 }
             ]
         },
         "product":{
             "disbursement":[
                 {
-                    "loan_type": "business loan unsecured",
-                    "average_ticketsize":{
-                        "lower": 0,
-                        "upper": 99999
-                    },
+                    "loan_type": "BL",
+                    "loan_name": "business loan unsecured",
+                    "average_ticketsize":"<2L",
                     "sanctioned_trades_count": 9999,
                     "sanctioned_amount": 999999999,
                     "outstanding_balance": 999999
                 },
                 {
-                    "loan_type": "Home Loan",
-                    "average_ticketsize":{
-                        "lower": 0,
-                        "upper": 99999
-                    },
+                    "loan_type": "BL",
+                    "loan_name": "business loan unsecured",
+                    "average_ticketsize":"<2L",
                     "sanctioned_trades_count": 9999,
                     "sanctioned_amount": 999999999,
                     "outstanding_balance": 999999
                 },
                 {
-                    "loan_type": "business loan unsecured",
-                    "average_ticketsize":{
-                        "lower": 0,
-                        "upper": 99999
-                    },
+                    "loan_type": "BL",
+                    "loan_name": "business loan unsecured",
+                    "average_ticketsize":"<2L",
                     "sanctioned_trades_count": 9999,
                     "sanctioned_amount": 999999999,
                     "outstanding_balance": 999999
                 },
                 {
-                    "loan_type": "Home Loan",
-                    "average_ticketsize":{
-                        "lower": 0,
-                        "upper": 99999
-                    },
+                    "loan_type": "BL",
+                    "loan_name": "business loan unsecured",
+                    "average_ticketsize":"<2L",
                     "sanctioned_trades_count": 9999,
                     "sanctioned_amount": 999999999,
                     "outstanding_balance": 999999
                 },
                 {
-                    "loan_type": "business loan unsecured",
-                    "average_ticketsize":{
-                        "lower": 0,
-                        "upper": 99999
-                    },
+                    "loan_type": "BL",
+                    "loan_name": "business loan unsecured",
+                    "average_ticketsize":"<2L",
                     "sanctioned_trades_count": 9999,
                     "sanctioned_amount": 999999999,
                     "outstanding_balance": 999999
                 },
                 {
-                    "loan_type": "Home Loan",
-                    "average_ticketsize":{
-                        "lower": 0,
-                        "upper": 99999
-                    },
+                    "loan_type": "BL",
+                    "loan_name": "business loan unsecured",
+                    "average_ticketsize":"<2L",
                     "sanctioned_trades_count": 9999,
                     "sanctioned_amount": 999999999,
                     "outstanding_balance": 999999
                 },
                 {
-                    "loan_type": "business loan unsecured",
-                    "average_ticketsize":{
-                        "lower": 0,
-                        "upper": 99999
-                    },
+                    "loan_type": "BL",
+                    "loan_name": "business loan unsecured",
+                    "average_ticketsize":"<2L",
                     "sanctioned_trades_count": 9999,
                     "sanctioned_amount": 999999999,
                     "outstanding_balance": 999999
                 },
                 {
-                    "loan_type": "Home Loan",
-                    "average_ticketsize":{
-                        "lower": 0,
-                        "upper": 99999
-                    },
+                    "loan_type": "BL",
+                    "loan_name": "business loan unsecured",
+                    "average_ticketsize":"<2L",
                     "sanctioned_trades_count": 9999,
                     "sanctioned_amount": 999999999,
                     "outstanding_balance": 999999
                 }
+
+                
     
             ],
             "delinquency":[
@@ -471,8 +465,231 @@
             ],
             "growth_rate":[
                 {
-                    "loan_type": "business loan unsecured",
+                    "loan_name": "business loan unsecured",
                     "sanction":[
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        }
+                    ]
+                },
+                {
+                    "loan_name": "business loan unsecured",
+                    "sanction":[
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        }
+                    ]
+                },
+                {
+                    "loan_name": "business loan unsecured",
+                    "sanction":[
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        }
+                    ]
+                },
+                {
+                    "loan_name": "business loan unsecured",
+                    "sanction":[
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        }
+                    ]
+                },
+                {
+                    "loan_name": "business loan unsecured",
+                    "sanction":[
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        }
+                    ]
+                },
+                {
+                    "loan_name": "car loan",
+                    "sanction":[
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 4
+                        },
+                        {
+                            "quarter": "2023-24_Q1",
+                            "amount": -3
+                        },
+                        {
+                            "quarter": "2022-23_Q4",
+                            "amount": 0
+                        },
+                        {
+                            "quarter": "2022-23_Q3",
+                            "amount": 5
+                        },
+                        {
+                            "quarter": "2022-23_Q2",
+                            "amount": -2
+                        },
+                        {
+                            "quarter": "2022-23_Q1",
+                            "amount": 0
+                        }
+                    ]
+                },
+                {
+                    "loan_name": "business loan unsecured",
+                    "sanction":[
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        }
+                    ]
+                },
+                {
+                    "loan_name": "business loan unsecured",
+                    "sanction":[
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
+                        {
+                            "quarter": "2023-24_Q2",
+                            "amount": 99999
+                        },
                         {
                             "quarter": "2023-24_Q2",
                             "amount": 99999
