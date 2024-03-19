@@ -180,7 +180,10 @@ export default async function fetchFromApi(level, groupBy, name, state){
     // let dataArray= [];
     name= (level=="pincode")? parseInt(name): name;
     const responsePlaceArray= await getPlaceArray(level, groupBy, name, state);
-    // console.log(responsePlaceArray);
+    console.log(responsePlaceArray);
+    if (responsePlaceArray.statusCode===400){
+        return responsePlaceArray;
+    }
     // await responsePlaceArray.data.map(async (place)=>{
     //     const name= (groupBy=="pincode") ? parseInt(place.name) : place.name;
     //     let individualData= {};

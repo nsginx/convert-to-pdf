@@ -5,7 +5,7 @@ import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 
 
 export default function Display({data}){
-    const options= {
+    const pdfOptions= {
         method: 'save',
         // method: 'open',
         filename: `${data.name}`,
@@ -553,7 +553,7 @@ export default function Display({data}){
         {/* print button  */}
 
         <div className='mx-auto my-4 w-auto text-center '>
-            <button onClick={() => generatePDF(getTargetElement, options)} type="button" className='px-4 py-2 bg-slate-600 text-white rounded-lg'>Export PDF</button>
+            <button onClick={() => generatePDF(getTargetElement, pdfOptions)} type="button" className='px-4 py-2 bg-slate-600 text-white rounded-lg'>Export PDF</button>
             {/* <button onClick={convertToPDF} type="button" className='px-4 py-2 bg-slate-600 text-white'>Export PDF</button> */}
         </div>
 

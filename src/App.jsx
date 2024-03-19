@@ -87,11 +87,15 @@ function App(){
         <button type="submit" disabled={loading} className={`ml-32 ${loading?"bg-blue-400":"bg-blue-800"} rounded-md border-0 text-white px-4 py-2 my-2`}>{loading?"Generating...":"Generate"}</button>
       </form>
       <div id="viewport">
-        {dataArray && dataArray?.map((data, i)=>{
+        {dataArray && ((dataArray.statusCode==400)? 
+        <>
+          <div className="text-4xl my-8 text-cyan-500 text-center">{dataArray.message}</div>
+        </> 
+        : dataArray?.map((data, i)=>{
           return(
             <Display key={data.name} data={data}/>
           )
-        })}
+        }))}
       </div>
     </>
   );
