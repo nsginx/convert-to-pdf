@@ -2,27 +2,28 @@ import React, { useEffect, useRef, useState } from 'react'
 import ReactEcharts from "echarts-for-react"; 
 import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 
-const options= {
-    // method: 'save',
-    method: 'open',
-    // resolution: Resolution.HIGH,
-    canvas: {
-        // default is 'image/jpeg' for better size performance
-        mimeType: 'image/png/',
-        qualityRatio: 1
-    },
-    overrides: {
-        pdf: {
-            compress: true
-        },
-        canvas: {
-        useCORS: true
-        }
-    },
-}
-  
+
 
 export default function Display({data}){
+    const options= {
+        method: 'save',
+        // method: 'open',
+        filename: `${data.name}`,
+        // resolution: Resolution.HIGH,
+        canvas: {
+            // default is 'image/jpeg' for better size performance
+            mimeType: 'image/png/',
+            qualityRatio: 1
+        },
+        overrides: {
+            pdf: {
+                compress: true
+            },
+            canvas: {
+            useCORS: true
+            }
+        },
+    }
 
     const entityChartOption = {
         grid: {

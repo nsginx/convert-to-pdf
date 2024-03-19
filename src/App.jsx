@@ -13,6 +13,7 @@ function App(){
   const [name, setName] = useState("kolkata");
   const [state, setState] = useState("west bengal");
   const [search, setSearch]= useState(0);
+  const [loading, setLoading]= useState(false);
 
 
   // useEffect(()=>{
@@ -22,9 +23,11 @@ function App(){
   //   })
   // },[search])
   function fetchData(e){
+    setLoading(true);
     e.preventDefault();
     fetchFromApi(level, groupBy, name, state).then((data)=>{
       setDataArray(data);
+      setLoading(false);
       console.log(dataArray);
     })
     // setSearch((search)=> search+1)
@@ -81,7 +84,7 @@ function App(){
         </select>
         <label htmlFor="state">State</label>
         <input name="state" id="state" type="text" value={state} onChange={(e)=>{setState(e.target.value.toLowerCase())}} className="my-auto"/>
-        <button type="submit" className="ml-32 bg-blue-800 rounded-md border-0 text-white px-4 py-2 my-2">Generate</button>
+        <button type="submit" disabled={loading} className={`ml-32 ${loading?"bg-blue-400":"bg-blue-800"} rounded-md border-0 text-white px-4 py-2 my-2`}>{loading?"Generating...":"Generate"}</button>
       </form>
       <div id="viewport">
         {dataArray && dataArray?.map((data, i)=>{

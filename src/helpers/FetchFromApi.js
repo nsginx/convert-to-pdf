@@ -164,7 +164,7 @@ const loan_types=["AL", "BL", "CC", "GL", "HL", "LAP", "PL", "UCL"];
 
 export default async function fetchFromApi(level, groupBy, name, state){
     async function fetchData(place){
-        const name= (groupBy=="pincode") ? parseInt(place.name) : place.name;
+        const name= (level=="pincode") ? parseInt(place.name) : place.name;
         let individualData= {};
         individualData.name= name;            
         individualData.market= await getMarketData(level, groupBy, name, state);
@@ -178,6 +178,7 @@ export default async function fetchFromApi(level, groupBy, name, state){
 
 
     // let dataArray= [];
+    name= (level=="pincode")? parseInt(name): name;
     const responsePlaceArray= await getPlaceArray(level, groupBy, name, state);
     // console.log(responsePlaceArray);
     // await responsePlaceArray.data.map(async (place)=>{
