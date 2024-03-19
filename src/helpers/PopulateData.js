@@ -1,39 +1,7 @@
 import { getAssetInsights, getBankInsights, getBusinessInsights, getGrowthInsights, getPlaceArray, getShapeInsights } from "./DataInsights.js";
+import parseLoanType from "./ParseLoanType.js";
 
-function parseLoanType(type){
-    let res;
-    switch(type){
-        case "AL":
-            res="New Car Loan";
-            break;
-        case "BL":
-            res= "Business Loan Unsecured";
-            break;
-        case "CC":
-            res= "Credit Cards";
-            break;
-        case "GL":
-            res= "Gold Loan";
-            break;
-        case "HL":
-            res= "Home Loan";
-            break;
-        case "LAP":
-            res= "Loan Against Property";
-            break;
-        case "PL":
-            res= "Personal Loan";
-            break;
-        case "UCL":
-            res= "Used Car Loan";
-            break;
-        default:
-            res= "Personal Loan";
-            break;
-    }
-
-    return res;
-}
+const loan_types=["AL", "BL", "CC", "GL", "HL", "LAP", "PL", "UCL"];
 
 async function getMarketData(level, groupBy, name, state){
     let market={
@@ -159,57 +127,4 @@ async function getProductData(level, groupBy, name, state,  individualData){
     return product;
 }
 
-
-const loan_types=["AL", "BL", "CC", "GL", "HL", "LAP", "PL", "UCL"];
-
-export default async function fetchFromApi(level, groupBy, name, state){
-    async function fetchData(place){
-        const name= (level=="pincode") ? parseInt(place.name) : place.name;
-        let individualData= {};
-        individualData.name= name;            
-        individualData.market= await getMarketData(level, groupBy, name, state);
-        individualData.target_audience= await getTargetAudienceData(level, groupBy, name, state);
-        individualData.competition= await getCompetitionData(level, groupBy, name, state);
-        individualData.product= await getProductData(level, groupBy, name, state, individualData);
-        return new Promise((resolve)=>{
-            resolve(individualData);
-        })
-    }
-
-
-    // let dataArray= [];
-    name= (level=="pincode")? parseInt(name): name;
-    const responsePlaceArray= await getPlaceArray(level, groupBy, name, state);
-    console.log(responsePlaceArray);
-    if (responsePlaceArray.statusCode===400){
-        return responsePlaceArray;
-    }
-    // await responsePlaceArray.data.map(async (place)=>{
-    //     const name= (groupBy=="pincode") ? parseInt(place.name) : place.name;
-    //     let individualData= {};
-    //     individualData.name= name;            
-    //     individualData.market= await getMarketData(level, groupBy, name, state);
-    //     individualData.target_audience= await getTargetAudienceData(level, groupBy, name, state);
-    //     individualData.competition= await getCompetitionData(level, groupBy, name, state);
-    //     individualData.product= await getProductData(level, groupBy, name, state, individualData);
-    //     // console.log(individualData);
-    //     dataArray.push(individualData)
-    //     console.log("hii");
-        
-    // })
-
-    const promises= responsePlaceArray.data.map((place)=> fetchData(place));
-    const dataArray=await Promise.all(promises);
-    // console.log(dataArray);
-    return dataArray;
-
-}
-
-// async function test(){
-//     const response= await fetchFromApi("district", "pincode", "kolkata", "west bengal");
-//     console.log("hello");
-//     console.log(response);
-
-// }
-
-// test();
+export {getCompetitionData, getMarketData, getProductData, getTargetAudienceData};

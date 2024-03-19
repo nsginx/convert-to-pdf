@@ -48,29 +48,29 @@ export async function getShapeInsights(level, groupBy, name, state){
         return response.json();
         
     }
-    export async function getBusinessInsights(level, groupBy, name, state){
-        const response= await fetch(`${url}/business/insights`,options(
-            {
-                "location": {
-                    "state": state,
-                    "level": level,
-                    "name": name
-                },
-                "group_by": groupBy,
-                "type_distribution": {
-                    "default_types": [
-                        "Industrial Plants & Machinery",
-                        "Agricultural machinery & equipment",
-                        "Industrial Supplies"
-                    ],
-                    "top_count": 6
-                }
-            }
-            )
-            );
-            return response.json();
-            
+export async function getBusinessInsights(level, groupBy, name, state){
+    const response= await fetch(`${url}/business/insights`,options(
+    {
+        "location": {
+            "state": state,
+            "level": level,
+            "name": name
+        },
+        "group_by": groupBy,
+        "type_distribution": {
+            "default_types": [
+                "Industrial Plants & Machinery",
+                "Agricultural machinery & equipment",
+                "Industrial Supplies"
+            ],
+            "top_count": 6
         }
+    }
+    )
+    );
+    return response.json();
+    
+}
 export async function getBankInsights(level, groupBy, name, state){
     const response= await fetch(`${url}/bank/insights`,options(
         {

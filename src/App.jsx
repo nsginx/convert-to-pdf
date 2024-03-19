@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import './App.css';
 import Display from './Display.jsx';
 import data from './data.json'
-import fetchFromApi from "./helpers/FetchFromApi.js";
 import {render} from 'react-dom';
+import fetchDataArray from "./helpers/FetchDataArray.js";
 
 
 function App(){
@@ -25,7 +25,7 @@ function App(){
   function fetchData(e){
     setLoading(true);
     e.preventDefault();
-    fetchFromApi(level, groupBy, name, state).then((data)=>{
+    fetchDataArray(level, groupBy, name, state).then((data)=>{
       setDataArray(data);
       setLoading(false);
       console.log(dataArray);

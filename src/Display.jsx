@@ -450,7 +450,7 @@ export default function Display({data}){
                                 <tr className='bg-slate-100'>
                                     <td className="border-[1px] p-2 w-72">{data.competition.liabilities[3].name}</td>
                                     <td className="border-[1px] p-2 w-28">{data.competition.liabilities[3].percentage} %</td>
-                                    <td className='border-[1px] p-2 w-8'><div className="w-4 h-4 m-auto bg-red-500"></div></td>
+                                    <td className='border-[1px] p-2 w-8'><div className="w-4 h-4 m-auto bg-red-400"></div></td>
                                 </tr>
                                 <tr>
                                     <td className="border-[1px] p-2 w-72">{data.competition.liabilities[4].name}</td>
@@ -549,7 +549,6 @@ export default function Display({data}){
                 </div>
             </div>
         </div>
-
         {/* print button  */}
 
         <div className='mx-auto my-4 w-auto text-center '>
