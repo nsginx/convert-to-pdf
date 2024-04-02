@@ -17,10 +17,16 @@
                 "sa": 9999999999,
                 "ca": 999999999
             },
-            "assets":{
-                "home_loan": 9999999999,
-                "personal_loan": 99999999
-            }
+            "assets":[
+                {
+                    "loan_type":"Home Loan",
+                    "amount": 99999999
+                },
+                {
+                    "loan_type":"Home Loan",
+                    "amount": 99999999
+                }
+            ]
     
         },
         "target_audience":{

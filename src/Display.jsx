@@ -6,9 +6,9 @@ import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 
 export default function Display({data}){
     const pdfOptions= {
-        method: 'save',
-        // method: 'open',
-        filename: `${data.name}`,
+        // method: 'save',
+        method: 'open',
+        // filename: `${data.name}`,
         // resolution: Resolution.HIGH,
         canvas: {
             // default is 'image/jpeg' for better size performance
@@ -262,8 +262,12 @@ export default function Display({data}){
                             </ul>
                             <h2 className="font-semibold">Assets ({data.timeframe})</h2>
                             <ul className='list-disc ml-4 mb-2'>
-                                <li className="text-sm">Home Loan: <b>&#8377;</b><span className="font-semibold">{parseNumToWord(data.market.assets.home_loan)}</span> </li>
-                                <li className="text-sm">Personal Loan: <b>&#8377;</b><span className="font-semibold">{parseNumToWord(data.market.assets.personal_loan)}</span> </li>
+                                {data.market.assets.map((item)=>{
+                                    return(
+                                        <li className="text-sm">{item.loan_type}: <b>&#8377;</b><span className="font-semibold">{parseNumToWord(item.amount)}</span> </li>
+                                    )
+                                })}
+                                {/* <li className="text-sm">Personal Loan: <b>&#8377;</b><span className="font-semibold">{parseNumToWord(data.market.assets.personal_loan)}</span> </li> */}
                             </ul>
                             
                         </div>

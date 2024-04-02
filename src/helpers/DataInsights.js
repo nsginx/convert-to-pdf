@@ -33,7 +33,7 @@ export async function getPlaceArray(level, groupBy, name, state){
 
 }
 
-export async function getShapeInsights(level, groupBy, name, state){
+export async function getShapeInsights(level, name, state){
     const response= await fetch(`${url}/shape/insights`,options(
         {
             "location": {
@@ -41,14 +41,15 @@ export async function getShapeInsights(level, groupBy, name, state){
                 "level": level,
                 "name": name
             },
-            "group_by": groupBy
+            "group_by": level
         }
         )
         );
         return response.json();
         
     }
-export async function getBusinessInsights(level, groupBy, name, state){
+
+export async function getBusinessInsights(level, name, state, business_filter){
     const response= await fetch(`${url}/business/insights`,options(
     {
         "location": {
@@ -56,13 +57,9 @@ export async function getBusinessInsights(level, groupBy, name, state){
             "level": level,
             "name": name
         },
-        "group_by": groupBy,
+        "group_by": level,
         "type_distribution": {
-            "default_types": [
-                "Industrial Plants & Machinery",
-                "Agricultural machinery & equipment",
-                "Industrial Supplies"
-            ],
+            "default_types": business_filter,
             "top_count": 6
         }
     }
@@ -71,7 +68,40 @@ export async function getBusinessInsights(level, groupBy, name, state){
     return response.json();
     
 }
-export async function getBankInsights(level, groupBy, name, state){
+
+export async function getEntitySplitInsights(level, name, state, entity){
+    const response = await fetch(`${url}/business`, options(
+        {
+            "location": {
+                "state": state,
+                "level": level,
+                "name": name
+            },   
+            "group_by": level,
+            "filters":{
+                "entity": [entity]
+            }
+        }
+    ))
+    const data= await response.json();
+    const data_formatted = data.data;
+    const dict= {
+        "name": entity,
+        "count": data_formatted[0].count
+    }
+    return new Promise((resolve)=>{
+        resolve(dict);
+    })
+}
+
+export async function getBankInsights(level, name, state, bank_filter){
+    let filter = [];
+    bank_filter.map((item)=>{
+        filter.push({
+            "category": item,
+            "top_count": 4
+        })
+    })
     const response= await fetch(`${url}/bank/insights`,options(
         {
             "location": {
@@ -79,40 +109,15 @@ export async function getBankInsights(level, groupBy, name, state){
                 "level": level,
                 "name": name
             },
-            "group_by": groupBy,
-            "category_distribution": [
-                {
-                    "category": "public",
-                    "top_count": 4
-                },
-                {
-                    "category": "private",
-                    "top_count": 4
-                },
-                {
-                    "category": "nbfc",
-                    "top_count": 4
-                },
-                {
-                    "category": "Co-Operative",
-                    "top_count": 4
-                },
-                {
-                    "category": "foreign",
-                    "top_count": 4
-                },
-                {
-                    "category": "Regional & Rural",
-                    "top_count": 4
-                }
-            ]
+            "group_by": level,
+            "category_distribution": filter
         }
     )
     );
     return response.json();
 
 }
-export async function getAssetInsights(level, groupBy, name, state, timeframe){
+export async function getAssetInsights(level, name, state, timeframe, loan_filter){
     const response= await fetch(`${url}/asset/insights`,options(
         {
             "location": {
@@ -120,11 +125,12 @@ export async function getAssetInsights(level, groupBy, name, state, timeframe){
                 "level": level,
                 "name": name
             },
-            "group_by": groupBy,
+            "group_by": level,
             "filters": {
                 "timeframe": [
                     timeframe
-                ]
+                ],
+                "loan_type": loan_filter
             },
             "disbursement_keys": [],
             "delinquency_keys": []
@@ -135,7 +141,9 @@ export async function getAssetInsights(level, groupBy, name, state, timeframe){
     return response.json();
 
 }
-export async function getGrowthInsights(level, groupBy, name, state){
+
+//don't add loan_filter to growth insight before fixing frontend for the growth chart 
+export async function getGrowthInsights(level, name, state, loan_filter){
     const response= await fetch(`${url}/asset/insights`,options(
         {
             "location": {
@@ -143,7 +151,10 @@ export async function getGrowthInsights(level, groupBy, name, state){
                 "level": level,
                 "name": name
             },
-            "group_by": groupBy,
+            "group_by": level,
+            // "filters":{
+            //     "loan_type": loan_filter
+            // },
             "growth_keys": []            
         }
     )
@@ -151,3 +162,12 @@ export async function getGrowthInsights(level, groupBy, name, state){
     return response.json();
 
 }
+
+// async function test(){
+//     const response= await getEntitySplitFromAPi("pincode", 700001, "west bengal", "Company");
+//     console.log("hello");
+//     console.log(response);
+
+// }
+
+// test();
