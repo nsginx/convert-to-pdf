@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import './App.css';
 import Display from './Display.jsx';
 import data from './data.json'
-import {render} from 'react-dom';
 import fetchDataArray from "./helpers/FetchDataArray.js";
 
 
