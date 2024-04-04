@@ -233,7 +233,7 @@ export default function Display({data}){
     const getTargetElement = () => printableContent;
 
     return (
-        <div className='w-[850px] mx-auto font-work-sans'>
+        <div className='w-[820px] mx-auto font-work-sans'>
         <div ref={targetElementRef} className='font-work-sans w-[800px] mx-auto px-[20px] flex flex-col h-[3393px]'>
             <h1 className="bg-green-700 w-full h-12 mb-2 text-center font-bold text-white text-3xl uppercase">{data.name}</h1>
             <div className='h-[1055px] mb-[20px] flex flex-col gap-2'>

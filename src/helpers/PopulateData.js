@@ -4,17 +4,15 @@ import parseLoanType from "./ParseLoanType.js";
 const loan_types=["AL", "BL", "CC", "GL", "HL", "LAP", "PL", "UCL"];
 
 
-async function getMarketData(level, name, state, loan_filter){
+async function getMarketData(token, level, name, state, loan_filter){
     let market={
         "business":{},
         "population":{},
         "liabilities":{},
         "assets":[],
     };
-    const responseShapeInsights= await getShapeInsights(level, name, state);
+    const responseShapeInsights= await getShapeInsights(token, level, name, state);
     // console.log(responseShapeInsights);
-    // responseShapeInsights.then((data)=>{
-        // console.log(data.data[0]);
     const data_details= responseShapeInsights.data[0].details;
     market.business.total= data_details.total_business_count;
     market.business.gst_registered= data_details.gst_business_count;
@@ -47,11 +45,11 @@ async function getMarketData(level, name, state, loan_filter){
 
 }
 
-async function getTargetAudienceData(level, name, state, business_filter, entity_filter, turnover_filter ){
+async function getTargetAudienceData(token, level, name, state, business_filter, entity_filter, turnover_filter ){
     let target_audience={};
-    const responseBusinessInsights= await getBusinessInsights(level, name, state, business_filter);
+    const responseBusinessInsights= await getBusinessInsights(token, level, name, state, business_filter);
     // console.log(responseBusinessInsights);
-    target_audience.top_categories= responseBusinessInsights.category_distribution;
+    target_audience.top_categories= responseBusinessInsights.category_distribution.slice(0,6);
     let turnover_array = responseBusinessInsights.turnover_distribution;
     target_audience.turnover = turnover_array.filter((item)=>{ return turnover_filter.includes(item.category)});
     // const promises = entity_filter.map((entity)=>getEntitySplitInsights(level, name, state, entity))
@@ -66,15 +64,15 @@ async function getTargetAudienceData(level, name, state, business_filter, entity
         });
         len++;
     }
-    console.log(target_audience);
+    // console.log(target_audience);
     return target_audience;
 }
 
-async function getCompetitionData(level, name, state, bank_filter){
+async function getCompetitionData(token, level, name, state, bank_filter){
     let competition ={
         "branch":{},
     }
-    const responseBankInsights= await getBankInsights(level, name, state, bank_filter);
+    const responseBankInsights= await getBankInsights(token, level, name, state, bank_filter);
     // console.log(responseBankInsights);
     competition.branch.total=responseBankInsights.total_count;
     let banks_response= responseBankInsights.category_distribution;
@@ -110,11 +108,11 @@ async function getCompetitionData(level, name, state, bank_filter){
     return competition;
 }
 
-async function getProductData(level, name, state, timeframe, loan_filter){
+async function getProductData(token, level, name, state, timeframe, loan_filter){
     let product={};            
     // console.log(responseGrowthInsights);
     // individualData.timeframe= timeframe;
-    const responseAssetInsights= await getAssetInsights(level, name, state, timeframe, loan_filter);
+    const responseAssetInsights= await getAssetInsights(token, level, name, state, timeframe, loan_filter);
     product.disbursement= responseAssetInsights.disbursement;
     const disbursement_array= product.disbursement;
     disbursement_array.map((item)=>{
@@ -137,7 +135,7 @@ async function getProductData(level, name, state, timeframe, loan_filter){
         delinquency_array.push(delinquency);
     })
     product.delinquency= delinquency_array;
-    const responseGrowthInsights= await getGrowthInsights(level, name, state, loan_filter);
+    const responseGrowthInsights= await getGrowthInsights(token, level, name, state, loan_filter);
     const growth_response= responseGrowthInsights.growth;
     const growthArray= responseGrowthInsights.growthSequence;
     // console.log(growthArray);
