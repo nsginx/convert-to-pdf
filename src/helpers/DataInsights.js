@@ -153,7 +153,6 @@ export async function getAssetInsights(token, level, name, state, timeframe, loa
 
 }
 
-//don't add loan_filter to growth insight before fixing frontend for the growth chart 
 export async function getGrowthInsights(token, level, name, state, loan_filter){
     const response= await fetch(`${url}/asset/insights`,options(
         {
@@ -163,9 +162,9 @@ export async function getGrowthInsights(token, level, name, state, loan_filter){
                 "name": name
             },
             "group_by": level,
-            // "filters":{
-            //     "loan_type": loan_filter
-            // },
+            "filters":{
+                "loan_type": loan_filter
+            },
             "growth_keys": []            
         }, token
     )

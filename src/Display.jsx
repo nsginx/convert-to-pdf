@@ -25,6 +25,20 @@ export default function Display({data}){
         },
     }
 
+
+    const chartSeries= data.product.growth_rate.map((element)=>{
+        return {
+            name: element.loan_name,
+            type: 'line',
+            stack: 'Total',
+            data: [element.sanction[0].amount, element.sanction[1].amount, element.sanction[2].amount, element.sanction[3].amount, element.sanction[4].amount, element.sanction[5].amount]
+        }
+    })
+
+    const chartLegend= data.product.growth_rate.map((element)=>{
+        return element.loan_name;
+    })
+
     const entityChartOption = {
         grid: {
           containLabel: false,
@@ -137,7 +151,8 @@ export default function Display({data}){
 
     const growthChartOption = {
         legend: {
-          data: [data.product.growth_rate[0].loan_name, data.product.growth_rate[1].loan_name, data.product.growth_rate[2].loan_name, data.product.growth_rate[3].loan_name, data.product.growth_rate[4].loan_name, data.product.growth_rate[5].loan_name, data.product.growth_rate[6].loan_name, data.product.growth_rate[7].loan_name]
+        //   data: [data.product.growth_rate[0].loan_name, data.product.growth_rate[1].loan_name, data.product.growth_rate[2].loan_name, data.product.growth_rate[3].loan_name, data.product.growth_rate[4].loan_name, data.product.growth_rate[5].loan_name, data.product.growth_rate[6].loan_name, data.product.growth_rate[7].loan_name]
+            data : chartLegend
         },
         grid: {
           left: '3%',
@@ -153,57 +168,58 @@ export default function Display({data}){
         yAxis: {
           type: 'value'
         },
-        series: [
-          {
-            name: data.product.growth_rate[0].loan_name,
-            type: 'line',
-            stack: 'Total',
-            data: [data.product.growth_rate[0].sanction[0].amount, data.product.growth_rate[0].sanction[1].amount, data.product.growth_rate[0].sanction[2].amount, data.product.growth_rate[0].sanction[3].amount, data.product.growth_rate[0].sanction[4].amount, data.product.growth_rate[0].sanction[5].amount]
-          },
-          {
-            name: data.product.growth_rate[1].loan_name,
-            type: 'line',
-            stack: 'Total',
-            data: [data.product.growth_rate[1].sanction[0].amount, data.product.growth_rate[1].sanction[1].amount, data.product.growth_rate[1].sanction[2].amount, data.product.growth_rate[1].sanction[3].amount, data.product.growth_rate[1].sanction[4].amount, data.product.growth_rate[1].sanction[5].amount]
-          },
-          {
-            name: data.product.growth_rate[2].loan_name,
-            type: 'line',
-            stack: 'Total',
-            data: [data.product.growth_rate[2].sanction[0].amount, data.product.growth_rate[2].sanction[1].amount, data.product.growth_rate[2].sanction[2].amount, data.product.growth_rate[2].sanction[3].amount, data.product.growth_rate[2].sanction[4].amount, data.product.growth_rate[2].sanction[5].amount]
-          },
-          {
-            name: data.product.growth_rate[3].loan_name,
-            type: 'line',
-            stack: 'Total',
-            data: [data.product.growth_rate[3].sanction[0].amount, data.product.growth_rate[3].sanction[1].amount, data.product.growth_rate[3].sanction[2].amount, data.product.growth_rate[3].sanction[3].amount, data.product.growth_rate[3].sanction[4].amount, data.product.growth_rate[3].sanction[5].amount]
-          },
-          {
-            name: data.product.growth_rate[4].loan_name,
-            type: 'line',
-            stack: 'Total',
-            data: [data.product.growth_rate[4].sanction[0].amount, data.product.growth_rate[4].sanction[1].amount, data.product.growth_rate[4].sanction[2].amount, data.product.growth_rate[4].sanction[3].amount, data.product.growth_rate[4].sanction[4].amount, data.product.growth_rate[4].sanction[5].amount]
-          },
-          {
-            name: data.product.growth_rate[5].loan_name,
-            type: 'line',
-            stack: 'Total',
-            data: [data.product.growth_rate[5].sanction[0].amount, data.product.growth_rate[5].sanction[1].amount, data.product.growth_rate[5].sanction[2].amount, data.product.growth_rate[5].sanction[3].amount, data.product.growth_rate[5].sanction[4].amount, data.product.growth_rate[5].sanction[5].amount]
-          },
-          {
-            name: data.product.growth_rate[6].loan_name,
-            type: 'line',
-            stack: 'Total',
-            data: [data.product.growth_rate[6].sanction[0].amount, data.product.growth_rate[6].sanction[1].amount, data.product.growth_rate[6].sanction[2].amount, data.product.growth_rate[6].sanction[3].amount, data.product.growth_rate[6].sanction[4].amount, data.product.growth_rate[6].sanction[5].amount]
-          },
-          {
-            name: data.product.growth_rate[7].loan_name,
-            type: 'line',
-            stack: 'Total',
-            data: [data.product.growth_rate[7].sanction[0].amount, data.product.growth_rate[7].sanction[1].amount, data.product.growth_rate[7].sanction[2].amount, data.product.growth_rate[7].sanction[3].amount, data.product.growth_rate[7].sanction[4].amount, data.product.growth_rate[7].sanction[5].amount]
-          }
+        // series: [
+        //   {
+        //     name: data.product.growth_rate[0].loan_name,
+        //     type: 'line',
+        //     stack: 'Total',
+        //     data: [data.product.growth_rate[0].sanction[0].amount, data.product.growth_rate[0].sanction[1].amount, data.product.growth_rate[0].sanction[2].amount, data.product.growth_rate[0].sanction[3].amount, data.product.growth_rate[0].sanction[4].amount, data.product.growth_rate[0].sanction[5].amount]
+        //   },
+        //   {
+        //     name: data.product.growth_rate[1].loan_name,
+        //     type: 'line',
+        //     stack: 'Total',
+        //     data: [data.product.growth_rate[1].sanction[0].amount, data.product.growth_rate[1].sanction[1].amount, data.product.growth_rate[1].sanction[2].amount, data.product.growth_rate[1].sanction[3].amount, data.product.growth_rate[1].sanction[4].amount, data.product.growth_rate[1].sanction[5].amount]
+        //   },
+        //   {
+        //     name: data.product.growth_rate[2].loan_name,
+        //     type: 'line',
+        //     stack: 'Total',
+        //     data: [data.product.growth_rate[2].sanction[0].amount, data.product.growth_rate[2].sanction[1].amount, data.product.growth_rate[2].sanction[2].amount, data.product.growth_rate[2].sanction[3].amount, data.product.growth_rate[2].sanction[4].amount, data.product.growth_rate[2].sanction[5].amount]
+        //   },
+        //   {
+        //     name: data.product.growth_rate[3].loan_name,
+        //     type: 'line',
+        //     stack: 'Total',
+        //     data: [data.product.growth_rate[3].sanction[0].amount, data.product.growth_rate[3].sanction[1].amount, data.product.growth_rate[3].sanction[2].amount, data.product.growth_rate[3].sanction[3].amount, data.product.growth_rate[3].sanction[4].amount, data.product.growth_rate[3].sanction[5].amount]
+        //   },
+        //   {
+        //     name: data.product.growth_rate[4].loan_name,
+        //     type: 'line',
+        //     stack: 'Total',
+        //     data: [data.product.growth_rate[4].sanction[0].amount, data.product.growth_rate[4].sanction[1].amount, data.product.growth_rate[4].sanction[2].amount, data.product.growth_rate[4].sanction[3].amount, data.product.growth_rate[4].sanction[4].amount, data.product.growth_rate[4].sanction[5].amount]
+        //   },
+        //   {
+        //     name: data.product.growth_rate[5].loan_name,
+        //     type: 'line',
+        //     stack: 'Total',
+        //     data: [data.product.growth_rate[5].sanction[0].amount, data.product.growth_rate[5].sanction[1].amount, data.product.growth_rate[5].sanction[2].amount, data.product.growth_rate[5].sanction[3].amount, data.product.growth_rate[5].sanction[4].amount, data.product.growth_rate[5].sanction[5].amount]
+        //   },
+        //   {
+        //     name: data.product.growth_rate[6].loan_name,
+        //     type: 'line',
+        //     stack: 'Total',
+        //     data: [data.product.growth_rate[6].sanction[0].amount, data.product.growth_rate[6].sanction[1].amount, data.product.growth_rate[6].sanction[2].amount, data.product.growth_rate[6].sanction[3].amount, data.product.growth_rate[6].sanction[4].amount, data.product.growth_rate[6].sanction[5].amount]
+        //   },
+        //   {
+        //     name: data.product.growth_rate[7].loan_name,
+        //     type: 'line',
+        //     stack: 'Total',
+        //     data: [data.product.growth_rate[7].sanction[0].amount, data.product.growth_rate[7].sanction[1].amount, data.product.growth_rate[7].sanction[2].amount, data.product.growth_rate[7].sanction[3].amount, data.product.growth_rate[7].sanction[4].amount, data.product.growth_rate[7].sanction[5].amount]
+        //   }
           
-        ]
+        // ]
+        series : chartSeries
       };
 
     function parseNumToWord(num){
