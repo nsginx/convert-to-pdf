@@ -6,6 +6,8 @@ import fetchDataArray from "./helpers/FetchDataArray.js";
 import { MultiSelect } from "react-multi-select-component";
 import { getBusinessTypes, getPlaceArray } from "./helpers/DataInsights.js";
 import parseLoanType from "./helpers/ParseLoanType.js";
+import generatePDF from 'react-to-pdf';
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 async function fetchPlaces(token, placeLevel, level, place, state) {
@@ -40,6 +42,30 @@ async function fetchBusinessTypes(token){
 }
 
 
+function pdfOptions (name, timeframe) {
+  return {
+    method: 'save',
+    // method: 'open',
+    filename: `${name}_${timeframe}`,
+    // resolution: Resolution.HIGH,
+    canvas: {
+        // default is 'image/jpeg' for better size performance
+        mimeType: 'image/png/',
+        qualityRatio: 1
+    },
+    overrides: {
+        pdf: {
+            compress: true
+        },
+        canvas: {
+        useCORS: true
+        }
+    },
+
+  }
+}
+
+
 function App(){
   const [dataArray, setDataArray]= useState(data);
   const [token, setToken] = useState();
@@ -56,6 +82,8 @@ function App(){
   const [busines_filter, setBusiness_filter]= useState(["Kirana_store"]);
   const [loan_filter, setLoan_filter]= useState(["BL", "AL" ,"GL"]);
   const [bank_filter, setBank_filter]= useState(["public", "private", "nbfc", "foreign"]);
+  const [disbursement_bank, setDisbursement_bank]= useState([]);
+  const [disbursement_type_all, setDisbursement_type_all]= useState(true);
   const [loading, setLoading]= useState(false);
 
 
@@ -147,6 +175,19 @@ function App(){
     { label : "Co-Operative", value : "Co-Operative"}
   ]);
 
+  //collecting disbursement bank filters
+  const disbursementBankOptions=[
+    { label : "private", value : "private"},
+    { label : "public", value : "public"},
+    { label : "nbfc", value : "nbfc"}
+  ]
+
+  const [selectedDisbursementBank, setSelectedDisbursementBank]= useState([]);
+
+  useEffect(()=>{
+    setDisbursement_type_all(selectedDisbursementBank.length==0);
+  },[selectedDisbursementBank])
+
 
   //collecting business types
   const[businessOptions, setBusinessOptions]= useState([]);
@@ -163,7 +204,7 @@ function App(){
 
 
 
-
+  //generate all data
   function fetchData(e){
     setLoading(true);
     e.preventDefault();
@@ -200,10 +241,17 @@ function App(){
     const business_form = selectedBusiness.map((element)=>{
       return element.value;
     })
+
+    const disbursement_bank_form = selectedDisbursementBank.map((element)=>{
+      return element.value;
+    })
+    setDisbursement_bank(disbursement_bank_form);
+
+
     console.log(business_form);
     setBusiness_filter(business_form);
 
-    fetchDataArray(token, level, places, state, timeframes, entity_filter, turnover_filter, busines_filter, loan_filter, bank_filter).then((data)=>{
+    fetchDataArray(token, level, places, state, timeframes, entity_filter, turnover_filter, busines_filter, loan_filter, bank_filter, disbursement_bank, disbursement_type_all).then((data)=>{
       setDataArray(data);
       setLoading(false);
     //   console.log(dataArray);
@@ -211,6 +259,14 @@ function App(){
     
   }
   
+  //export all pdf
+  function exportAll(){
+    dataArray.forEach((data)=>{
+      const getTargetElement = () => document.getElementById(`${data.name}_${data.timeframe}`);
+      const options= pdfOptions(data.name, data.timeframe);
+      generatePDF(getTargetElement,options);
+    })
+  }
 
 
     return(
@@ -218,7 +274,7 @@ function App(){
 
 
         {/* input form */}
-        <div className="bg-slate-500 w-88 p-4 h-full flex flex-col gap-2 fixed left-0 overflow-y-scroll z-10">
+        <div className="bg-slate-500 w-88 p-4 h-full flex flex-col gap-2 fixed left-0 overflow-y-scroll z-20">
             <div className="mt-2">
               <label className="my-auto mx-2" htmlFor="token">Token :</label>
               <input type="text" name="token" id="token" value={token} onChange={(e)=>{setToken(e.target.value)}}  className="p-1 rounded-md"/>
@@ -274,7 +330,14 @@ function App(){
             </div>
             <div className="flex flex-row">
                 <label className="my-auto mx-2">Business Types : <br />(6 types at most)</label>
-                <MultiSelect options={businessOptions} value={selectedBusiness} onChange={setSelectedBusiness} hasSelectAll={false} labelledBy="Select" className="w-60 mx-auto"/>
+                <MultiSelect options={businessOptions} value={selectedBusiness} onChange={setSelectedBusiness} labelledBy="Select" className="w-60 mx-auto"/>
+            </div>
+            <div className="flex flex-row">
+                <label className="my-auto mx-2">Bank Types for <br /> Disbursement : </label>
+                <MultiSelect options={disbursementBankOptions} value={selectedDisbursementBank} onChange={setSelectedDisbursementBank} hasSelectAll={false} labelledBy="Select" className="w-40 mx-auto"/>
+                {/* <span className="my-auto">or</span> */}
+                <input type="checkbox"  className="mx-2" id="combined" checked={disbursement_type_all} />
+                <label htmlFor="combined" className="my-auto">Combined</label>
             </div>
 
 
@@ -285,15 +348,39 @@ function App(){
 
 
       <div id="viewport" className="absolute right-0">
-        {dataArray && ((dataArray.statusCode==400)? 
-        <>
-          <div className="text-4xl my-8 text-cyan-500 text-center">{dataArray.message}</div>
-        </> 
-        : dataArray?.map((data, i)=>{
-          return(
-            <Display key={data.name} data={data}/>
-          )
-        }))}
+        {loading? 
+        <div className="">
+          {/* <ClipLoader
+          color={"#ff0000"}
+          loading={loading}
+          size={100}
+          data-testid="loader"
+          className="mx-auto"
+        /> */}
+        </div>
+        : <>
+          {dataArray && ((dataArray.statusCode==400)? 
+          <>
+            <div className="text-4xl my-8 text-cyan-500 text-center">{dataArray.message}</div>
+          </> 
+          :
+          <>
+            <div className="h-16 bg-cyan-700 fixed right-0 w-[820px] z-10">
+              <button onClick={exportAll} className="w-64 my-2 h-12 absolute right-4 px-4 py-2 bg-slate-200 rounded-lg">Export All</button>
+                
+            </div>
+            <div className="mt-20">
+              {dataArray?.map((data, i)=>{
+                return(
+                  <Display key={data.name} data={data}/>
+                  
+                )
+              })}
+            </div>
+          </>
+          )}
+
+        </>}
       </div>
     </div>
   );

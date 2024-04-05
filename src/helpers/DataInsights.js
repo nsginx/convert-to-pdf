@@ -153,6 +153,32 @@ export async function getAssetInsights(token, level, name, state, timeframe, loa
 
 }
 
+export async function getSeperateDisbursement(token, level, name, state, timeframe, loan_filter, bank_category){
+    const response= await fetch(`${url}/asset/insights`,options(
+        {
+            "location": {
+                "state": state,
+                "level": level,
+                "name": name
+            },
+            "group_by": level,
+            "filters": {
+                "timeframe": [
+                    timeframe
+                ],
+                "loan_type": loan_filter,
+                "bank_category" : [
+                    bank_category
+                ]
+            },
+            "disbursement_keys": []
+            
+        }, token
+    )
+    );
+    return response.json();
+}
+
 export async function getGrowthInsights(token, level, name, state, loan_filter){
     const response= await fetch(`${url}/asset/insights`,options(
         {
@@ -174,7 +200,7 @@ export async function getGrowthInsights(token, level, name, state, loan_filter){
 }
 
 // async function test(){
-//     const response= await getEntitySplitFromAPi("pincode", 700001, "west bengal", "Company");
+//     const response= await getSeperateDisbursement("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWViMDk3YTA4MjI5YWUyYzZlN2I0MWYiLCJmaXJzdE5hbWUiOiJTb3Vyb2RlZXAiLCJsYXN0TmFtZSI6IkFjaGFyeWEiLCJlbWFpbCI6ImFjaGFyeWFzb3Vyb2RlZXBAZ21haWwuY29tIiwicm9sZXMiOlsiYmFzaWMiXSwiZGVzaWduYXRpb24iOiJJbnRlcm4iLCJjb21wYW55TmFtZSI6IkRTIiwiaXNBdXRob3JpemVkIjp0cnVlLCJwYXNzd29yZCI6bnVsbCwiY3JlYXRlZEF0IjoiMjAyNC0wMy0wOFQxMDoyMDo0OC4yMDNaIiwidXBkYXRlZEF0IjoiMjAyNC0wMy0wOFQxMDoyMDo0OC4yMDNaIiwidGVhbUlEIjoiNjVlYjA4MWEwODIyOWFlMmM2ZTdiNDE5IiwiY3JlYXRlZEJ5IjpudWxsLCJ1cGRhdGVkQnkiOm51bGwsInR5cGUiOiJ0b2tlbiIsImlhdCI6MTcxMDIzOTM3NiwiZXhwIjo0NzEwMjM5Mzc2fQ.Ys5wtgqJeSHY7nQRwKuFrnHaRwp-19K5JvpJK6lfjfE","pincode", 700001, "west bengal","2023-2024_Q2", ["BL"], "private");
 //     console.log("hello");
 //     console.log(response);
 

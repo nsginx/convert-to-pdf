@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ReactEcharts from "echarts-for-react"; 
 import generatePDF, { Resolution, Margin } from 'react-to-pdf';
+import parseNumToWord from './helpers/ParseNumToWord';
 
 
 
 export default function Display({data}){
     const pdfOptions= {
-        // method: 'save',
-        method: 'open',
-        // filename: `${data.name}`,
+        method: 'save',
+        // method: 'open',
+        filename: `${data.name}_${data.timeframe}`,
         // resolution: Resolution.HIGH,
         canvas: {
             // default is 'image/jpeg' for better size performance
@@ -151,7 +152,6 @@ export default function Display({data}){
 
     const growthChartOption = {
         legend: {
-        //   data: [data.product.growth_rate[0].loan_name, data.product.growth_rate[1].loan_name, data.product.growth_rate[2].loan_name, data.product.growth_rate[3].loan_name, data.product.growth_rate[4].loan_name, data.product.growth_rate[5].loan_name, data.product.growth_rate[6].loan_name, data.product.growth_rate[7].loan_name]
             data : chartLegend
         },
         grid: {
@@ -168,89 +168,24 @@ export default function Display({data}){
         yAxis: {
           type: 'value'
         },
-        // series: [
-        //   {
-        //     name: data.product.growth_rate[0].loan_name,
-        //     type: 'line',
-        //     stack: 'Total',
-        //     data: [data.product.growth_rate[0].sanction[0].amount, data.product.growth_rate[0].sanction[1].amount, data.product.growth_rate[0].sanction[2].amount, data.product.growth_rate[0].sanction[3].amount, data.product.growth_rate[0].sanction[4].amount, data.product.growth_rate[0].sanction[5].amount]
-        //   },
-        //   {
-        //     name: data.product.growth_rate[1].loan_name,
-        //     type: 'line',
-        //     stack: 'Total',
-        //     data: [data.product.growth_rate[1].sanction[0].amount, data.product.growth_rate[1].sanction[1].amount, data.product.growth_rate[1].sanction[2].amount, data.product.growth_rate[1].sanction[3].amount, data.product.growth_rate[1].sanction[4].amount, data.product.growth_rate[1].sanction[5].amount]
-        //   },
-        //   {
-        //     name: data.product.growth_rate[2].loan_name,
-        //     type: 'line',
-        //     stack: 'Total',
-        //     data: [data.product.growth_rate[2].sanction[0].amount, data.product.growth_rate[2].sanction[1].amount, data.product.growth_rate[2].sanction[2].amount, data.product.growth_rate[2].sanction[3].amount, data.product.growth_rate[2].sanction[4].amount, data.product.growth_rate[2].sanction[5].amount]
-        //   },
-        //   {
-        //     name: data.product.growth_rate[3].loan_name,
-        //     type: 'line',
-        //     stack: 'Total',
-        //     data: [data.product.growth_rate[3].sanction[0].amount, data.product.growth_rate[3].sanction[1].amount, data.product.growth_rate[3].sanction[2].amount, data.product.growth_rate[3].sanction[3].amount, data.product.growth_rate[3].sanction[4].amount, data.product.growth_rate[3].sanction[5].amount]
-        //   },
-        //   {
-        //     name: data.product.growth_rate[4].loan_name,
-        //     type: 'line',
-        //     stack: 'Total',
-        //     data: [data.product.growth_rate[4].sanction[0].amount, data.product.growth_rate[4].sanction[1].amount, data.product.growth_rate[4].sanction[2].amount, data.product.growth_rate[4].sanction[3].amount, data.product.growth_rate[4].sanction[4].amount, data.product.growth_rate[4].sanction[5].amount]
-        //   },
-        //   {
-        //     name: data.product.growth_rate[5].loan_name,
-        //     type: 'line',
-        //     stack: 'Total',
-        //     data: [data.product.growth_rate[5].sanction[0].amount, data.product.growth_rate[5].sanction[1].amount, data.product.growth_rate[5].sanction[2].amount, data.product.growth_rate[5].sanction[3].amount, data.product.growth_rate[5].sanction[4].amount, data.product.growth_rate[5].sanction[5].amount]
-        //   },
-        //   {
-        //     name: data.product.growth_rate[6].loan_name,
-        //     type: 'line',
-        //     stack: 'Total',
-        //     data: [data.product.growth_rate[6].sanction[0].amount, data.product.growth_rate[6].sanction[1].amount, data.product.growth_rate[6].sanction[2].amount, data.product.growth_rate[6].sanction[3].amount, data.product.growth_rate[6].sanction[4].amount, data.product.growth_rate[6].sanction[5].amount]
-        //   },
-        //   {
-        //     name: data.product.growth_rate[7].loan_name,
-        //     type: 'line',
-        //     stack: 'Total',
-        //     data: [data.product.growth_rate[7].sanction[0].amount, data.product.growth_rate[7].sanction[1].amount, data.product.growth_rate[7].sanction[2].amount, data.product.growth_rate[7].sanction[3].amount, data.product.growth_rate[7].sanction[4].amount, data.product.growth_rate[7].sanction[5].amount]
-        //   }
-          
-        // ]
         series : chartSeries
-      };
-
-    function parseNumToWord(num){
-        num= parseInt(num);
-        if(num>9999999){
-            return parseFloat(num/10000000).toFixed(2).toString().concat(" Cr.")
-        }
-        else if(num>99999){
-            return parseFloat(num/100000).toFixed(2).toString().concat(" Lakh")
-        }
-        else if(num){
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); 
-        }else{
-            return num;
-        }
-    }
+      };    
 
     const targetElementRef = useRef(null);
-    const [printableContent, setPrintableContent] = useState(null);
+    
+    // const [printableContent, setPrintableContent] = useState(null);
+    // useEffect(() => {
+    //     if (targetElementRef.current) {
+    //         setPrintableContent(targetElementRef.current);
+    //     }
+    // }, []);
+    // const getTargetElement = () => printableContent;
 
-    useEffect(() => {
-        if (targetElementRef.current) {
-            setPrintableContent(targetElementRef.current);
-        }
-    }, []);
-    // const getTargetElement = () => document.querySelectorAll('.print-content');
-    const getTargetElement = () => printableContent;
+    const getTargetElement = () => document.getElementById(`${data.name}_${data.timeframe}`);
 
     return (
         <div className='w-[820px] mx-auto font-work-sans'>
-        <div ref={targetElementRef} className='font-work-sans w-[800px] mx-auto px-[20px] flex flex-col h-[3393px]'>
+        <div ref={targetElementRef} id={`${data.name}_${data.timeframe}`} className='font-work-sans w-[800px] mx-auto px-[20px] flex flex-col'>
             <h1 className="bg-green-700 w-full h-12 mb-2 text-center font-bold text-white text-3xl uppercase">{data.name}</h1>
             <div className='h-[1055px] mb-[20px] flex flex-col gap-2'>
                 <div className='flex flex-col'>
@@ -493,12 +428,13 @@ export default function Display({data}){
 
                 </div>
             </div>
-            <div className='my-[20px] h-[1091px] flex flex-col gap-2'>
+            <div className={`my-[20px] ${data.disbursement_type_all?"h-[1091px]":"h-[2222px]"} flex flex-col gap-2`}>
                 <div className="flex flex-col">
                     <div className="text-blue-700 text-2xl font-bold">Products Sold in Your Market</div>
                     <div className="h-[1px] bg-slate-400 w-full mt-4"/>
-                    <h2 className="font-semibold my-4">Disbursement ({data.timeframe})</h2>
-                    <table className='text-xs'>
+                    <h2 className="font-semibold my-2">Disbursement ({data.timeframe})</h2>
+                    {data.disbursement_type_all ? 
+                        <table className='text-xs'>
                         <tr className='text-blue-700 font-semibold'>
                             <td className="border-[1px] p-2 w-64">Product</td>
                             <td className="border-[1px] p-2">Average Ticket Size of Sanctioned Loans</td>
@@ -530,7 +466,54 @@ export default function Display({data}){
 
                             )
                         })}
-                    </table>
+                        </table>
+                    : 
+                    <div className='mb-[20px] flex flex-col h-[1091px]'>
+                        {data.product.seperate_disbursement.map((bankdata)=>{
+                            return(
+                                <>
+                                    <h2 className="font-semibold text-sm my-2">{bankdata.bank_type.toUpperCase()}</h2>
+                                    <table className='text-[10px]'>
+                                        <tr className='text-blue-700 font-semibold'>
+                                            <td className="border-[1px] p-2 w-64">Product</td>
+                                            <td className="border-[1px] p-2">Average Ticket Size of Sanctioned Loans</td>
+                                            <td className="border-[1px] p-2">Total Count of Sanctioned Loans</td>
+                                            <td className="border-[1px] p-2">Total Amount of Sanctioned Loans</td>
+                                            <td className="border-[1px] p-2">Total Outstanding Amount</td>
+                                        </tr>
+                                        {bankdata.disbursement.map((item, i)=>{
+                                            return (i%2==0)&&(
+                                                <>
+                                                    <tr>
+                                                        <td className="border-[1px] p-2">{bankdata.disbursement[i].loan_name}</td>
+                                                        <td className="border-[1px] p-2">{bankdata.disbursement[i].average_ticketsize}</td>
+                                                        <td className="p-2 border-[1px]">{bankdata.disbursement[i].sanctioned_trades_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
+                                                        <td className="p-2 border-[1px]">&#8377;{parseNumToWord(bankdata.disbursement[i].sanctioned_amount)}</td>
+                                                        <td className="p-2 border-[1px]">&#8377;{parseNumToWord(bankdata.disbursement[i].outstanding_amount)}</td>
+                                                    </tr>
+                                                    {(i<data.product.disbursement.length-1)&&
+                                                        <tr className='bg-slate-100'>
+                                                            <td className="border-[1px] p-2">{bankdata.disbursement[i+1].loan_name}</td>
+                                                            <td className="border-[1px] p-2">{bankdata.disbursement[i+1].average_ticketsize}</td>
+                                                            <td className="p-2 border-[1px]">{bankdata.disbursement[i+1].sanctioned_trades_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
+                                                            <td className="p-2 border-[1px]">&#8377;{parseNumToWord(bankdata.disbursement[i+1].sanctioned_amount)}</td>
+                                                            <td className="p-2 border-[1px]">&#8377;{parseNumToWord(bankdata.disbursement[i+1].outstanding_amount)}</td>
+                                                        </tr>
+
+                                                    }
+                                                </>
+
+                                            )
+                                        })}
+                                    </table>
+
+                                </>
+                            )
+                        })}
+
+                    </div>
+
+                    }
                     <h2 className="font-semibold my-4">Delinquency ({data.timeframe})</h2>
                     <table className='text-xs'>
                         <tr className='text-blue-700 font-semibold'>

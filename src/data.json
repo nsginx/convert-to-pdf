@@ -2,6 +2,7 @@
     {
         "name": "Kolkata",
         "timeframe": "2023-24-Q2",
+        "disbursement_type_all" : true,
         "market":{
             "business":{
                 "total": 9999,
@@ -233,6 +234,225 @@
 
                 
     
+            ],
+            "seperate_disbursement":[
+                {
+                    "bank_type" : "public",
+                    "disbursement":[
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        }
+        
+                        
+            
+                    ]
+                },
+                {
+                    "bank_type" : "nbfc",
+                    "disbursement":[
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        }
+        
+                        
+            
+                    ]
+                },
+                {
+                    "bank_type" : "private",
+                    "disbursement":[
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        },
+                        {
+                            "loan_type": "BL",
+                            "loan_name": "business loan unsecured",
+                            "average_ticketsize":"<2L",
+                            "sanctioned_trades_count": 9999,
+                            "sanctioned_amount": 999999999,
+                            "outstanding_balance": 999999
+                        }
+        
+                        
+            
+                    ]
+                }
+
             ],
             "delinquency":[
                 {

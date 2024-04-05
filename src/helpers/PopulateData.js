@@ -1,4 +1,4 @@
-import { getAssetInsights, getBankInsights, getBusinessInsights, getEntitySplitInsights, getGrowthInsights, getPlaceArray, getShapeInsights } from "./DataInsights.js";
+import { getAssetInsights, getBankInsights, getBusinessInsights, getEntitySplitInsights, getGrowthInsights, getPlaceArray, getSeperateDisbursement, getShapeInsights } from "./DataInsights.js";
 import parseLoanType from "./ParseLoanType.js";
 
 const loan_types=["AL", "BL", "CC", "GL", "HL", "LAP", "PL", "UCL"];
@@ -108,7 +108,8 @@ async function getCompetitionData(token, level, name, state, bank_filter){
     return competition;
 }
 
-async function getProductData(token, level, name, state, timeframe, loan_filter){
+//create api fetch and populate here
+async function getProductData(token, level, name, state, timeframe, loan_filter, disbursement_bank){
     let product={};            
     // console.log(responseGrowthInsights);
     // individualData.timeframe= timeframe;
@@ -135,6 +136,20 @@ async function getProductData(token, level, name, state, timeframe, loan_filter)
         delinquency_array.push(delinquency);
     })
     product.delinquency= delinquency_array;
+
+    let seperate_disbursement = [];
+    await Promise.all(disbursement_bank.map(async (bank_category)=>{
+        let eachItem ={};
+        eachItem.bank_type = bank_category;
+        const response= await getSeperateDisbursement(token, level, name, state,timeframe, loan_filter, bank_category);
+        const disbursement_array = response.disbursement;
+        disbursement_array.map((item)=>{
+            item.loan_name= parseLoanType(item.loan_type);
+        })
+        eachItem.disbursement= disbursement_array;
+        seperate_disbursement= seperate_disbursement.concat(eachItem);
+    }))
+    product.seperate_disbursement= seperate_disbursement;
     const responseGrowthInsights= await getGrowthInsights(token, level, name, state, loan_filter);
     const growth_response= responseGrowthInsights.growth;
     const growthArray= responseGrowthInsights.growthSequence;
