@@ -202,12 +202,8 @@ function App(){
     fetchArray();
   }, [token]);
 
-
-
-  //generate all data
-  function fetchData(e){
-    setLoading(true);
-    e.preventDefault();
+  //updating all query values
+  useEffect(()=>{
     const timeframes_form= selectedTimeframes.map((element)=>{
       return element.value;
     })
@@ -241,16 +237,20 @@ function App(){
     const business_form = selectedBusiness.map((element)=>{
       return element.value;
     })
+    setBusiness_filter(business_form);
 
     const disbursement_bank_form = selectedDisbursementBank.map((element)=>{
       return element.value;
     })
     setDisbursement_bank(disbursement_bank_form);
 
+  },[selectedTimeframes, selectedPlaces, selectedEntities, selectedLoans, selectedTurnover, selectedBank, selectedBusiness, selectedDisbursementBank])
 
-    console.log(business_form);
-    setBusiness_filter(business_form);
 
+  //generate all data
+  function fetchData(e){
+    setLoading(true);
+    e.preventDefault();
     fetchDataArray(token, level, places, state, timeframes, entity_filter, turnover_filter, busines_filter, loan_filter, bank_filter, disbursement_bank, disbursement_type_all).then((data)=>{
       setDataArray(data);
       setLoading(false);
