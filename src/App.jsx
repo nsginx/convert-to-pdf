@@ -7,7 +7,6 @@ import { MultiSelect } from "react-multi-select-component";
 import { getBusinessTypes, getPlaceArray } from "./helpers/DataInsights.js";
 import parseLoanType from "./helpers/ParseLoanType.js";
 import generatePDF from 'react-to-pdf';
-import ClipLoader from "react-spinners/ClipLoader";
 
 
 async function fetchPlaces(token, placeLevel, level, place, state) {
