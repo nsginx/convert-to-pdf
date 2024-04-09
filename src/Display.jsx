@@ -491,7 +491,7 @@ export default function Display({data}){
                                                         <td className="p-2 border-[1px]">&#8377;{parseNumToWord(bankdata.disbursement[i].sanctioned_amount)}</td>
                                                         <td className="p-2 border-[1px]">&#8377;{parseNumToWord(bankdata.disbursement[i].outstanding_amount)}</td>
                                                     </tr>
-                                                    {(i<data.product.disbursement.length-1)&&
+                                                    {(i<bankdata.disbursement.length-1)&&
                                                         <tr className='bg-slate-100'>
                                                             <td className="border-[1px] p-2">{bankdata.disbursement[i+1].loan_name}</td>
                                                             <td className="border-[1px] p-2">{bankdata.disbursement[i+1].average_ticketsize}</td>
