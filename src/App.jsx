@@ -4,7 +4,7 @@ import Display from './Display.jsx';
 import data from './data.json'
 import fetchDataArray from "./helpers/FetchDataArray.js";
 import { MultiSelect } from "react-multi-select-component";
-import { getBusinessTypes, getPlaceArray } from "./helpers/DataInsights.js";
+import { getBusinessTypes, getPlaceArray, getTicketSize } from "./helpers/DataInsights.js";
 import parseLoanType from "./helpers/ParseLoanType.js";
 import generatePDF from 'react-to-pdf';
 
@@ -36,6 +36,23 @@ async function fetchBusinessTypes(token){
 
   } catch (error){
     console.error("Error fetching business types:", error);
+    return [];
+  }
+}
+
+async function fetchTicketSize(token, loan_type){
+  try{
+    const response = await getTicketSize(token, loan_type);
+    const arrayFromApi= response.data[0]["categories"];
+    // console.log(arrayFromApi);
+    const formattedArray= arrayFromApi.map((element)=>{
+      return { label : element, value : element};
+    });
+    // console.log(formattedArray);
+    return formattedArray;
+
+  } catch (error){
+    console.error("Error fetching Ticket Sizes:", error);
     return [];
   }
 }
@@ -84,6 +101,7 @@ function App(){
   const [disbursement_bank, setDisbursement_bank]= useState([]);
   const [disbursement_type_all, setDisbursement_type_all]= useState(true);
   const [loading, setLoading]= useState(false);
+  const [loan_filters_disbursement, setLoan_filters_disbursement]= useState([]);
 
 
 
@@ -191,15 +209,130 @@ function App(){
   //collecting business types
   const[businessOptions, setBusinessOptions]= useState([]);
   const [selectedBusiness, setSelectedBusiness]= useState([]);
+  
+  //collecting ticketsizes
+  const [ticketSizeOptionsAL, setTicketSizeOptionsAL]= useState([]);
+  const [selectedTicketsAL, setSelectedTicketsAL]=useState([]);
+
+  const [ticketSizeOptionsBL, setTicketSizeOptionsBL]= useState([]);
+  const [selectedTicketsBL, setSelectedTicketsBL]=useState([]);
+
+  const [ticketSizeOptionsCC, setTicketSizeOptionsCC]= useState([]);
+  const [selectedTicketsCC, setSelectedTicketsCC]=useState([]);
+
+  const [ticketSizeOptionsGL, setTicketSizeOptionsGL]= useState([]);
+  const [selectedTicketsGL, setSelectedTicketsGL]=useState([]);
+
+  const [ticketSizeOptionsHL, setTicketSizeOptionsHL]= useState([]);
+  const [selectedTicketsHL, setSelectedTicketsHL]=useState([]);
+
+  const [ticketSizeOptionsPL, setTicketSizeOptionsPL]= useState([]);
+  const [selectedTicketsPL, setSelectedTicketsPL]=useState([]);
+
+  const [ticketSizeOptionsLAP, setTicketSizeOptionsLAP]= useState([]);
+  const [selectedTicketsLAP, setSelectedTicketsLAP]=useState([]);
+
+  const [ticketSizeOptionsUCL, setTicketSizeOptionsUCL]= useState([]);
+  const [selectedTicketsUCL, setSelectedTicketsUCL]=useState([]);
+
 
   useEffect(() => {
-    async function fetchArray() {
-      const formattedArray = await fetchBusinessTypes(token);
-      setBusinessOptions(formattedArray); 
-      // console.log(formattedArray);
+    async function fetchData() {
+      const formattedBusinessArray = await fetchBusinessTypes(token);
+      setBusinessOptions(formattedBusinessArray);
+      
+      const formattedALArray = await fetchTicketSize(token, "AL");
+      setTicketSizeOptionsAL(formattedALArray);
+      // console.log(formattedALArray);
+
+      const formattedBLArray = await fetchTicketSize(token, "BL");
+      setTicketSizeOptionsBL(formattedBLArray);
+
+      const formattedCCArray = await fetchTicketSize(token, "CC");
+      setTicketSizeOptionsCC(formattedCCArray);
+
+      const formattedGLArray = await fetchTicketSize(token, "GL");
+      setTicketSizeOptionsGL(formattedGLArray);
+
+      const formattedHLArray = await fetchTicketSize(token, "HL");
+      setTicketSizeOptionsHL(formattedHLArray);
+
+      const formattedPLArray = await fetchTicketSize(token, "PL");
+      setTicketSizeOptionsPL(formattedPLArray);
+
+      const formattedLAPArray = await fetchTicketSize(token, "LAP");
+      setTicketSizeOptionsLAP(formattedLAPArray);
+
+      const formattedUCLArray = await fetchTicketSize(token, "UCL");
+      setTicketSizeOptionsUCL(formattedUCLArray);
     }
-    fetchArray();
+    fetchData();
   }, [token]);
+
+  
+  //formatting seperate disbursement filters
+  useEffect(()=>{
+    let loan_ticket = [];
+    if(loan_filter.includes("AL")){
+      const tickets= selectedTicketsAL.map((item)=>{
+        const ticket= item.value;
+        return {"type": "AL", "ticket":ticket}
+      })
+      loan_ticket= loan_ticket.concat(tickets);
+    }
+    if(loan_filter.includes("BL")){
+      const tickets= selectedTicketsBL.map((item)=>{
+        const ticket= item.value;
+        return {"type": "BL", "ticket":ticket}
+      })
+      loan_ticket= loan_ticket.concat(tickets);
+    }
+    
+    if(loan_filter.includes("CC")){
+      const tickets= selectedTicketsCC.map((item)=>{
+        const ticket= item.value;
+        return {"type": "CC", "ticket":ticket}
+      })
+      loan_ticket= loan_ticket.concat(tickets);
+    }
+    if(loan_filter.includes("GL")){
+      const tickets= selectedTicketsGL.map((item)=>{
+        const ticket= item.value;
+        return {"type": "GL", "ticket":ticket}
+      })
+      loan_ticket= loan_ticket.concat(tickets);
+    }
+    if(loan_filter.includes("HL")){
+      const tickets= selectedTicketsHL.map((item)=>{
+        const ticket= item.value;
+        return {"type": "HL", "ticket":ticket}
+      })
+      loan_ticket= loan_ticket.concat(tickets);
+    }
+    if(loan_filter.includes("LAP")){
+      const tickets= selectedTicketsLAP.map((item)=>{
+        const ticket= item.value;
+        return {"type": "LAP", "ticket":ticket}
+      })
+      loan_ticket= loan_ticket.concat(tickets);
+    }
+    if(loan_filter.includes("PL")){
+      const tickets= selectedTicketsPL.map((item)=>{
+        const ticket= item.value;
+        return {"type": "PL", "ticket":ticket}
+      })
+      loan_ticket= loan_ticket.concat(tickets);
+    }
+    if(loan_filter.includes("UCL")){
+      const tickets= selectedTicketsUCL.map((item)=>{
+        const ticket= item.value;
+        return {"type": "UCL", "ticket":ticket}
+      })
+      loan_ticket= loan_ticket.concat(tickets);
+    }
+    setLoan_filters_disbursement(loan_ticket);
+
+  },[selectedTicketsAL, selectedTicketsBL, selectedTicketsCC, selectedTicketsGL, selectedTicketsHL, selectedTicketsLAP, selectedTicketsPL, selectedTicketsPL, selectedTicketsUCL])
 
   //updating all query values
   useEffect(()=>{
@@ -250,7 +383,7 @@ function App(){
   function fetchData(e){
     setLoading(true);
     e.preventDefault();
-    fetchDataArray(token, level, places, state, timeframes, entity_filter, turnover_filter, busines_filter, loan_filter, bank_filter, disbursement_bank, disbursement_type_all).then((data)=>{
+    fetchDataArray(token, level, places, state, timeframes, entity_filter, turnover_filter, busines_filter, loan_filter, bank_filter, disbursement_bank, disbursement_type_all, loan_filters_disbursement).then((data)=>{
       setDataArray(data);
       setLoading(false);
     //   console.log(dataArray);
@@ -316,10 +449,6 @@ function App(){
                 <MultiSelect options={entityOptions} value={selectedEntities} onChange={setSelectedEntities} labelledBy="Select" className="w-60 mx-auto"/>
             </div>
             <div className="flex flex-row">
-                <label className="my-auto mx-2">Loan Types :</label>
-                <MultiSelect options={loanOptions} value={selectedLoans} onChange={setSelectedLoans} labelledBy="Select" className="w-60 mx-auto"/>
-            </div>
-            <div className="flex flex-row">
                 <label className="my-auto mx-2">Turnover Ranges :</label>
                 <MultiSelect options={turnoverOptions} value={selectedTurnover} onChange={setSelectedTurnover} labelledBy="Select" className="w-60 mx-auto"/>
             </div>
@@ -338,6 +467,71 @@ function App(){
                 <input type="checkbox"  className="mx-2" id="combined" checked={disbursement_type_all} />
                 <label htmlFor="combined" className="my-auto">Combined</label>
             </div>
+            <div className="flex flex-row">
+                <label className="my-auto mx-2">Loan Types :</label>
+                <MultiSelect options={loanOptions} value={selectedLoans} onChange={setSelectedLoans} labelledBy="Select" className="w-60 mx-auto"/>
+            </div>
+            <>
+              {disbursement_type_all ? <></> : 
+              <div className="flex flex-col gap-2 text-xs">
+                <div>
+                  {loan_filter.includes("AL") &&
+                  <div className="flex flex-row">
+                    <label className="my-auto mx-2">{parseLoanType("AL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsAL} value={selectedTicketsAL} onChange={setSelectedTicketsAL} labelledBy="Select" className="w-60 mx-auto"/>
+                  </div>}
+                </div>
+                <div>
+                  {loan_filter.includes("BL") &&
+                  <div className="flex flex-row">
+                    <label className="my-auto mx-2">{parseLoanType("BL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsBL} value={selectedTicketsBL} onChange={setSelectedTicketsBL} labelledBy="Select" className="w-60 mx-auto"/>
+                  </div>}
+                </div>
+                <div>
+                  {loan_filter.includes("CC") &&
+                  <div className="flex flex-row">
+                    <label className="my-auto mx-2">{parseLoanType("CC")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsCC} value={selectedTicketsCC} onChange={setSelectedTicketsCC} labelledBy="Select" className="w-60 mx-auto"/>
+                  </div>}
+                </div>
+                <div>
+                  {loan_filter.includes("GL") &&
+                  <div className="flex flex-row">
+                    <label className="my-auto mx-2">{parseLoanType("GL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsGL} value={selectedTicketsGL} onChange={setSelectedTicketsGL} labelledBy="Select" className="w-60 mx-auto"/>
+                  </div>}
+                </div>
+                <div>
+                  {loan_filter.includes("HL") &&
+                  <div className="flex flex-row">
+                    <label className="my-auto mx-2">{parseLoanType("HL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsHL} value={selectedTicketsHL} onChange={setSelectedTicketsHL} labelledBy="Select" className="w-60 mx-auto"/>
+                  </div>}
+                </div>
+                <div>
+                  {loan_filter.includes("PL") &&
+                  <div className="flex flex-row">
+                    <label className="my-auto mx-2">{parseLoanType("PL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsPL} value={selectedTicketsPL} onChange={setSelectedTicketsPL} labelledBy="Select" className="w-60 mx-auto"/>
+                  </div>}
+                </div>
+                <div>
+                  {loan_filter.includes("LAP") &&
+                  <div className="flex flex-row">
+                    <label className="my-auto mx-2">{parseLoanType("LAP")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsLAP} value={selectedTicketsLAP} onChange={setSelectedTicketsLAP} labelledBy="Select" className="w-60 mx-auto"/>
+                  </div>}
+                </div>
+                <div>
+                  {loan_filter.includes("UCL") &&
+                  <div className="flex flex-row">
+                    <label className="my-auto mx-2">{parseLoanType("UCL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsUCL} value={selectedTicketsUCL} onChange={setSelectedTicketsUCL} labelledBy="Select" className="w-60 mx-auto"/>
+                  </div>}
+                </div>
+              </div>}
+            </>
 
 
             <button onClick={fetchData} className="px-4 py-2 bg-blue-600 disabled:bg-blue-300 m-4 w-64 text-white rounded-lg" disabled={loading}>{loading?"Generating...":"Generate"}</button>

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import ReactEcharts from "echarts-for-react"; 
 import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 import parseNumToWord from './helpers/ParseNumToWord';
+import parseLoanType from './helpers/ParseLoanType';
 
 
 
@@ -27,7 +28,7 @@ export default function Display({data}){
     }
 
 
-    const chartSeries= data.product.growth_rate.map((element)=>{
+    const growthSeriesCombined= data.product.growth_rate.map((element)=>{
         return {
             name: element.loan_name,
             type: 'line',
@@ -36,9 +37,27 @@ export default function Display({data}){
         }
     })
 
-    const chartLegend= data.product.growth_rate.map((element)=>{
+    const growthLegendCombined= data.product.growth_rate.map((element)=>{
         return element.loan_name;
     })
+
+    const growthSeriesSeperate= data.product.seperate_growth_rate.map((element)=>{
+        return {
+            name: element.loan_name,
+            type: 'line',
+            stack: 'Total',
+            data: [element.sanction[0].amount, element.sanction[1].amount, element.sanction[2].amount, element.sanction[3].amount, element.sanction[4].amount, element.sanction[5].amount]
+        }
+    })
+
+    const growthLegendSeperate= data.product.seperate_growth_rate.map((element)=>{
+        return element.loan_name;
+    })
+
+
+    const chartSeries= data.disbursement_type_all ? growthSeriesCombined : growthSeriesSeperate;
+    const chartLegend= data.disbursement_type_all ? growthLegendCombined : growthLegendSeperate;
+
 
     const entityChartOption = {
         grid: {
@@ -158,6 +177,7 @@ export default function Display({data}){
           left: '3%',
           right: '10%',
           bottom: '3%',
+          top: '25%',
           containLabel: true
         },
         xAxis: {
@@ -485,7 +505,7 @@ export default function Display({data}){
                                             return (i%2==0)&&(
                                                 <>
                                                     <tr>
-                                                        <td className="border-[1px] p-2">{bankdata.disbursement[i].loan_name}</td>
+                                                        <td className="border-[1px] p-2">{parseLoanType(bankdata.disbursement[i].loan_type)}</td>
                                                         <td className="border-[1px] p-2">{bankdata.disbursement[i].average_ticketsize}</td>
                                                         <td className="p-2 border-[1px]">{bankdata.disbursement[i].sanctioned_trades_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
                                                         <td className="p-2 border-[1px]">&#8377;{parseNumToWord(bankdata.disbursement[i].sanctioned_amount)}</td>
@@ -493,7 +513,7 @@ export default function Display({data}){
                                                     </tr>
                                                     {(i<bankdata.disbursement.length-1)&&
                                                         <tr className='bg-slate-100'>
-                                                            <td className="border-[1px] p-2">{bankdata.disbursement[i+1].loan_name}</td>
+                                                            <td className="border-[1px] p-2">{parseLoanType(bankdata.disbursement[i+1].loan_type)}</td>
                                                             <td className="border-[1px] p-2">{bankdata.disbursement[i+1].average_ticketsize}</td>
                                                             <td className="p-2 border-[1px]">{bankdata.disbursement[i+1].sanctioned_trades_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
                                                             <td className="p-2 border-[1px]">&#8377;{parseNumToWord(bankdata.disbursement[i+1].sanctioned_amount)}</td>
@@ -546,7 +566,7 @@ export default function Display({data}){
                     </table>
                     <h2 className="font-semibold my-4">Product-wise Growth (sanctioned)</h2>
                     <div className="">
-                                <ReactEcharts option={growthChartOption} style={{ height: "250px", width: "800px" }}/>
+                                <ReactEcharts option={growthChartOption} style={{ height: "450px", width: "800px" }}/>
                     </div>
                     
                 </div>
