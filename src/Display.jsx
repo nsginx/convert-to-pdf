@@ -566,7 +566,7 @@ export default function Display({data}){
                     </table>
                     <h2 className="font-semibold my-4">Product-wise Growth (sanctioned)</h2>
                     <div className="">
-                                <ReactEcharts option={growthChartOption} style={{ height: "450px", width: "800px" }}/>
+                                <ReactEcharts option={growthChartOption} style={{ height: "350px", width: "800px" }}/>
                     </div>
                     
                 </div>

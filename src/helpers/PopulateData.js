@@ -93,8 +93,8 @@ async function getCompetitionData(token, level, name, state, bank_filter){
         }
         item.top= top;
         
-    })
-    competition.branch.banks= banks;
+    });
+    competition.branch.banks= banks.slice(0,4);
     competition.liabilities= responseBankInsights.market_share;
     let length= competition.liabilities.length;
     while(length<6){
@@ -125,13 +125,12 @@ async function getProductData(token, level, name, state, timeframe, loan_filter,
     delinquency_response.map((item)=>{
         let delinquency= {};
         delinquency.loan_type= parseLoanType(item.loan_type);
-        var dpd= [];
-        delinquency_type.map((it)=>{
-            dpd.push({
+        const dpd = delinquency_type.map((it)=>{
+            return {
                 "key": it,
                 "value": item[it]
-            })
-        })
+            }
+        }).filter(item => item.key != "180+");
         delinquency.dpd= dpd;
         delinquency_array.push(delinquency);
     })
