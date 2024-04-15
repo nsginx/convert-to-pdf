@@ -14,7 +14,7 @@ export default async function fetchDataArray(token, level, places, state, timefr
         individualData.market= await getMarketData(token, level, name, state, loan_filter);
         individualData.target_audience= await getTargetAudienceData(token, level, name, state, business_filter, entity_filter, turnover_filter);
         individualData.competition= await getCompetitionData(token, level,  name, state, bank_filter);
-        individualData.product= await getProductData(token, level, name, state, timeframe, loan_filter, disbursement_bank, loan_filters_disbursement);
+        individualData.product= await getProductData(token, level, name, state, timeframe, loan_filter, disbursement_bank, loan_filters_disbursement, disbursement_type_all);
         return new Promise((resolve)=>{
             resolve(individualData);
         })

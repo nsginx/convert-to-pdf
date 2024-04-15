@@ -41,7 +41,7 @@ export default function Display({data}){
         return element.loan_name;
     })
 
-    const growthSeriesSeperate= data.product.seperate_growth_rate.map((element)=>{
+    const growthSeriesSeperate= data.product.seperate_growth_rate?.map((element)=>{
         return {
             name: element.loan_name,
             type: 'line',
@@ -50,7 +50,7 @@ export default function Display({data}){
         }
     })
 
-    const growthLegendSeperate= data.product.seperate_growth_rate.map((element)=>{
+    const growthLegendSeperate= data.product.seperate_growth_rate?.map((element)=>{
         return element.loan_name;
     })
 
@@ -489,7 +489,7 @@ export default function Display({data}){
                         </table>
                     : 
                     <div className='mb-[20px] flex flex-col h-[1091px]'>
-                        {data.product.seperate_disbursement.map((bankdata)=>{
+                        {data.product.seperate_disbursement?.map((bankdata)=>{
                             return(
                                 <>
                                     <h2 className="font-semibold text-sm my-2">{bankdata.bank_type.toUpperCase()}</h2>
