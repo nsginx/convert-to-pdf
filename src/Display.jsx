@@ -27,8 +27,7 @@ export default function Display({data}){
         },
     }
 
-
-    const growthSeriesCombined= data.product.growth_rate.map((element)=>{
+    const chartSeries= data.product.growth_rate.map((element)=>{
         return {
             name: element.loan_name,
             type: 'line',
@@ -36,27 +35,9 @@ export default function Display({data}){
             data: [element.sanction[0].amount, element.sanction[1].amount, element.sanction[2].amount, element.sanction[3].amount, element.sanction[4].amount, element.sanction[5].amount]
         }
     })
-
-    const growthLegendCombined= data.product.growth_rate.map((element)=>{
+    const chartLegend= data.product.growth_rate.map((element)=>{
         return element.loan_name;
     })
-
-    const growthSeriesSeperate= data.product.seperate_growth_rate?.map((element)=>{
-        return {
-            name: element.loan_name,
-            type: 'line',
-            stack: 'Total',
-            data: [element.sanction[0].amount, element.sanction[1].amount, element.sanction[2].amount, element.sanction[3].amount, element.sanction[4].amount, element.sanction[5].amount]
-        }
-    })
-
-    const growthLegendSeperate= data.product.seperate_growth_rate?.map((element)=>{
-        return element.loan_name;
-    })
-
-
-    const chartSeries= data.disbursement_type_all ? growthSeriesCombined : growthSeriesSeperate;
-    const chartLegend= data.disbursement_type_all ? growthLegendCombined : growthLegendSeperate;
 
 
     const entityChartOption = {
@@ -448,12 +429,12 @@ export default function Display({data}){
 
                 </div>
             </div>
-            <div className={`my-[20px] ${data.disbursement_type_all?"h-[1091px]":"h-[2222px]"} flex flex-col gap-2`}>
+            <div className={`my-[20px] ${data.all_banks_together?"h-[1091px]":"h-[2222px]"} flex flex-col gap-2`}>
                 <div className="flex flex-col">
                     <div className="text-blue-700 text-2xl font-bold">Products Sold in Your Market</div>
                     <div className="h-[1px] bg-slate-400 w-full mt-4"/>
                     <h2 className="font-semibold my-2">Disbursement ({data.timeframe})</h2>
-                    {data.disbursement_type_all ? 
+                    {data.all_banks_together ? 
                         <table className='text-xs'>
                         <tr className='text-blue-700 font-semibold'>
                             <td className="border-[1px] p-2 w-64">Product</td>
@@ -466,7 +447,7 @@ export default function Display({data}){
                             return (i%2==0)&&(
                                 <>
                                     <tr>
-                                        <td className="border-[1px] p-2">{data.product.disbursement[i].loan_name}</td>
+                                        <td className="border-[1px] p-2">{parseLoanType(data.product.disbursement[i].loan_type)}</td>
                                         <td className="border-[1px] p-2">{data.product.disbursement[i].average_ticketsize}</td>
                                         <td className="p-2 border-[1px]">{data.product.disbursement[i].sanctioned_trades_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
                                         <td className="p-2 border-[1px]">&#8377;{parseNumToWord(data.product.disbursement[i].sanctioned_amount)}</td>
@@ -474,7 +455,7 @@ export default function Display({data}){
                                     </tr>
                                     {(i<data.product.disbursement.length-1)&&
                                         <tr className='bg-slate-100'>
-                                            <td className="border-[1px] p-2">{data.product.disbursement[i+1].loan_name}</td>
+                                            <td className="border-[1px] p-2">{parseLoanType(data.product.disbursement[i+1].loan_type)}</td>
                                             <td className="border-[1px] p-2">{data.product.disbursement[i+1].average_ticketsize}</td>
                                             <td className="p-2 border-[1px]">{data.product.disbursement[i+1].sanctioned_trades_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
                                             <td className="p-2 border-[1px]">&#8377;{parseNumToWord(data.product.disbursement[i+1].sanctioned_amount)}</td>

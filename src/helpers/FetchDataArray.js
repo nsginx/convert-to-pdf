@@ -1,25 +1,23 @@
-import { getAssetInsights, getBankInsights, getBusinessInsights, getGrowthInsights, getPlaceArray, getShapeInsights } from "./DataInsights.js";
-import parseLoanType from "./ParseLoanType.js";
 import { getCompetitionData, getMarketData, getProductData, getTargetAudienceData } from "./PopulateData.js";
 
 const loan_types=["AL", "BL", "CC", "GL", "HL", "LAP", "PL", "UCL"];
 
-export default async function fetchDataArray(token, level, places, state, timeframes, entity_filter, turnover_filter, business_filter, loan_filter, bank_filter, disbursement_bank, disbursement_type_all, loan_filters_disbursement){
+export default async function fetchDataArray(token, level, places, state, timeframes, entity_filter, turnover_filter, business_filter, loan_filter, bank_filter,ticket_filter, disbursement_bank, all_banks_together,ticketwise ){
     async function fetchFromAPI(place, timeframe){
         const name= (level=="pincode") ? parseInt(place) : place;
         let individualData= {};
         individualData.name= name;  
         individualData.timeframe = timeframe;
-        individualData.disbursement_type_all =  disbursement_type_all;         
+        individualData.all_banks_together =  all_banks_together;         
         individualData.market= await getMarketData(token, level, name, state, loan_filter);
         individualData.target_audience= await getTargetAudienceData(token, level, name, state, business_filter, entity_filter, turnover_filter);
         individualData.competition= await getCompetitionData(token, level,  name, state, bank_filter);
-        individualData.product= await getProductData(token, level, name, state, timeframe, loan_filter, disbursement_bank, loan_filters_disbursement, disbursement_type_all);
+        individualData.product= await getProductData(token, level, name, state, timeframe, loan_filter, ticket_filter, disbursement_bank, all_banks_together, ticketwise);
         return new Promise((resolve)=>{
             resolve(individualData);
         })
     }
-
+    
 
     let dataArray=[];
 
@@ -30,18 +28,18 @@ export default async function fetchDataArray(token, level, places, state, timefr
         dataArray = dataArray.concat(timeframe_data);
     }));
 
-    console.log(dataArray);
+    // console.log(dataArray);
     return dataArray;
 
 }
 
 //test function
 
-// async function test(){
-//     const response= await fetchDataArray("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWViMDk3YTA4MjI5YWUyYzZlN2I0MWYiLCJmaXJzdE5hbWUiOiJTb3Vyb2RlZXAiLCJsYXN0TmFtZSI6IkFjaGFyeWEiLCJlbWFpbCI6ImFjaGFyeWFzb3Vyb2RlZXBAZ21haWwuY29tIiwicm9sZXMiOlsiYmFzaWMiXSwiZGVzaWduYXRpb24iOiJJbnRlcm4iLCJjb21wYW55TmFtZSI6IkRTIiwiaXNBdXRob3JpemVkIjp0cnVlLCJwYXNzd29yZCI6bnVsbCwiY3JlYXRlZEF0IjoiMjAyNC0wMy0wOFQxMDoyMDo0OC4yMDNaIiwidXBkYXRlZEF0IjoiMjAyNC0wMy0wOFQxMDoyMDo0OC4yMDNaIiwidGVhbUlEIjoiNjVlYjA4MWEwODIyOWFlMmM2ZTdiNDE5IiwiY3JlYXRlZEJ5IjpudWxsLCJ1cGRhdGVkQnkiOm51bGwsInR5cGUiOiJ0b2tlbiIsImlhdCI6MTcxMDIzOTM3NiwiZXhwIjo0NzEwMjM5Mzc2fQ.Ys5wtgqJeSHY7nQRwKuFrnHaRwp-19K5JvpJK6lfjfE", "pincode", [700001], "west bengal", ["2023-2024_Q2"], ["Company","Partnership"], ["Slab: Rs. 25 Cr. to 100 Cr."], ["Kirana_store"], ["BL"], ["public", "private", "nbfc", "foreign"], ["private"] ,false, [{"type":"AL", "ticket":"2L-4L"}]);
-//     console.log("hello");
-//     console.log(response[0]);
+async function test(){
+    const response= await fetchDataArray("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWViMDk3YTA4MjI5YWUyYzZlN2I0MWYiLCJmaXJzdE5hbWUiOiJTb3Vyb2RlZXAiLCJsYXN0TmFtZSI6IkFjaGFyeWEiLCJlbWFpbCI6ImFjaGFyeWFzb3Vyb2RlZXBAZ21haWwuY29tIiwicm9sZXMiOlsiYmFzaWMiXSwiZGVzaWduYXRpb24iOiJJbnRlcm4iLCJjb21wYW55TmFtZSI6IkRTIiwiaXNBdXRob3JpemVkIjp0cnVlLCJwYXNzd29yZCI6bnVsbCwiY3JlYXRlZEF0IjoiMjAyNC0wMy0wOFQxMDoyMDo0OC4yMDNaIiwidXBkYXRlZEF0IjoiMjAyNC0wMy0wOFQxMDoyMDo0OC4yMDNaIiwidGVhbUlEIjoiNjVlYjA4MWEwODIyOWFlMmM2ZTdiNDE5IiwiY3JlYXRlZEJ5IjpudWxsLCJ1cGRhdGVkQnkiOm51bGwsInR5cGUiOiJ0b2tlbiIsImlhdCI6MTcxMDIzOTM3NiwiZXhwIjo0NzEwMjM5Mzc2fQ.Ys5wtgqJeSHY7nQRwKuFrnHaRwp-19K5JvpJK6lfjfE", "pincode", [700001], "west bengal", ["2023-2024_Q2"], ["Company","Partnership"], ["Slab: Rs. 25 Cr. to 100 Cr."], ["Kirana_store"], ["AL", "HL"], ["public", "private", "nbfc", "foreign"],["2L-4L", "4L-6L" ,"15L-40L" ,"1Cr-2Cr"], ["private"] , false, true);
+    console.log("hello");
+    console.log(response[0]);
 
-// }
+}
 
 // test();

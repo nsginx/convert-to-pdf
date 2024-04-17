@@ -4,9 +4,12 @@ import Display from './Display.jsx';
 import data from './data.json'
 import fetchDataArray from "./helpers/FetchDataArray.js";
 import { MultiSelect } from "react-multi-select-component";
+import Toggle from 'react-toggle';
+import "react-toggle/style.css"
 import { getBusinessTypes, getPlaceArray, getTicketSize } from "./helpers/DataInsights.js";
 import parseLoanType from "./helpers/ParseLoanType.js";
 import generatePDF from 'react-to-pdf';
+
 
 
 async function fetchPlaces(token, placeLevel, level, place, state) {
@@ -99,9 +102,10 @@ function App(){
   const [loan_filter, setLoan_filter]= useState(["BL", "AL" ,"GL"]);
   const [bank_filter, setBank_filter]= useState(["public", "private", "nbfc", "foreign"]);
   const [disbursement_bank, setDisbursement_bank]= useState([]);
-  const [disbursement_type_all, setDisbursement_type_all]= useState(true);
+  const [all_banks_together, setAll_banks_together]= useState(true);
+  const [ticketwise, setTicketWise]= useState(false);
   const [loading, setLoading]= useState(false);
-  const [loan_filters_disbursement, setLoan_filters_disbursement]= useState([]);
+  const [ticket_filter, setTicket_filter]= useState([]);
 
 
 
@@ -202,7 +206,7 @@ function App(){
   const [selectedDisbursementBank, setSelectedDisbursementBank]= useState([]);
 
   useEffect(()=>{
-    setDisbursement_type_all(selectedDisbursementBank.length==0);
+    setAll_banks_together(selectedDisbursementBank.length==0);
   },[selectedDisbursementBank])
 
 
@@ -275,62 +279,54 @@ function App(){
     let loan_ticket = [];
     if(loan_filter.includes("AL")){
       const tickets= selectedTicketsAL.map((item)=>{
-        const ticket= item.value;
-        return {"type": "AL", "ticket":ticket}
+        return item.value;
       })
       loan_ticket= loan_ticket.concat(tickets);
     }
     if(loan_filter.includes("BL")){
       const tickets= selectedTicketsBL.map((item)=>{
-        const ticket= item.value;
-        return {"type": "BL", "ticket":ticket}
+        return item.value;
       })
       loan_ticket= loan_ticket.concat(tickets);
     }
     
     if(loan_filter.includes("CC")){
       const tickets= selectedTicketsCC.map((item)=>{
-        const ticket= item.value;
-        return {"type": "CC", "ticket":ticket}
+        return item.value;
       })
       loan_ticket= loan_ticket.concat(tickets);
     }
     if(loan_filter.includes("GL")){
       const tickets= selectedTicketsGL.map((item)=>{
-        const ticket= item.value;
-        return {"type": "GL", "ticket":ticket}
+        return item.value;
       })
       loan_ticket= loan_ticket.concat(tickets);
     }
     if(loan_filter.includes("HL")){
       const tickets= selectedTicketsHL.map((item)=>{
-        const ticket= item.value;
-        return {"type": "HL", "ticket":ticket}
+        return item.value;
       })
       loan_ticket= loan_ticket.concat(tickets);
     }
     if(loan_filter.includes("LAP")){
       const tickets= selectedTicketsLAP.map((item)=>{
-        const ticket= item.value;
-        return {"type": "LAP", "ticket":ticket}
+        return item.value;
       })
       loan_ticket= loan_ticket.concat(tickets);
     }
     if(loan_filter.includes("PL")){
       const tickets= selectedTicketsPL.map((item)=>{
-        const ticket= item.value;
-        return {"type": "PL", "ticket":ticket}
+        return item.value;
       })
       loan_ticket= loan_ticket.concat(tickets);
     }
     if(loan_filter.includes("UCL")){
       const tickets= selectedTicketsUCL.map((item)=>{
-        const ticket= item.value;
-        return {"type": "UCL", "ticket":ticket}
+        return item.value;
       })
       loan_ticket= loan_ticket.concat(tickets);
     }
-    setLoan_filters_disbursement(loan_ticket);
+    setTicket_filter(loan_ticket);
 
   },[selectedTicketsAL, selectedTicketsBL, selectedTicketsCC, selectedTicketsGL, selectedTicketsHL, selectedTicketsLAP, selectedTicketsPL, selectedTicketsPL, selectedTicketsUCL])
 
@@ -383,7 +379,7 @@ function App(){
   function fetchData(e){
     setLoading(true);
     e.preventDefault();
-    fetchDataArray(token, level, places, state, timeframes, entity_filter, turnover_filter, busines_filter, loan_filter, bank_filter, disbursement_bank, disbursement_type_all, loan_filters_disbursement).then((data)=>{
+    fetchDataArray(token, level, places, state, timeframes, entity_filter, turnover_filter, busines_filter, loan_filter, bank_filter, ticket_filter, disbursement_bank, all_banks_together, ticketwise).then((data)=>{
       setDataArray(data);
       setLoading(false);
     //   console.log(dataArray);
@@ -464,15 +460,23 @@ function App(){
                 <label className="my-auto mx-2">Bank Types for <br /> Disbursement : </label>
                 <MultiSelect options={disbursementBankOptions} value={selectedDisbursementBank} onChange={setSelectedDisbursementBank} hasSelectAll={false} labelledBy="Select" className="w-40 mx-auto"/>
                 {/* <span className="my-auto">or</span> */}
-                <input type="checkbox"  className="mx-2" id="combined" checked={disbursement_type_all} />
+                <input type="checkbox"  className="mx-2" id="combined" checked={all_banks_together} />
                 <label htmlFor="combined" className="my-auto">Combined</label>
             </div>
             <div className="flex flex-row">
                 <label className="my-auto mx-2">Loan Types :</label>
                 <MultiSelect options={loanOptions} value={selectedLoans} onChange={setSelectedLoans} labelledBy="Select" className="w-60 mx-auto"/>
             </div>
+            <div className="flex flex-row mt-2">
+              <div className="my-auto mx-2">Ticketwise: </div>
+              <Toggle
+                defaultChecked={ticketwise}
+                checked={ticketwise}
+                onChange={()=>{setTicketWise(!ticketwise)}} 
+              />
+            </div>
             <>
-              {disbursement_type_all ? <></> : 
+              {ticketwise ? 
               <div className="flex flex-col gap-2 text-xs">
                 <div>
                   {loan_filter.includes("AL") &&
@@ -530,7 +534,8 @@ function App(){
                     <MultiSelect options={ticketSizeOptionsUCL} value={selectedTicketsUCL} onChange={setSelectedTicketsUCL} labelledBy="Select" className="w-60 mx-auto"/>
                   </div>}
                 </div>
-              </div>}
+              </div>
+              :<></>}
             </>
 
 
@@ -552,11 +557,7 @@ function App(){
         /> */}
         </div>
         : <>
-          {dataArray && ((dataArray.statusCode==400)? 
-          <>
-            <div className="text-4xl my-8 text-cyan-500 text-center">{dataArray.message}</div>
-          </> 
-          :
+          {dataArray && (
           <>
             <div className="h-16 bg-cyan-700 fixed right-0 w-[820px] z-10">
               <button onClick={exportAll} className="w-64 my-2 h-12 absolute right-4 px-4 py-2 bg-slate-200 rounded-lg">Export All</button>

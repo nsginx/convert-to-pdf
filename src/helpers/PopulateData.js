@@ -1,4 +1,4 @@
-import { getAssetInsights, getBankInsights, getBusinessInsights, getEntitySplitInsights, getGrowthInsights, getPlaceArray, getSeperateDisbursement, getSeperateGrowth, getShapeInsights } from "./DataInsights.js";
+import { getAssetInsights, getBankInsights, getBankWiseDisbursement, getBankwiseTicketwiseDisbursement, getBusinessInsights, getBusinessTypes, getEntitySplitInsights, getGrowthInsights, getPlaceArray, getShapeInsights, getTicketSize, getTicketWiseAssetInsights, getTicketWiseGrowthInsights} from "./DataInsights.js";
 import parseLoanType from "./ParseLoanType.js";
 
 const loan_types=["AL", "BL", "CC", "GL", "HL", "LAP", "PL", "UCL"];
@@ -109,22 +109,28 @@ async function getCompetitionData(token, level, name, state, bank_filter){
 }
 
 //create api fetch and populate here
-async function getProductData(token, level, name, state, timeframe, loan_filter, disbursement_bank, loan_filters_disbursement, disbursement_type_all){
+async function getProductData(token, level, name, state, timeframe, loan_filter, ticket_filter, disbursement_bank, all_banks_together,ticketwise){
     let product={};            
     // console.log(responseGrowthInsights);
     // individualData.timeframe= timeframe;
-    const responseAssetInsights= await getAssetInsights(token, level, name, state, timeframe, loan_filter);
+    let responseAssetInsights;
+    if(ticketwise){
+        responseAssetInsights= await getTicketWiseAssetInsights(token, level, name, state, timeframe, loan_filter, ticket_filter)
+    }else{
+        responseAssetInsights= await getAssetInsights(token, level, name, state, timeframe, loan_filter);
+    }
     product.disbursement= responseAssetInsights.disbursement;
     const disbursement_array= product.disbursement;
     disbursement_array.map((item)=>{
         item.loan_name= parseLoanType(item.loan_type);
     })
     const delinquency_response= responseAssetInsights.delinquency;
+    // console.log(delinquency_response);
     const delinquency_type = ["0", "1-29", "30-59", "60-89", "90-179", "180+"];
     let delinquency_array=[];
     delinquency_response.map((item)=>{
         let delinquency= {};
-        delinquency.loan_type= parseLoanType(item.loan_type);
+        delinquency.loan_type= ticketwise? parseLoanType(item.loan_type).concat(" ").concat(item.ticketsize) : parseLoanType(item.loan_type);
         const dpd = delinquency_type.map((it)=>{
             return {
                 "key": it,
@@ -135,15 +141,21 @@ async function getProductData(token, level, name, state, timeframe, loan_filter,
         delinquency_array.push(delinquency);
     })
     product.delinquency= delinquency_array;
-    // const loan_filter_seperate= loan_filters_disbursement[0];
-    const responseGrowthInsights= await getGrowthInsights(token, level, name, state, loan_filter);
+    // const loan_filter_seperate= ticket_filter[0];
+    let responseGrowthInsights;
+    if(ticketwise){
+        responseGrowthInsights= await getTicketWiseGrowthInsights(token, level, name, state, loan_filter, ticket_filter);
+    }else{
+        responseGrowthInsights= await getGrowthInsights(token, level, name, state, loan_filter);
+    }
     const growth_response= responseGrowthInsights.growth;
     const growthArray= responseGrowthInsights.growthSequence;
     // console.log(growthArray);
     let growth_array=[];
     growth_response.map((item)=>{
+        // console.log(item);
         let growth_item={};
-        growth_item.loan_name= parseLoanType(item.loan_type);
+        growth_item.loan_name= ticketwise ? parseLoanType(item.loan_type).concat(" ").concat(item.ticketsize) : parseLoanType(item.loan_type);
         let sanction =[];
         growthArray.map((it)=>{
             sanction.push({
@@ -157,44 +169,24 @@ async function getProductData(token, level, name, state, timeframe, loan_filter,
     // console.log(growth_array);
     product.growth_rate= growth_array;
 
-    if(!disbursement_type_all){
+    if(!all_banks_together){
         
-        let seperate_disbursement = [];
+        let seperate_disbursement=[];
         await Promise.all(disbursement_bank.map(async (bank_category)=>{
             let eachItem ={};
             eachItem.bank_type = bank_category;
-            let disbursement_response = [];
-            await Promise.all(loan_filters_disbursement.map(async (loan_filter_seperate)=>{
-                const response= await getSeperateDisbursement(token, level, name, state,timeframe, loan_filter_seperate, bank_category);
-                // console.log(response.disbursement[0]);
-                disbursement_response = disbursement_response.concat(response.disbursement[0])
-            }))
+            let disbursement_response;
+            if(ticketwise){
+                disbursement_response= await getBankwiseTicketwiseDisbursement(token, level, name, state, timeframe, loan_filter, ticket_filter, bank_category);
+            }else{
+                disbursement_response= await getBankWiseDisbursement(token, level, name, state, timeframe, loan_filter, bank_category);
+            }
             // console.log(disbursement_response);
-            eachItem.disbursement = disbursement_response;
+            eachItem.disbursement = disbursement_response.disbursement;
             // console.log(eachItem);
             seperate_disbursement = seperate_disbursement.concat(eachItem);
         }))
         product.seperate_disbursement= seperate_disbursement;
-        let seperate_growth_array= [];
-        await Promise.all(loan_filters_disbursement.map( async (loan_filter_seperate)=>{
-            const response = await getSeperateGrowth(token, level, name, state, loan_filter_seperate);
-            // console.log(response);
-            const growth_response= response.growth[0];
-            // console.log(growth_response);
-            let growth_item= {};
-            growth_item.loan_name= parseLoanType(loan_filter_seperate.type).concat(" ").concat(loan_filter_seperate.ticket);
-            const sanction= growthArray.map((item)=>{
-                return {
-                    "quarter" : item,
-                    "amount" : growth_response[item]
-                }
-            })
-            growth_item.sanction= sanction;
-            seperate_growth_array= seperate_growth_array.concat(growth_item);
-            
-            
-        }))
-        product.seperate_growth_rate= seperate_growth_array;
     }
 
 
