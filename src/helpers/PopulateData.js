@@ -1,10 +1,10 @@
-import { getAssetInsights, getBankInsights, getBankWiseDisbursement, getBankwiseTicketwiseDisbursement, getBusinessInsights, getBusinessTypes, getEntitySplitInsights, getGrowthInsights, getPlaceArray, getShapeInsights, getTicketSize, getTicketWiseAssetInsights, getTicketWiseGrowthInsights} from "./DataInsights.js";
+import { getAssetInsights, getAssetwiseBanks, getBankInsights, getBankWiseDisbursement, getBankwiseTicketwiseDisbursement, getBusinessInsights, getBusinessTypes, getEntitySplitInsights, getGrowthInsights, getLoanWiseAsset, getPlaceArray, getShapeInsights, getTicketSize, getTicketWiseAssetInsights, getTicketWiseGrowthInsights} from "./DataInsights.js";
 import parseLoanType from "./ParseLoanType.js";
 
 const loan_types=["AL", "BL", "CC", "GL", "HL", "LAP", "PL", "UCL"];
 
 
-async function getMarketData(token, level, name, state, loan_filter){
+async function getMarketData(token, level, name, state, timeframe, loan_filter){
     let market={
         "business":{},
         "population":{},
@@ -22,25 +22,16 @@ async function getMarketData(token, level, name, state, loan_filter){
     market.population.household_count= data_details.total_households;
     market.liabilities.sa= data_details.total_SA_deposit;
     market.liabilities.ca= data_details.total_CA_deposit;
-    let loans= [];
-    
-    loan_types.map((item)=>{
-        if(loan_filter.includes(item)){
-            loans.push({
-                "loan_type": parseLoanType(item),
-                "amount": data_details[`${item}_disbursed_amount`]
-            })
-
+    let asset_response= await getLoanWiseAsset(token, level, name, state, timeframe, loan_filter);
+    // console.log(asset_response);
+    let assets= asset_response.disbursement.map((item)=>{
+        return {
+            "loan_type": parseLoanType(item.loan_type),
+            "amount": item.sanctioned_amount
         }
-    })
-    loans.sort((a,b)=>{
-        return b.amount-a.amount;
-    })
-    market.assets.push(loans[0]);
-    market.assets.push(loans[1]);
-
-    // market.assets.home_loan= responseShapeInsights.data[0].details.HL_disbursed_amount;
-    // market.assets.personal_loan= responseShapeInsights.data[0].details.PL_disbursed_amount;
+    }).sort((a,b)=> b.amount-a.amount).slice(0,2);
+    // console.log(assets);
+    market.assets= assets;
     return market;
 
 }
@@ -68,7 +59,7 @@ async function getTargetAudienceData(token, level, name, state, business_filter,
     return target_audience;
 }
 
-async function getCompetitionData(token, level, name, state, bank_filter){
+async function getCompetitionData(token, level, name, state, timeframe, bank_filter){
     let competition ={
         "branch":{},
     }
@@ -95,6 +86,19 @@ async function getCompetitionData(token, level, name, state, bank_filter){
         
     });
     competition.branch.banks= banks.slice(0,4);
+    let asset_response= await getAssetwiseBanks(token, level, name, state, timeframe);
+    // console.log(asset_response);
+    let asset_count_sum=0;
+    asset_response.disbursement.forEach(element => {
+        asset_count_sum+= element.sanctioned_amount;
+    });
+    // console.log(asset_count_sum);
+    competition.assets= asset_response.disbursement.map((item)=>{
+        return {
+            "category": item.bank_category,
+            "percentage": ((item.sanctioned_amount)*100/asset_count_sum).toFixed(2)
+        }
+    }).sort((a, b)=> b.percentage-a.percentage);
     competition.liabilities= responseBankInsights.market_share;
     let length= competition.liabilities.length;
     while(length<6){

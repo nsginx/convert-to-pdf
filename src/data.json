@@ -137,7 +137,24 @@
                     
                 ]
             },
-            
+            "assets":[
+                {
+                    "category":"public",
+                    "percentage":15.06
+                },
+                {
+                    "category":"private",
+                    "percentage":15.06
+                },
+                {
+                    "category":"nbfc",
+                    "percentage":15.06
+                },
+                {
+                    "category":"others",
+                    "percentage":15.06
+                }
+            ],
             "liabilities":[
                 {
                     "name": "state bank ",

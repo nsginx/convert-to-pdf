@@ -363,17 +363,17 @@ export default function Display({data}){
                             <div className="bg-slate-200 p-4 font-semibold">By Assets</div>
                             <h2 className="font-semibold my-2 mx-4">Market Share breakup</h2>
                             <table>
-                                {data.competition.branch.banks.map((item, i)=>{
+                                {data.competition.assets.map((item, i)=>{
                                     return (i%2==0)&&(
                                         <>
                                             <tr className=''>
-                                                <td className="p-2 border-[1px] w-36">{data.competition.branch.banks[i].category}</td>
-                                                <td className="p-2 border-[1px] w-28">{data.competition.branch.banks[i].percentage} %</td>
+                                                <td className="p-2 border-[1px] w-36">{data.competition.assets[i].category}</td>
+                                                <td className="p-2 border-[1px] w-28">{data.competition.assets[i].percentage} %</td>
                                             </tr>
                                             {(i<data.competition.branch.banks.length-1)&&
                                             <tr className='bg-slate-100'>
-                                                <td className="p-2 border-[1px]">{data.competition.branch.banks[i+1].category}</td>
-                                                <td className="p-2 border-[1px]">{data.competition.branch.banks[i+1].percentage} %</td>
+                                                <td className="p-2 border-[1px]">{data.competition.assets[i+1].category}</td>
+                                                <td className="p-2 border-[1px]">{data.competition.assets[i+1].percentage} %</td>
                                             </tr>
                                             
                                             }
@@ -547,7 +547,7 @@ export default function Display({data}){
                     </table>
                     <h2 className="font-semibold my-4">Product-wise Growth (sanctioned)</h2>
                     <div className="">
-                                <ReactEcharts option={growthChartOption} style={{ height: "350px", width: "800px" }}/>
+                                <ReactEcharts option={growthChartOption} style={{ height: `${data.product.disbursement.length<9?"250px":"350px"}`, width: "800px" }}/>
                     </div>
                     
                 </div>

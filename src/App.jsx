@@ -381,8 +381,8 @@ function App(){
     e.preventDefault();
     fetchDataArray(token, level, places, state, timeframes, entity_filter, turnover_filter, busines_filter, loan_filter, bank_filter, ticket_filter, disbursement_bank, all_banks_together, ticketwise).then((data)=>{
       setDataArray(data);
+      console.log(dataArray);
       setLoading(false);
-    //   console.log(dataArray);
     })
     
   }
