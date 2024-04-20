@@ -3,6 +3,7 @@ import ReactEcharts from "echarts-for-react";
 import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 import parseNumToWord from './helpers/ParseNumToWord';
 import parseLoanType from './helpers/ParseLoanType';
+import ParseTimeframe from './helpers/ParseTimeframe';
 
 
 
@@ -26,18 +27,6 @@ export default function Display({data}){
             }
         },
     }
-
-    const chartSeries= data.product.growth_rate.map((element)=>{
-        return {
-            name: element.loan_name,
-            type: 'line',
-            stack: 'Total',
-            data: [element.sanction[0].amount, element.sanction[1].amount, element.sanction[2].amount, element.sanction[3].amount, element.sanction[4].amount, element.sanction[5].amount]
-        }
-    })
-    const chartLegend= data.product.growth_rate.map((element)=>{
-        return element.loan_name;
-    })
 
 
     const entityChartOption = {
@@ -150,6 +139,23 @@ export default function Display({data}){
         ]
     }; 
 
+    const chartSeries= data.product.growth_rate.map((element)=>{
+        return {
+            name: element.loan_name,
+            type: 'line',
+            stack: 'Total',
+            data: [element.sanction[0].amount, element.sanction[1].amount, element.sanction[2].amount, element.sanction[3].amount, element.sanction[4].amount, element.sanction[5].amount]
+        }
+    })
+    const chartLegend= data.product.growth_rate.map((element)=>{
+        return element.loan_name;
+    })
+    const chartAxis= data.product.growth_rate[0].sanction.map((item)=>{
+        return ParseTimeframe(item.quarter);
+    })
+
+
+
     const growthChartOption = {
         legend: {
             data : chartLegend
@@ -164,7 +170,7 @@ export default function Display({data}){
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [data.product.growth_rate[0].sanction[0].quarter, data.product.growth_rate[0].sanction[1].quarter, data.product.growth_rate[0].sanction[2].quarter, data.product.growth_rate[0].sanction[3].quarter, data.product.growth_rate[0].sanction[4].quarter, data.product.growth_rate[0].sanction[5].quarter]
+          data: chartAxis,
         },
         yAxis: {
           type: 'value'
@@ -185,9 +191,9 @@ export default function Display({data}){
     const getTargetElement = () => document.getElementById(`${data.name}_${data.timeframe}`);
 
     return (
-        <div className='w-[820px] mx-auto font-work-sans'>
+        <div className='w-[820px] mx-auto font-custom'>
         <div ref={targetElementRef} id={`${data.name}_${data.timeframe}`} className='font-work-sans w-[800px] mx-auto px-[20px] flex flex-col'>
-            <h1 className="bg-green-700 w-full h-12 mb-2 text-center font-bold text-white text-3xl uppercase">{data.name}</h1>
+            <h1 className="bg-orange-200 w-full h-12 mb-2 text-center font-bold text-amber-700 text-3xl uppercase">{data.name}</h1>
             <div className='h-[1055px] mb-[20px] flex flex-col gap-2'>
                 <div className='flex flex-col'>
                     <div className="text-blue-700 text-2xl font-bold">Your Market</div>
@@ -207,12 +213,12 @@ export default function Display({data}){
                         
                         </div>
                         <div className="">
-                            <h2 className="font-semibold">Liabilities ({data.timeframe})</h2>
+                            <h2 className="font-semibold">Liabilities ({ParseTimeframe(data.timeframe)})</h2>
                             <ul className='list-disc ml-4 mb-2'>
                                 <li className="text-sm">SA Deposit(Est): <b>&#8377;</b><span className="font-semibold">{parseNumToWord(data.market.liabilities.sa)}</span> </li>
                                 <li className="text-sm">CA Deposit(Est): <b>&#8377;</b><span className="font-semibold">{parseNumToWord(data.market.liabilities.ca)}</span> </li>
                             </ul>
-                            <h2 className="font-semibold">Assets ({data.timeframe})</h2>
+                            <h2 className="font-semibold">Assets ({ParseTimeframe(data.timeframe)})</h2>
                             <ul className='list-disc ml-4 mb-2'>
                                 {data.market.assets.map((item)=>{
                                     return(
@@ -235,7 +241,7 @@ export default function Display({data}){
                             return(
                                 <div className='flex flex-col w-32 justify-center text-center'>
                                     <div className="font-semibold text-orange-400">{parseNumToWord(item.count)}</div>
-                                    <div className="text-xs">{item.category}</div>
+                                    <div className="text-xs">{item.category.toString().split("_").join(" ")}</div>
                                 </div>
                             )
                         })}
@@ -433,7 +439,7 @@ export default function Display({data}){
                 <div className="flex flex-col">
                     <div className="text-blue-700 text-2xl font-bold">Products Sold in Your Market</div>
                     <div className="h-[1px] bg-slate-400 w-full mt-4"/>
-                    <h2 className="font-semibold my-2">Disbursement ({data.timeframe})</h2>
+                    <h2 className="font-semibold my-2">Disbursement ({ParseTimeframe(data.timeframe)})</h2>
                     {data.all_banks_together ? 
                         <table className='text-xs'>
                         <tr className='text-blue-700 font-semibold'>
@@ -515,7 +521,7 @@ export default function Display({data}){
                     </div>
 
                     }
-                    <h2 className="font-semibold my-4">Delinquency ({data.timeframe})</h2>
+                    <h2 className="font-semibold my-4">Delinquency ({ParseTimeframe(data.timeframe)})</h2>
                     <table className='text-xs'>
                         <tr className='text-blue-700 font-semibold'>
                             <td className="border-[1px] p-2 w-64">Product</td>

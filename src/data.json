@@ -1,7 +1,7 @@
 [
     {
         "name": "Kolkata",
-        "timeframe": "2023-24-Q2",
+        "timeframe": "2023-2024_Q2",
         "all_banks_together" : false,
         "market":{
             "business":{
@@ -33,22 +33,22 @@
         "target_audience":{
             "top_categories":[
                 {
-                    "category": "kirana store",
+                    "category": "Automobile_service centre",
                     "count": 9999,
                     "percentage": 21.5
                 },
                 {
-                    "category": "kirana store",
+                    "category": "Building & construction_equipment",
                     "count": 9999,
                     "percentage": 21.5
                 },
                 {
-                    "category": "kirana store",
+                    "category": "Medical_equipments",
                     "count": 9999,
                     "percentage": 21.5
                 },
                 {
-                    "category": "kirana store",
+                    "category": "Consumer_Electronics",
                     "count": 9999,
                     "percentage": 21.5
                 },
@@ -711,27 +711,27 @@
                     "loan_name": "business loan unsecured",
                     "sanction":[
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         }
                     ]
@@ -740,27 +740,27 @@
                     "loan_name": "business loan unsecured",
                     "sanction":[
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         }
                     ]
@@ -769,27 +769,27 @@
                     "loan_name": "business loan unsecured",
                     "sanction":[
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         }
                     ]
@@ -798,27 +798,27 @@
                     "loan_name": "business loan unsecured",
                     "sanction":[
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         }
                     ]
@@ -827,27 +827,27 @@
                     "loan_name": "business loan unsecured",
                     "sanction":[
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         }
                     ]
@@ -856,7 +856,7 @@
                     "loan_name": "car loan",
                     "sanction":[
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 4
                         },
                         {
@@ -885,27 +885,27 @@
                     "loan_name": "business loan unsecured",
                     "sanction":[
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         }
                     ]
@@ -914,27 +914,27 @@
                     "loan_name": "business loan unsecured",
                     "sanction":[
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         },
                         {
-                            "quarter": "2023-24_Q2",
+                            "quarter": "2023-2024_Q2",
                             "amount": 99999
                         }
                     ]
