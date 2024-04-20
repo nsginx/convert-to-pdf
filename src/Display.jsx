@@ -29,6 +29,25 @@ export default function Display({data}){
     }
 
 
+    //ENTITY CHART
+    let totalEntity= 0;
+    data.target_audience.entity.forEach((item)=> totalEntity+= item.count);
+    const entityChartSeries= data.target_audience.entity.map((item, i)=>{
+        return {
+            name: String.fromCharCode(65+i),
+            type: 'bar',
+            stack: 'total',
+            label: {
+              show: false,
+              formatter : ((item.count)*100/totalEntity).toFixed(2).toString().concat("%")
+            },
+            emphasis: {
+              focus: 'series'
+            },
+            // data: [(parseInt(data.target_audience.entity[0].count)*100/(parseInt(data.target_audience.entity[0].count)+parseInt(data.target_audience.entity[1].count)+parseInt(data.target_audience.entity[2].count)+parseInt(data.target_audience.entity[3].count))).toFixed(2)]
+            data: [(item.count)*100/totalEntity]
+          }
+    })
     const entityChartOption = {
         grid: {
           containLabel: false,
@@ -40,67 +59,17 @@ export default function Display({data}){
           type: 'category',
           data: ['']
         },
-        series: [
-          {
-            name: 'A',
-            type: 'bar',
-            stack: 'total',
-            label: {
-              show: true,
-            //   formatter: [(parseInt(data.target_audience.entity[0].count)*100/(parseInt(data.target_audience.entity[0].count)+parseInt(data.target_audience.entity[1].count)+parseInt(data.target_audience.entity[2].count)+parseInt(data.target_audience.entity[3].count))).toFixed(2)]
-            },
-            emphasis: {
-              focus: 'series'
-            },
-            // data: [(parseInt(data.target_audience.entity[0].count)*100/(parseInt(data.target_audience.entity[0].count)+parseInt(data.target_audience.entity[1].count)+parseInt(data.target_audience.entity[2].count)+parseInt(data.target_audience.entity[3].count))).toFixed(2)]
-            data: [parseInt(data.target_audience.entity[0].count)]
-          },
-          {
-            name: 'B',
-            type: 'bar',
-            stack: 'total',
-            label: {
-              show: true,
-            //   formatter: [(parseInt(data.target_audience.entity[1].count)*100/(parseInt(data.target_audience.entity[0].count)+parseInt(data.target_audience.entity[1].count)+parseInt(data.target_audience.entity[2].count)+parseInt(data.target_audience.entity[3].count))).toFixed(2)]
-            },
-            emphasis: {
-              focus: 'series'
-            },
-            // data: [(parseInt(data.target_audience.entity[1].count)*100/(parseInt(data.target_audience.entity[0].count)+parseInt(data.target_audience.entity[1].count)+parseInt(data.target_audience.entity[2].count)+parseInt(data.target_audience.entity[3].count))).toFixed(2)]
-            data: [parseInt(data.target_audience.entity[1].count)]
-          },
-          {
-            name: 'C',
-            type: 'bar',
-            stack: 'total',
-            label: {
-              show: true,
-            //   formatter:[(parseInt(data.target_audience.entity[2].count)*100/(parseInt(data.target_audience.entity[0].count)+parseInt(data.target_audience.entity[1].count)+parseInt(data.target_audience.entity[2].count)+parseInt(data.target_audience.entity[3].count))).toFixed(2)]
-            },
-            emphasis: {
-              focus: 'series'
-            },
-            // data: [(parseInt(data.target_audience.entity[2].count)*100/(parseInt(data.target_audience.entity[0].count)+parseInt(data.target_audience.entity[1].count)+parseInt(data.target_audience.entity[2].count)+parseInt(data.target_audience.entity[3].count))).toFixed(2)]
-            data: [parseInt(data.target_audience.entity[2].count)]
-          },
-          {
-            name: 'D',
-            type: 'bar',
-            stack: 'total',
-            label: {
-              show: true,
-            //   formatter: [(parseInt(data.target_audience.entity[3].count)*100/(parseInt(data.target_audience.entity[0].count)+parseInt(data.target_audience.entity[1].count)+parseInt(data.target_audience.entity[2].count)+parseInt(data.target_audience.entity[3].count))).toFixed(2)]
-            },
-            emphasis: {
-              focus: 'series'
-            },
-            // data: [(100-((parseInt(data.target_audience.entity[0].count)*100/(parseInt(data.target_audience.entity[0].count)+parseInt(data.target_audience.entity[1].count)+parseInt(data.target_audience.entity[2].count)+parseInt(data.target_audience.entity[3].count)))+(parseInt(data.target_audience.entity[1].count)*100/(parseInt(data.target_audience.entity[0].count)+parseInt(data.target_audience.entity[1].count)+parseInt(data.target_audience.entity[2].count)+parseInt(data.target_audience.entity[3].count)))+(parseInt(data.target_audience.entity[2].count)*100/(parseInt(data.target_audience.entity[0].count)+parseInt(data.target_audience.entity[1].count)+parseInt(data.target_audience.entity[2].count)+parseInt(data.target_audience.entity[3].count))))).toFixed(2)]
-            data: [parseInt(data.target_audience.entity[3].count)]
-          },
-          ,
-        ]
-      };
+        series : entityChartSeries
+    };
 
+
+    //BANK CHART
+    const bankChartData = data.competition.liabilities.map((item)=>{
+        return {
+            value : item.percentage,
+            name : item.name,
+        }
+    });
     const bankChartOption = {
         legend: {
           orient: 'horizontal',
@@ -112,14 +81,7 @@ export default function Display({data}){
           {
             type: 'pie',
             radius: '50%',
-            data: [
-              { value: data.competition.liabilities[0].percentage, name: data.competition.liabilities[0].name},
-              { value: data.competition.liabilities[1].percentage, name: data.competition.liabilities[1].name},
-              { value: data.competition.liabilities[2].percentage, name: data.competition.liabilities[2].name},
-              { value: data.competition.liabilities[3].percentage, name: data.competition.liabilities[3].name},
-              { value: data.competition.liabilities[4].percentage, name: data.competition.liabilities[4].name},          
-              { value: data.competition.liabilities[5].percentage, name: data.competition.liabilities[5].name},          
-            ],
+            data : bankChartData,
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
@@ -139,7 +101,9 @@ export default function Display({data}){
         ]
     }; 
 
-    const chartSeries= data.product.growth_rate.map((element)=>{
+
+    //GROWTH CHART
+    const growthChartSeries= data.product.growth_rate.map((element)=>{
         return {
             name: element.loan_name,
             type: 'line',
@@ -147,18 +111,15 @@ export default function Display({data}){
             data: [element.sanction[0].amount, element.sanction[1].amount, element.sanction[2].amount, element.sanction[3].amount, element.sanction[4].amount, element.sanction[5].amount]
         }
     })
-    const chartLegend= data.product.growth_rate.map((element)=>{
+    const growthChartLegend= data.product.growth_rate.map((element)=>{
         return element.loan_name;
     })
-    const chartAxis= data.product.growth_rate[0].sanction.map((item)=>{
+    const growthChartAxis= data.product.growth_rate[0].sanction.map((item)=>{
         return ParseTimeframe(item.quarter);
     })
-
-
-
     const growthChartOption = {
         legend: {
-            data : chartLegend
+            data : growthChartLegend
         },
         grid: {
           left: '3%',
@@ -170,12 +131,12 @@ export default function Display({data}){
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: chartAxis,
+          data: growthChartAxis,
         },
         yAxis: {
           type: 'value'
         },
-        series : chartSeries
+        series : growthChartSeries
       };    
 
     const targetElementRef = useRef(null);
@@ -258,12 +219,12 @@ export default function Display({data}){
                                     return (i%2==0)&&(
                                         <>
                                             <tr className='bg-slate-100'>
-                                                <td className="p-2 border-[1px]">{data.target_audience.turnover[i].category}</td>
+                                                <td className="p-2 border-[1px] text-xs">{data.target_audience.turnover[i].category}</td>
                                                 <td className="p-2 border-[1px]">{parseNumToWord(data.target_audience.turnover[i].count)}</td>
                                             </tr>
                                             {(i<data.target_audience.turnover.length-1)&&
                                             <tr>
-                                                <td className="p-2 border-[1px]">{data.target_audience.turnover[i+1].category}</td>
+                                                <td className="p-2 border-[1px] text-xs">{data.target_audience.turnover[i+1].category}</td>
                                                 <td className="p-2 border-[1px]">{parseNumToWord(data.target_audience.turnover[i+1].count)}</td>
                                             </tr>
                                             
@@ -276,26 +237,34 @@ export default function Display({data}){
                         <div className="mt-4">
                             <h2 className="font-semibold">Entity Type Split(GST)</h2>
                             <table className="text-sm mt-4">
+                                {data.target_audience.entity[0] && 
                                 <tr className="bg-slate-100">
-                                    <td className="p-2 border-[1px] w-64">{data.target_audience.entity[0].name}</td>
+                                    <td className="p-2 border-[1px] w-48">{data.target_audience.entity[0].name}</td>
                                     <td className="p-2 border-[1px] w-32">{data.target_audience.entity[0].count}</td>
+                                    <td className="p-2 border-[1px] w-32">{((data.target_audience.entity[0].count)*100/totalEntity).toFixed(2)}%</td>
                                     <td className="p-2 border-[1px] w-16"><div className="w-4 h-4 m-auto bg-blue-600"></div></td>                        
-                                </tr>
+                                </tr>}
+                                {data.target_audience.entity[1] &&
                                 <tr className="">
-                                    <td className="p-2 border-[1px] w-64">{data.target_audience.entity[1].name}</td>
+                                    <td className="p-2 border-[1px] w-48">{data.target_audience.entity[1].name}</td>
                                     <td className="p-2 border-[1px] w-32">{data.target_audience.entity[1].count}</td>
+                                    <td className="p-2 border-[1px] w-32">{((data.target_audience.entity[1].count)*100/totalEntity).toFixed(2)}%</td>
                                     <td className="p-2 border-[1px] w-16"><div className="w-4 h-4 m-auto bg-green-500"></div></td>                        
-                                </tr>
+                                </tr>}
+                                {data.target_audience.entity[2] &&
                                 <tr className="bg-slate-100">
-                                    <td className="p-2 border-[1px] w-64">{data.target_audience.entity[2].name}</td>
+                                    <td className="p-2 border-[1px] w-48">{data.target_audience.entity[2].name}</td>
                                     <td className="p-2 border-[1px] w-32">{data.target_audience.entity[2].count}</td>
+                                    <td className="p-2 border-[1px] w-32">{((data.target_audience.entity[2].count)*100/totalEntity).toFixed(2)}%</td>
                                     <td className="p-2 border-[1px] w-16"><div className="w-4 h-4 m-auto bg-yellow-500"></div></td>                        
-                                </tr>
+                                </tr>}
+                                {data.target_audience.entity[3] &&
                                 <tr className="">
-                                <td className="p-2 border-[1px] w-64">{data.target_audience.entity[3].name}</td>
+                                <td className="p-2 border-[1px] w-48">{data.target_audience.entity[3].name}</td>
                                     <td className="p-2 border-[1px] w-32">{data.target_audience.entity[3].count}</td>
+                                    <td className="p-2 border-[1px] w-32">{((data.target_audience.entity[3].count)*100/totalEntity).toFixed(2)}%</td>
                                     <td className="p-2 border-[1px] w-16"><div className="w-4 h-4 m-auto bg-red-500"></div></td>                        
-                                </tr>
+                                </tr>}
                                 
                             </table>
                             <div className='-mt-8 -mb-12'>
@@ -376,13 +345,10 @@ export default function Display({data}){
                                                 <td className="p-2 border-[1px] w-36">{data.competition.assets[i].category}</td>
                                                 <td className="p-2 border-[1px] w-28">{data.competition.assets[i].percentage} %</td>
                                             </tr>
-                                            {(i<data.competition.branch.banks.length-1)&&
                                             <tr className='bg-slate-100'>
                                                 <td className="p-2 border-[1px]">{data.competition.assets[i+1].category}</td>
                                                 <td className="p-2 border-[1px]">{data.competition.assets[i+1].percentage} %</td>
                                             </tr>
-                                            
-                                            }
                                         </>
                                     )
                                 })}
@@ -396,33 +362,32 @@ export default function Display({data}){
                             <table className='text-xs'>
                                 <tr>
                                     <td className="border-[1px] p-2 w-72">{data.competition.liabilities[0].name}</td>
-                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[0].percentage} %</td>
+                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[0].count}</td>
                                     <td className='border-[1px] p-2 w-8'><div className="w-4 h-4 m-auto bg-blue-500"></div></td>
                                 </tr>
                                 <tr className='bg-slate-100'>
                                     <td className="border-[1px] p-2 w-72">{data.competition.liabilities[1].name}</td>
-                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[1].percentage} %</td>
+                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[1].count}</td>
                                     <td className='border-[1px] p-2 w-8'><div className="w-4 h-4 m-auto bg-lime-500"></div></td>
                                 </tr>
                                 <tr>
                                     <td className="border-[1px] p-2 w-72">{data.competition.liabilities[2].name}</td>
-                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[2].percentage} %</td>
+                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[2].count}</td>
                                     <td className='border-[1px] p-2 w-8'><div className="w-4 h-4 m-auto bg-yellow-400"></div></td>
                                 </tr>
                                 <tr className='bg-slate-100'>
                                     <td className="border-[1px] p-2 w-72">{data.competition.liabilities[3].name}</td>
-                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[3].percentage} %</td>
+                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[3].count}</td>
                                     <td className='border-[1px] p-2 w-8'><div className="w-4 h-4 m-auto bg-red-400"></div></td>
                                 </tr>
                                 <tr>
                                     <td className="border-[1px] p-2 w-72">{data.competition.liabilities[4].name}</td>
-                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[4].percentage} %</td>
+                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[4].count}</td>
                                     <td className='border-[1px] p-2 w-8'><div className="w-4 h-4 m-auto bg-cyan-400"></div></td>
                                 </tr>
                                 <tr className='bg-slate-100'>
                                     <td className="border-[1px] p-2 w-72">{data.competition.liabilities[5].name}</td>
-                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[5].percentage} %</td>
-                                    {/* <td className="border-[1px] p-2 w-28">{parseFloat(100-(parseFloat(data.competition.liabilities[0].percentage)+parseFloat(data.competition.liabilities[1].percentage)+parseFloat(data.competition.liabilities[2].percentage)+parseFloat(data.competition.liabilities[3].percentage)+parseFloat(data.competition.liabilities[4].percentage))).toFixed(2)} %</td> */}
+                                    <td className="border-[1px] p-2 w-28">{data.competition.liabilities[5].count}</td>
                                     <td className='border-[1px] p-2 w-8'><div className="w-4 h-4 m-auto bg-green-600"></div></td>
                                 </tr>
                             </table>
@@ -435,7 +400,8 @@ export default function Display({data}){
 
                 </div>
             </div>
-            <div className={`my-[20px] ${data.all_banks_together?"h-[1091px]":"h-[2222px]"} flex flex-col gap-2`}>
+            {/* <div className={`my-[20px] ${data.all_banks_together?"h-[1091px]":"h-[2222px]"} flex flex-col gap-2`}> */}
+            <div className={`my-[20px] flex flex-col gap-2`}>
                 <div className="flex flex-col">
                     <div className="text-blue-700 text-2xl font-bold">Products Sold in Your Market</div>
                     <div className="h-[1px] bg-slate-400 w-full mt-4"/>
@@ -475,7 +441,8 @@ export default function Display({data}){
                         })}
                         </table>
                     : 
-                    <div className='mb-[20px] flex flex-col h-[1091px]'>
+                    // <div className='mb-[20px] flex flex-col h-[1091px]'>
+                    <div className='mb-[20px] flex flex-col'>
                         {data.product.seperate_disbursement?.map((bankdata)=>{
                             return(
                                 <>

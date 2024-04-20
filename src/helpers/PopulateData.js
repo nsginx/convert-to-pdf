@@ -47,14 +47,6 @@ async function getTargetAudienceData(token, level, name, state, business_filter,
     // target_audience.entity = await Promise.all(promises);
     let entity_array = responseBusinessInsights.entity_distribution;
     target_audience.entity= entity_array.filter((item)=> {return entity_filter.includes(item.name)})
-    let len= target_audience.entity.length;
-    while(len<4){
-        target_audience.entity= target_audience.entity.concat({
-            "name": "-",
-            "count": 0,
-        });
-        len++;
-    }
     // console.log(target_audience);
     return target_audience;
 }
@@ -89,11 +81,11 @@ async function getCompetitionData(token, level, name, state, timeframe, bank_fil
     let asset_response= await getAssetwiseBanks(token, level, name, state, timeframe);
     // console.log(asset_response);
     let asset_count_sum=0;
-    asset_response.disbursement.forEach(element => {
+    await asset_response.disbursement.forEach(element => {
         asset_count_sum+= element.sanctioned_amount;
     });
     // console.log(asset_count_sum);
-    competition.assets= asset_response.disbursement.map((item)=>{
+    competition.assets= await asset_response.disbursement.map((item)=>{
         return {
             "category": item.bank_category,
             "percentage": ((item.sanctioned_amount)*100/asset_count_sum).toFixed(2)
@@ -112,7 +104,6 @@ async function getCompetitionData(token, level, name, state, timeframe, bank_fil
     return competition;
 }
 
-//create api fetch and populate here
 async function getProductData(token, level, name, state, timeframe, loan_filter, ticket_filter, disbursement_bank, all_banks_together,ticketwise){
     let product={};            
     // console.log(responseGrowthInsights);
