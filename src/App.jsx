@@ -9,6 +9,7 @@ import "react-toggle/style.css"
 import { getBusinessTypes, getPlaceArray, getTicketSize } from "./helpers/DataInsights.js";
 import parseLoanType from "./helpers/ParseLoanType.js";
 import generatePDF from 'react-to-pdf';
+import States from "./States.js";
 
 
 
@@ -106,6 +107,8 @@ function App(){
   const [ticketwise, setTicketWise]= useState(false);
   const [loading, setLoading]= useState(false);
   const [ticket_filter, setTicket_filter]= useState([]);
+
+  const ListOfStates= States();
 
 
 
@@ -396,6 +399,20 @@ function App(){
     })
   }
 
+  function setLocationLevel(e){
+    e.preventDefault();
+    setLevel(e.target.value);
+    if(e.target.value==="pincode"){
+      setPlaceLevel("district");
+    }else if(e.target.value==="city"){
+      setPlaceLevel("state");
+    }else if(e.target.value==="district"){
+      setPlaceLevel("state");
+    }else if(e.target.value==="state"){
+      setPlaceLevel("state");
+    }
+  }
+
 
     return(
     <div className="flex flex-row">
@@ -403,69 +420,78 @@ function App(){
 
         {/* input form */}
         <div className="bg-slate-500 w-88 p-4 h-full flex flex-col gap-2 fixed left-0 overflow-y-scroll z-20">
-            <div className="mt-2">
-              <label className="my-auto mx-2" htmlFor="token">Token :</label>
+            <div className="mt-2 flex flex-row justify-between">
+              <label className="my-auto" htmlFor="token">Token :</label>
               <input type="text" name="token" id="token" value={token} onChange={(e)=>{setToken(e.target.value)}}  className="p-1 rounded-md"/>
             </div>
-            <div className="flex flex-row">
-                <label className="my-auto mx-2">Timeframes :</label>
-                <MultiSelect options={timeframesOptions} value={selectedTimeframes} onChange={setSelectedTimeframes} labelledBy="Select" className="w-60 mx-auto"/>
+            <div className="flex flex-row justify-between">
+                <label className="my-auto">Timeframes :</label>
+                <MultiSelect options={timeframesOptions} value={selectedTimeframes} onChange={setSelectedTimeframes} labelledBy="Select" className="w-60"/>
             </div>
-            <div>
-              <label className="my-auto mx-2" htmlFor="state">State :</label>
-              <input type="text" name="state" id="state" value={state} onChange={(e)=>{setState(e.target.value.toLowerCase())}}  className="p-1 rounded-md"/>
-            </div>
-            <div>
-              <label className="my-auto mx-2" htmlFor="place">Location :</label>
-              <input type="text" name="place" id="place" value={place} onChange={(e)=>{setPlace(e.target.value.toLowerCase())}}  className="p-1 rounded-md"/>
-            </div>
-            <div>
-              <label className="my-auto mx-2">Location Type: </label>
-              <select value={placeLevel} onChange={(e)=>{setPlaceLevel(e.target.value)}} className="p-1 rounded-md">
+            <div className="flex flex-row justify-between">
+              <label className="my-auto">State: </label>
+              <select value={state} onChange={setState} className="p-1 rounded-md">
                 <option value="">Select...</option>
-                <option value="state">State</option>
-                <option value="district">District</option>
+                {ListOfStates.map((item)=>{
+                  return(
+                    <option value={item.value}>{item.name}</option>
+                  )
+                })}
               </select>
             </div>
-            <div>
-              <label className="my-auto mx-2">Location SubType: </label>
-              <select value={level} onChange={(e)=>{setLevel(e.target.value)}} className="p-1 rounded-md">
+            <div className="flex flex-row justify-between">
+              <label className="my-auto">Required Location Type: </label>
+              <select value={level} onChange={setLocationLevel} className="p-1 rounded-md">
                 <option value="">Select...</option>
+                <option value="state">State</option>
                 <option value="district">District</option>
                 <option value="city">City</option>
                 <option value="pincode">Pincode</option>
               </select>
             </div>
-            <div className="flex flex-row">
-                <label className="my-auto mx-2">Sublocations :</label>
-                <MultiSelect options={placesOptions} value={selectedPlaces} onChange={setSelectedPlaces} labelledBy="Select" className="w-60 mx-auto"/>
+            {/* <div>
+              <label className="my-auto mx-2">Parent Location Level: </label>
+              <select value={placeLevel} onChange={(e)=>{setPlaceLevel(e.target.value)}} className="p-1 rounded-md">
+                <option value="">Select...</option>
+                <option value="state">State</option>
+                <option value="district">District</option>
+                <option value="city">City</option>
+              </select>
+            </div> */}
+            <div className="flex flex-row justify-between">
+              <label className="my-auto text-xs" htmlFor="place">Parent {placeLevel?.toString().toUpperCase()} Name:</label>
+              <input type="text" name="place" id="place" value={place} onChange={(e)=>{setPlace(e.target.value.toLowerCase())}}  className="p-1 rounded-md"/>
             </div>
-            <div className="flex flex-row">
-                <label className="my-auto mx-2">Entities :</label>
-                <MultiSelect options={entityOptions} value={selectedEntities} onChange={setSelectedEntities} labelledBy="Select" className="w-60 mx-auto"/>
+            <div className="flex flex-row justify-between">
+                <label className="my-auto text-xs">Required {level?.toString().toUpperCase()} List:</label>
+                <MultiSelect options={placesOptions} value={selectedPlaces} onChange={setSelectedPlaces} labelledBy="Select" className="w-60"/>
             </div>
-            <div className="flex flex-row">
-                <label className="my-auto mx-2">Turnover Ranges :</label>
-                <MultiSelect options={turnoverOptions} value={selectedTurnover} onChange={setSelectedTurnover} labelledBy="Select" className="w-60 mx-auto"/>
+            <div className="flex flex-row justify-between">
+                <label className="my-auto">Entities :</label>
+                <MultiSelect options={entityOptions} value={selectedEntities} onChange={setSelectedEntities} labelledBy="Select" className="w-60"/>
             </div>
-            <div className="flex flex-row">
-                <label className="my-auto mx-2">Your Competitors : <br />(At least 4)</label>
-                <MultiSelect options={bankOptions} value={selectedBank} onChange={setSelectedBank} labelledBy="Select" className="w-60 mx-auto"/>
+            <div className="flex flex-row justify-between">
+                <label className="my-auto">Turnover Ranges :</label>
+                <MultiSelect options={turnoverOptions} value={selectedTurnover} onChange={setSelectedTurnover} labelledBy="Select" className="w-60"/>
             </div>
-            <div className="flex flex-row">
-                <label className="my-auto mx-2">Business Types : <br />(6 types at most)</label>
-                <MultiSelect options={businessOptions} value={selectedBusiness} onChange={setSelectedBusiness} labelledBy="Select" className="w-60 mx-auto"/>
+            <div className="flex flex-row justify-between">
+                <label className="my-auto">Your Competitors : <br />(At least 4)</label>
+                <MultiSelect options={bankOptions} value={selectedBank} onChange={setSelectedBank} labelledBy="Select" className="w-60"/>
             </div>
-            <div className="flex flex-row">
-                <label className="my-auto mx-2">Bank Types for <br /> Disbursement : </label>
+            <div className="flex flex-row justify-between">
+                <label className="my-auto">Business Types : <br />(6 types at most)</label>
+                <MultiSelect options={businessOptions} value={selectedBusiness} onChange={setSelectedBusiness} labelledBy="Select" className="w-60"/>
+            </div>
+            <div className="flex flex-row justify-between">
+                <label className="my-auto">Bank Types for <br /> Disbursement : </label>
                 <MultiSelect options={disbursementBankOptions} value={selectedDisbursementBank} onChange={setSelectedDisbursementBank} hasSelectAll={false} labelledBy="Select" className="w-40 mx-auto"/>
                 {/* <span className="my-auto">or</span> */}
                 <input type="checkbox"  className="mx-2" id="combined" checked={all_banks_together} />
                 <label htmlFor="combined" className="my-auto">Combined</label>
             </div>
-            <div className="flex flex-row">
-                <label className="my-auto mx-2">Loan Types :</label>
-                <MultiSelect options={loanOptions} value={selectedLoans} onChange={setSelectedLoans} labelledBy="Select" className="w-60 mx-auto"/>
+            <div className="flex flex-row justify-between">
+                <label className="my-auto">Loan Types :</label>
+                <MultiSelect options={loanOptions} value={selectedLoans} onChange={setSelectedLoans} labelledBy="Select" className="w-60"/>
             </div>
             <div className="flex flex-row mt-2">
               <div className="my-auto mx-2">Ticketwise: </div>
@@ -480,58 +506,58 @@ function App(){
               <div className="flex flex-col gap-2 text-xs">
                 <div>
                   {loan_filter.includes("AL") &&
-                  <div className="flex flex-row">
-                    <label className="my-auto mx-2">{parseLoanType("AL")} <br/>Tickets :</label>
-                    <MultiSelect options={ticketSizeOptionsAL} value={selectedTicketsAL} onChange={setSelectedTicketsAL} labelledBy="Select" className="w-60 mx-auto"/>
+                  <div className="flex flex-row justify-between">
+                    <label className="my-auto">{parseLoanType("AL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsAL} value={selectedTicketsAL} onChange={setSelectedTicketsAL} labelledBy="Select" className="w-60"/>
                   </div>}
                 </div>
                 <div>
                   {loan_filter.includes("BL") &&
-                  <div className="flex flex-row">
-                    <label className="my-auto mx-2">{parseLoanType("BL")} <br/>Tickets :</label>
-                    <MultiSelect options={ticketSizeOptionsBL} value={selectedTicketsBL} onChange={setSelectedTicketsBL} labelledBy="Select" className="w-60 mx-auto"/>
+                  <div className="flex flex-row justify-between">
+                    <label className="my-auto">{parseLoanType("BL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsBL} value={selectedTicketsBL} onChange={setSelectedTicketsBL} labelledBy="Select" className="w-60"/>
                   </div>}
                 </div>
                 <div>
                   {loan_filter.includes("CC") &&
-                  <div className="flex flex-row">
-                    <label className="my-auto mx-2">{parseLoanType("CC")} <br/>Tickets :</label>
-                    <MultiSelect options={ticketSizeOptionsCC} value={selectedTicketsCC} onChange={setSelectedTicketsCC} labelledBy="Select" className="w-60 mx-auto"/>
+                  <div className="flex flex-row justify-between">
+                    <label className="my-auto">{parseLoanType("CC")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsCC} value={selectedTicketsCC} onChange={setSelectedTicketsCC} labelledBy="Select" className="w-60"/>
                   </div>}
                 </div>
                 <div>
                   {loan_filter.includes("GL") &&
-                  <div className="flex flex-row">
-                    <label className="my-auto mx-2">{parseLoanType("GL")} <br/>Tickets :</label>
-                    <MultiSelect options={ticketSizeOptionsGL} value={selectedTicketsGL} onChange={setSelectedTicketsGL} labelledBy="Select" className="w-60 mx-auto"/>
+                  <div className="flex flex-row justify-between">
+                    <label className="my-auto">{parseLoanType("GL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsGL} value={selectedTicketsGL} onChange={setSelectedTicketsGL} labelledBy="Select" className="w-60"/>
                   </div>}
                 </div>
                 <div>
                   {loan_filter.includes("HL") &&
-                  <div className="flex flex-row">
-                    <label className="my-auto mx-2">{parseLoanType("HL")} <br/>Tickets :</label>
-                    <MultiSelect options={ticketSizeOptionsHL} value={selectedTicketsHL} onChange={setSelectedTicketsHL} labelledBy="Select" className="w-60 mx-auto"/>
+                  <div className="flex flex-row justify-between">
+                    <label className="my-auto">{parseLoanType("HL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsHL} value={selectedTicketsHL} onChange={setSelectedTicketsHL} labelledBy="Select" className="w-60"/>
                   </div>}
                 </div>
                 <div>
                   {loan_filter.includes("PL") &&
-                  <div className="flex flex-row">
-                    <label className="my-auto mx-2">{parseLoanType("PL")} <br/>Tickets :</label>
-                    <MultiSelect options={ticketSizeOptionsPL} value={selectedTicketsPL} onChange={setSelectedTicketsPL} labelledBy="Select" className="w-60 mx-auto"/>
+                  <div className="flex flex-row justify-between">
+                    <label className="my-auto">{parseLoanType("PL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsPL} value={selectedTicketsPL} onChange={setSelectedTicketsPL} labelledBy="Select" className="w-60"/>
                   </div>}
                 </div>
                 <div>
                   {loan_filter.includes("LAP") &&
-                  <div className="flex flex-row">
-                    <label className="my-auto mx-2">{parseLoanType("LAP")} <br/>Tickets :</label>
-                    <MultiSelect options={ticketSizeOptionsLAP} value={selectedTicketsLAP} onChange={setSelectedTicketsLAP} labelledBy="Select" className="w-60 mx-auto"/>
+                  <div className="flex flex-row justify-between">
+                    <label className="my-auto">{parseLoanType("LAP")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsLAP} value={selectedTicketsLAP} onChange={setSelectedTicketsLAP} labelledBy="Select" className="w-60"/>
                   </div>}
                 </div>
                 <div>
                   {loan_filter.includes("UCL") &&
-                  <div className="flex flex-row">
-                    <label className="my-auto mx-2">{parseLoanType("UCL")} <br/>Tickets :</label>
-                    <MultiSelect options={ticketSizeOptionsUCL} value={selectedTicketsUCL} onChange={setSelectedTicketsUCL} labelledBy="Select" className="w-60 mx-auto"/>
+                  <div className="flex flex-row justify-between">
+                    <label className="my-auto">{parseLoanType("UCL")} <br/>Tickets :</label>
+                    <MultiSelect options={ticketSizeOptionsUCL} value={selectedTicketsUCL} onChange={setSelectedTicketsUCL} labelledBy="Select" className="w-60"/>
                   </div>}
                 </div>
               </div>

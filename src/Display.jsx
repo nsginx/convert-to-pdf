@@ -400,8 +400,8 @@ export default function Display({data}){
 
                 </div>
             </div>
-            {/* <div className={`my-[20px] ${data.all_banks_together?"h-[1091px]":"h-[2222px]"} flex flex-col gap-2`}> */}
-            <div className={`my-[20px] flex flex-col gap-2`}>
+            <div className={`my-[20px] ${data.all_banks_together?"h-[1091px]":"h-[2222px]"} flex flex-col gap-2`}>
+            {/* <div className={`my-[20px] flex flex-col gap-2`}> */}
                 <div className="flex flex-col">
                     <div className="text-blue-700 text-2xl font-bold">Products Sold in Your Market</div>
                     <div className="h-[1px] bg-slate-400 w-full mt-4"/>
@@ -441,8 +441,8 @@ export default function Display({data}){
                         })}
                         </table>
                     : 
-                    // <div className='mb-[20px] flex flex-col h-[1091px]'>
-                    <div className='mb-[20px] flex flex-col'>
+                    <div className='mb-[20px] flex flex-col h-[1091px]'>
+                    {/* <div className='mb-[20px] flex flex-col'> */}
                         {data.product.seperate_disbursement?.map((bankdata)=>{
                             return(
                                 <>

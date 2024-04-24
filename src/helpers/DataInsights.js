@@ -334,8 +334,30 @@ export async function getGrowthInsights(token, level, name, state, loan_filter){
 
 }
 
+export async function getLiabilityInsights(token, level, name, state,timeframe){
+    const response= await fetch(`${url}/liability/insights`,options(
+        {
+            "location": {
+                "state": state,
+                "level": level,
+                "name": name
+            },
+            "group_by": level,
+            "filters": {
+                "timeframe": [
+                    timeframe
+                ]
+            },
+            "disbursement_keys": []           
+        }, token
+    )
+    );
+    return response.json();
+
+}
+
 // async function test(){
-//     const response= await getLoanWiseAsset(authToken, "pincode", 700001, "west bengal","2023-2024_Q2", ["PL", "HL"]);
+//     const response= await getLiabilityInsights(authToken, "pincode", 700001, "west bengal","2023-2024_Q2");
 //     // console.log("hello");
 //     console.log(response);
 

@@ -1,4 +1,4 @@
-import { getAssetInsights, getAssetwiseBanks, getBankInsights, getBankWiseDisbursement, getBankwiseTicketwiseDisbursement, getBusinessInsights, getBusinessTypes, getEntitySplitInsights, getGrowthInsights, getLoanWiseAsset, getPlaceArray, getShapeInsights, getTicketSize, getTicketWiseAssetInsights, getTicketWiseGrowthInsights} from "./DataInsights.js";
+import { getAssetInsights, getAssetwiseBanks, getBankInsights, getBankWiseDisbursement, getBankwiseTicketwiseDisbursement, getBusinessInsights, getBusinessTypes, getEntitySplitInsights, getGrowthInsights, getLiabilityInsights, getLoanWiseAsset, getPlaceArray, getShapeInsights, getTicketSize, getTicketWiseAssetInsights, getTicketWiseGrowthInsights} from "./DataInsights.js";
 import parseLoanType from "./ParseLoanType.js";
 
 const loan_types=["AL", "BL", "CC", "GL", "HL", "LAP", "PL", "UCL"];
@@ -20,8 +20,11 @@ async function getMarketData(token, level, name, state, timeframe, loan_filter){
     market.population.salaried_individuals= responseShapeInsights.data[0].insights.salaried_individuals_percentage;
     market.population.self_employed= responseShapeInsights.data[0].insights.total_self_employed_population_percentage;
     market.population.household_count= data_details.total_households;
-    market.liabilities.sa= data_details.total_SA_deposit;
-    market.liabilities.ca= data_details.total_CA_deposit;
+    const liabilityResponse = await getLiabilityInsights(token, level, name, state, timeframe);
+    const ca_disbursement= liabilityResponse.disbursement.find((item)=> item.type==="current");
+    const sa_disbursement= liabilityResponse.disbursement.find((item)=> item.type==="savings");
+    market.liabilities.sa= sa_disbursement.deposit_potential;
+    market.liabilities.ca= ca_disbursement.deposit_potential;
     let asset_response= await getLoanWiseAsset(token, level, name, state, timeframe, loan_filter);
     // console.log(asset_response);
     let assets= asset_response.disbursement.map((item)=>{
