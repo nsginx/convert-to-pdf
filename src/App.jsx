@@ -91,8 +91,8 @@ function App(){
   const [token, setToken] = useState();
   const [place, setPlace]= useState("kolkata");
   const [placeLevel, setPlaceLevel]= useState("district");
-  // const [level, setLevel]= useState("pincode");
-  const [level, setLevel]= useState();
+  const [level, setLevel]= useState("pincode");
+  // const [level, setLevel]= useState();
   // const [places, setPlaces]= useState([700001, 700004]);
   const [places, setPlaces]= useState([]);
   const [state, setState]= useState("west bengal");
@@ -106,6 +106,7 @@ function App(){
   const [all_banks_together, setAll_banks_together]= useState(true);
   const [ticketwise, setTicketWise]= useState(false);
   const [loading, setLoading]= useState(false);
+  const [generating, setGenerating]= useState(false);
   const [ticket_filter, setTicket_filter]= useState([]);
 
   const ListOfStates= States();
@@ -391,12 +392,14 @@ function App(){
   }
   
   //export all pdf
-  function exportAll(){
-    dataArray.forEach((data)=>{
+  async function exportAll(){
+    setGenerating(true);
+    await Promise.all(dataArray.map(async (data)=>{
       const getTargetElement = () => document.getElementById(`${data.name}_${data.timeframe}`);
       const options= pdfOptions(data.name, data.timeframe);
-      generatePDF(getTargetElement,options);
-    })
+      await generatePDF(getTargetElement,options);
+    }));
+    setGenerating(false);
   }
 
   function setLocationLevel(e){
@@ -585,8 +588,8 @@ function App(){
         : <>
           {dataArray && (
           <>
-            <div className="h-16 bg-cyan-700 fixed right-0 w-[820px] z-10">
-              <button onClick={exportAll} className="w-64 my-2 h-12 absolute right-4 px-4 py-2 bg-slate-200 rounded-lg">Export All</button>
+            <div className="h-16 bg-cyan-700 fixed right-0 w-[100vw] z-10">
+              <button onClick={exportAll} disabled={generating} className={`w-64 my-2 h-12 absolute right-4 px-4 py-2 ${generating ? "bg-slate-400" :"bg-slate-200"} rounded-lg`}>{generating?"Exporting...": "Export All"}</button>
                 
             </div>
             <div className="mt-20">

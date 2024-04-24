@@ -8,6 +8,7 @@ import ParseTimeframe from './helpers/ParseTimeframe';
 
 
 export default function Display({data}){
+    const [loading, setLoading]= useState(false);
     const pdfOptions= {
         method: 'save',
         // method: 'open',
@@ -529,7 +530,15 @@ export default function Display({data}){
         {/* print button  */}
 
         <div className='mx-auto my-4 w-auto text-center '>
-            <button onClick={() => generatePDF(getTargetElement, pdfOptions)} type="button" className='px-4 py-2 bg-slate-600 text-white rounded-lg'>Export PDF</button>
+            <button onClick={async () =>{ 
+                setLoading(true);
+                await generatePDF(getTargetElement, pdfOptions);
+                setLoading(false);
+            }} 
+            type="button" 
+            className={`px-4 py-2 text-white rounded-lg ${loading? "bg-slate-400":"bg-slate-600"}`}
+            disabled= {loading}
+            > {loading ? "Exporting..." : "Export PDF"}</button>
             {/* <button onClick={convertToPDF} type="button" className='px-4 py-2 bg-slate-600 text-white'>Export PDF</button> */}
         </div>
 
