@@ -135,7 +135,7 @@ function App(){
       setPlacesOptions(formattedArray); 
     }
     fetchArray();
-  }, [place, placeLevel, level, state]);
+  }, [place, placeLevel, level, state, token]);
 
 
 
