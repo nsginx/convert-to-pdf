@@ -436,7 +436,7 @@ function App(){
             </div>
             <div className="flex flex-row justify-between">
               <label className="my-auto">State: </label>
-              <select value={state} onChange={setState} className="p-1 rounded-md">
+              <select value={state} onChange={(e)=>{setState(e.target.value)}} className="p-1 rounded-md">
                 <option value="">Select...</option>
                 {ListOfStates.map((item)=>{
                   return(
