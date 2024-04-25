@@ -80,7 +80,8 @@ async function getCompetitionData(token, level, name, state, timeframe, bank_fil
         item.top= top;
         
     });
-    competition.branch.banks= banks.slice(0,4);
+    const bankSortOrder= ["public", "private", "nbfc", "foreign", "Co-Operative", "Regional & Rural", "others"];
+    competition.branch.banks= banks.slice(0,4).sort((a,b)=> bankSortOrder.indexOf(a.category)-bankSortOrder.indexOf(b.category));
     let asset_response= await getAssetwiseBanks(token, level, name, state, timeframe);
     // console.log(asset_response);
     let asset_count_sum=0;
@@ -93,7 +94,7 @@ async function getCompetitionData(token, level, name, state, timeframe, bank_fil
             "category": item.bank_category,
             "percentage": ((item.sanctioned_amount)*100/asset_count_sum).toFixed(2)
         }
-    }).sort((a, b)=> b.percentage-a.percentage);
+    }).sort((a, b)=> bankSortOrder.indexOf(a.category)-bankSortOrder.indexOf(b.category));
     competition.liabilities= responseBankInsights.market_share;
     let length= competition.liabilities.length;
     while(length<6){
