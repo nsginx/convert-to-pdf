@@ -464,10 +464,10 @@ function App(){
                 <option value="city">City</option>
               </select>
             </div>}
-            <div className="flex flex-row justify-between">
+            {placeLevel!="state" && <div className="flex flex-row justify-between">
               <label className="my-auto text-xs" htmlFor="place">Parent {placeLevel?.toString().toUpperCase()} Name:</label>
               <input type="text" name="place" id="place" value={place} onChange={(e)=>{setPlace(e.target.value.toLowerCase())}}  className="p-1 rounded-md"/>
-            </div>
+            </div>}
             <div className="flex flex-row justify-between">
                 <label className="my-auto text-xs">Required {level?.toString().toUpperCase()} List:</label>
                 <MultiSelect options={placesOptions} value={selectedPlaces} onChange={setSelectedPlaces} labelledBy="Select" className="w-60"/>
