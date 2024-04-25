@@ -114,6 +114,9 @@ async function getProductData(token, level, name, state, timeframe, loan_filter,
     let responseAssetInsights;
     if(ticketwise){
         responseAssetInsights= await getTicketWiseAssetInsights(token, level, name, state, timeframe, loan_filter, ticket_filter)
+        // responseAssetInsights.disbursement.map((item)=>{
+        //     item.average_ticketsize = item.ticketsize;
+        // })
     }else{
         responseAssetInsights= await getAssetInsights(token, level, name, state, timeframe, loan_filter);
     }

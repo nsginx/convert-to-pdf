@@ -421,7 +421,7 @@ export default function Display({data}){
                                 <>
                                     <tr>
                                         <td className="border-[1px] p-2">{parseLoanType(data.product.disbursement[i].loan_type)}</td>
-                                        <td className="border-[1px] p-2">{data.product.disbursement[i].average_ticketsize}</td>
+                                        <td className="border-[1px] p-2">{data.product.disbursement[i].average_ticketsize || data.product.disbursement[i].ticketsize}</td>
                                         <td className="p-2 border-[1px]">{data.product.disbursement[i].sanctioned_trades_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
                                         <td className="p-2 border-[1px]">&#8377;{parseNumToWord(data.product.disbursement[i].sanctioned_amount)}</td>
                                         <td className="p-2 border-[1px]">&#8377;{parseNumToWord(data.product.disbursement[i].outstanding_amount)}</td>
@@ -429,7 +429,7 @@ export default function Display({data}){
                                     {(i<data.product.disbursement.length-1)&&
                                         <tr className='bg-slate-100'>
                                             <td className="border-[1px] p-2">{parseLoanType(data.product.disbursement[i+1].loan_type)}</td>
-                                            <td className="border-[1px] p-2">{data.product.disbursement[i+1].average_ticketsize}</td>
+                                            <td className="border-[1px] p-2">{data.product.disbursement[i+1].average_ticketsize || data.product.disbursement[i+1].ticketsize}</td>
                                             <td className="p-2 border-[1px]">{data.product.disbursement[i+1].sanctioned_trades_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</td>
                                             <td className="p-2 border-[1px]">&#8377;{parseNumToWord(data.product.disbursement[i+1].sanctioned_amount)}</td>
                                             <td className="p-2 border-[1px]">&#8377;{parseNumToWord(data.product.disbursement[i+1].outstanding_amount)}</td>
