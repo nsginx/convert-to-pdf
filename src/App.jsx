@@ -459,7 +459,7 @@ function App(){
               <label className="my-auto">Parent Location Level: </label>
               <select value={placeLevel} onChange={(e)=>{setPlaceLevel(e.target.value)}} className="p-1 rounded-md">
                 <option value="">Select...</option>
-                {/* <option value="state">State</option> */}
+                <option value="state">State</option>
                 <option value="district">District</option>
                 <option value="city">City</option>
               </select>
