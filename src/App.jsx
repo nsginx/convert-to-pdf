@@ -409,10 +409,13 @@ function App(){
       setPlaceLevel("district");
     }else if(e.target.value==="city"){
       setPlaceLevel("state");
+      setPlace(state);
     }else if(e.target.value==="district"){
       setPlaceLevel("state");
+      setPlace(state);
     }else if(e.target.value==="state"){
       setPlaceLevel("state");
+      setPlace(state);
     }
   }
 
@@ -452,15 +455,15 @@ function App(){
                 <option value="pincode">Pincode</option>
               </select>
             </div>
-            {/* <div>
-              <label className="my-auto mx-2">Parent Location Level: </label>
+            {level==="pincode" && <div className="flex flex-row justify-between">
+              <label className="my-auto">Parent Location Level: </label>
               <select value={placeLevel} onChange={(e)=>{setPlaceLevel(e.target.value)}} className="p-1 rounded-md">
                 <option value="">Select...</option>
-                <option value="state">State</option>
+                {/* <option value="state">State</option> */}
                 <option value="district">District</option>
                 <option value="city">City</option>
               </select>
-            </div> */}
+            </div>}
             <div className="flex flex-row justify-between">
               <label className="my-auto text-xs" htmlFor="place">Parent {placeLevel?.toString().toUpperCase()} Name:</label>
               <input type="text" name="place" id="place" value={place} onChange={(e)=>{setPlace(e.target.value.toLowerCase())}}  className="p-1 rounded-md"/>
